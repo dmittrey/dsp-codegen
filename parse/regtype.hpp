@@ -10,11 +10,3 @@ enum RegType {
     FP_SIGN_MAGNITUDE, /* sm4q3 */
     FP_TWOS_COMPLEMENT, /* t4q3 */
 };
-
-struct Register {
-    std::string family;
-    std::string name;
-    uint64_t addr;
-    uint64_t offset;
-    RegType type;
-};

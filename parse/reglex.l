@@ -11,7 +11,7 @@
  *  Register description: 
  *      FAMILY(WORD) NAME(WORD) ADDR(HEX) OFFSET(DEC) FMT(NUM_FMT)
  * ------------------------------------------------------------------------- */
- 
+%option yyclass="RegLexer"
 %option c++
 
 %x IREG
@@ -21,15 +21,7 @@
 
 %{
 
-using std::cout;
-using std::endl;
-using std::stoi;
-
-#include "reg.hpp"
-
-void parse(Register &reg);
-
-Register reg;
+#include "reglexer.hpp"
 
 %}
 
@@ -51,49 +43,32 @@ TC_FP_NUM   t[0-9]+q[0-9]+
 
 {WS}              /* skip blanks and tabs */
 
-{WORD}            { reg.family = yytext;
-                    BEGIN IREG;
-                    return 1; }
+{WORD}            { BEGIN IREG;
+                    return process_family(); }
 
-<IREG>{WORD}      { reg.name = yytext;
-                    BEGIN IADR;
-                    return 1; }
+<IREG>{WORD}      { BEGIN IADR;
+                    return process_name(); }
 
-<IADR>{HEX}       { reg.addr = stoi(yytext, nullptr, 16);
-                    BEGIN IOFS;
-                    return 1; }
+<IADR>{HEX}       { BEGIN IOFS;
+                    return process_address(); }
 
-<IOFS>{DEC}       { reg.offset = stoi(yytext);
-                    BEGIN IFMT;
-                    return 1; }
+<IOFS>{DEC}       { BEGIN IFMT;
+                    return process_offset(); }
 
-<IFMT>{U_NUM}     { reg.type = HEX_UNSIGNED;
-                    parse(reg);
-                    BEGIN INITIAL;
-                    return 1; }
-<IFMT>{S_NUM}     { reg.type = HEX_SIGNED; 
-                    parse(reg);
-                    BEGIN INITIAL;
-                    return 1; }
-<IFMT>{U_FP_NUM}  { reg.type = FP_UNSIGNED; 
-                    parse(reg);
-                    BEGIN INITIAL; 
-                    return 1; }
-<IFMT>{S_FP_NUM}  { reg.type = FP_SIGNED;
-                    parse(reg);
-                    BEGIN INITIAL;
-                    return 1; }
-<IFMT>{SM_FP_NUM} { reg.type = FP_SIGN_MAGNITUDE;
-                    parse(reg); 
-                    BEGIN INITIAL; 
-                    return 1; }
-<IFMT>{TC_FP_NUM} { reg.type = FP_TWOS_COMPLEMENT;
-                    parse(reg);
-                    BEGIN INITIAL; 
-                    return 1; }
+<IFMT>{U_NUM}     { BEGIN INITIAL;
+                    return process_type(HEX_UNSIGNED); }
+<IFMT>{S_NUM}     { BEGIN INITIAL;
+                    return process_type(HEX_SIGNED); }
+<IFMT>{U_FP_NUM}  { BEGIN INITIAL; 
+                    return process_type(FP_UNSIGNED); }
+<IFMT>{S_FP_NUM}  { BEGIN INITIAL;
+                    return process_type(FP_SIGNED); }
+<IFMT>{SM_FP_NUM} { BEGIN INITIAL; 
+                    return process_type(FP_SIGN_MAGNITUDE); }
+<IFMT>{TC_FP_NUM} { BEGIN INITIAL; 
+                    return process_type(FP_TWOS_COMPLEMENT); }
 
-.                 { cout << " UNKNOWN <" << yytext << ">" << endl; 
-                    return 1; }
+.                 { return process_unknown(); }
 
 %%
 

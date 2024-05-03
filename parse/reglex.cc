@@ -1,25 +1,15 @@
 #include <iostream>
-#include <vector>
+#include <memory>
 
-#include <FlexLexer.h>
-
-#include "reg.hpp"
+#include "reglexer.hpp"
 
 // here we can return non-zero if lexing is not done inspite of EOF detected
 int yyFlexLexer::yywrap() { return 1; }
 
-std::vector<Register> vec;
-
-void parse(Register &reg) {
-  vec.push_back(reg);
-  std::cout << "Pushed register: " << reg.family << " " << reg.name << " " << reg.addr << " " << reg.offset << " " << reg.type << std::endl;
-}
-
 int main() {
-  FlexLexer *lexer = new yyFlexLexer;
+  auto lexer = std::make_unique<RegLexer>();
   while (lexer->yylex() != 0) {
     // do nothing for now, all is in rules
   }
-
-  delete lexer;
+  lexer->print();
 }
