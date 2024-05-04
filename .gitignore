@@ -60,7 +60,8 @@ dkms.conf
 # Others
 *.bin
 /*/obj
-/*/build
+build
+
 
 # Local lib
 grpc_lib
