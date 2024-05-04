@@ -6,10 +6,10 @@
  *           -------------                                  |
                  /\(Push reg to global storage)             HEX
                  |                                          \/
- *               ------NUM FORMAT----- | IFMT | <--DEC--| IOFS |
+ *               -NUM- | IFMT | <--DEC-- | ISZ | <--DEC-- | IOFS |
  *
  *  Register description: 
- *      FAMILY(WORD) NAME(WORD) ADDR(HEX) OFFSET(DEC) FMT(NUM_FMT)
+ *      FAMILY(WORD) NAME(WORD) ADDR(HEX) OFFSET(DEC) SIZE(DEC) FMT(NUM_FMT)
  * ------------------------------------------------------------------------- */
 %option yyclass="RegLexer"
 %option c++
@@ -17,6 +17,7 @@
 %x IREG
 %x IADR
 %x IOFS
+%x ISZ
 %x IFMT
 
 %{
@@ -52,7 +53,10 @@ TC_FP_NUM   t[0-9]+q[0-9]+
 <IADR>{HEX}       { BEGIN IOFS;
                     return process_address(); }
 
-<IOFS>{DEC}       { BEGIN IFMT;
+<IOFS>{DEC}       { BEGIN ISZ;
+                    return process_size(); }
+
+<ISZ>{DEC}       { BEGIN IFMT;
                     return process_offset(); }
 
 <IFMT>{U_NUM}     { BEGIN INITIAL;

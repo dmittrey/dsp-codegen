@@ -8,24 +8,45 @@
 #include <vector>
 #include <string>
 
-#include "regtype.hpp"
+#include "uint.hpp"
+#include "format.hpp"
+
+using namespace Utility;
 
 class RegLexer : public yyFlexLexer {
     struct Register {
-        std::string family;
-        std::string name;
-        uint64_t addr;
-        uint64_t offset;
-        RegType type;
+        std::string family_;
+        std::string name_;
+        uint64_t addr_;
+        uint64_t offset_;
+        uint64_t size_;
+        Format fmt_;
 
         void print() const {
             std::cout << "Register:" << "\n"
-                << "\tFamily: " << family << "\n"
-                << "\tName: " << name << "\n"
-                << "\tAddr: " << addr << "\n"
-                << "\tOffset: " << offset << "\n"
-                << "\tType: " << type << "\n"
+                << "\tFamily: " << family_ << "\n"
+                << "\tName: " << name_ << "\n"
+                << "\tAddr: " << addr_ << "\n"
+                << "\tOffset: " << offset_ << "\n"
+                << "\tSize: " << size_ << "\n"
+                << "\tFormat: " << fmt_ << "\n"
                 << std::endl;
+        }
+        
+        Type type() const {
+            switch (size_)
+            {
+            case 8:
+                return Uint8{};
+            case 16:
+                return Uint16{};
+            case 32:
+                return Uint32{};
+            case 64:
+                return Uint64{};
+            default:
+                exit(1);
+            }
         }
     };
 
@@ -33,31 +54,37 @@ class RegLexer : public yyFlexLexer {
     Register r;
 
     int process_family() {
-        r.family = yytext;
+        r.family_ = yytext;
         return 1;
     }
 
     int process_name() {
-        r.name = yytext;
+        r.name_ = yytext;
         return 1;
     }
 
     int process_address() {
-        r.addr = std::stoi(yytext, nullptr, 16);
+        r.addr_ = std::stoi(yytext, nullptr, 16);
         return 1;
     }
 
     int process_offset() {
-        r.offset = std::stoi(yytext);
+        r.offset_ = std::stoi(yytext);
         return 1;
     }
 
-    int process_type(RegType type) {
-        r.type = type;
+    int process_size() {
+        r.size_ = std::stoi(yytext);
+        return 1;
+    }    
+
+    int process_type(Format fmt) {
+        r.fmt_ = fmt;
         vec.push_back(r);
         return 1;
     }
 
+// TODO Обработка ошибок пропуск регистра
     int process_unknown() {
         std::cout << " UNKNOWN <" << yytext << ">" << std::endl; 
         return 1;
