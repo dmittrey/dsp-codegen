@@ -55,32 +55,50 @@ class RegLexer : public yyFlexLexer {
 
     int process_family() {
         r.family_ = yytext;
+#ifdef DEBUG_LEX
+        std::cout << "FAMILY: <" << r.family_ << ">" << std::endl; 
+#endif
         return 1;
     }
 
     int process_name() {
         r.name_ = yytext;
+#ifdef DEBUG_LEX
+        std::cout << "NAME: <" << r.name_ << ">" << std::endl; 
+#endif
         return 1;
     }
 
     int process_address() {
         r.addr_ = std::stoi(yytext, nullptr, 16);
+#ifdef DEBUG_LEX
+        std::cout << "ADDRESS: <" << r.addr_ << ">" << std::endl;
+#endif 
         return 1;
     }
 
     int process_offset() {
         r.offset_ = std::stoi(yytext);
+#ifdef DEBUG_LEX
+        std::cout << "OFFSET: <" << r.offset_ << ">" << std::endl;
+#endif 
         return 1;
     }
 
     int process_size() {
         r.size_ = std::stoi(yytext);
+#ifdef DEBUG_LEX
+        std::cout << "SIZE: <" << r.size_ << ">" << std::endl;
+#endif 
         return 1;
     }    
 
     int process_type(Format fmt) {
         r.fmt_ = fmt;
         vec.push_back(r);
+#ifdef DEBUG_LEX
+        std::cout << "TYPE: <" << r.fmt_ << ">" << std::endl;
+#endif 
         return 1;
     }
 
