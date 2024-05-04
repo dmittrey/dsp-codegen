@@ -8,10 +8,7 @@ flex_target(scanner
   ${CMAKE_CURRENT_BINARY_DIR}/lexer.cc
 )
 
-add_executable(${PROJECT_NAME} 
-  reglex.cc  
-  ${FLEX_scanner_OUTPUTS}
-)
+add_library(${PROJECT_NAME} ${FLEX_scanner_OUTPUTS})
 target_link_libraries(${PROJECT_NAME} PRIVATE utility)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
@@ -19,4 +16,4 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

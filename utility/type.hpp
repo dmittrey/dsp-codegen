@@ -9,8 +9,8 @@
 namespace Utility {
 
     struct Type {
-        virtual std::vector<std::string> headers();
-        virtual std::string name();
+        virtual std::vector<std::string> headers() { return {""}; };
+        virtual std::string name() { return " "; };
         virtual ~Type() {}
     };
 

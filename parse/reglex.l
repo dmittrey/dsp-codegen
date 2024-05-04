@@ -76,4 +76,5 @@ TC_FP_NUM   t[0-9]+q[0-9]+
 
 %%
 
-// nothing
+// here we can return non-zero if lexing is not done inspite of EOF detected
+int yyFlexLexer::yywrap() { return 1; }
