@@ -33,17 +33,17 @@ class RegLexer : public yyFlexLexer {
                 << std::endl;
         }
         
-        Type type() const {
+        Type *type() const {
             switch (size_)
             {
             case 8:
-                return Uint8{};
+                return new Uint8{};
             case 16:
-                return Uint16{};
+                return new Uint16{};
             case 32:
-                return Uint32{};
+                return new Uint32{};
             case 64:
-                return Uint64{};
+                return new Uint64{};
             default:
                 exit(1);
             }
