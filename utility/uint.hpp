@@ -34,4 +34,14 @@ namespace Utility {
         }
     };
 
+    struct String final : public Type {
+        std::vector<std::string> headers() override {
+            return {"string"};
+        }
+
+        std::string name() override {
+            return "std::string";
+        }
+    };
+
 }; /* Utility */
