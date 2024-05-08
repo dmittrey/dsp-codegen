@@ -18,7 +18,7 @@ namespace Generate {
 
     struct RVal final : Model {
     private:
-        Type *type_;
+        std::shared_ptr<Type> type_;
         std::string name_;
 
     public:
