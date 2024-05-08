@@ -9,7 +9,6 @@
 namespace Generate {
 
     struct CppLayout : ILayout {
-        std::string name_;
         std::vector<std::string> headers_;
         std::vector<IModel*> models_;
 
@@ -18,7 +17,6 @@ namespace Generate {
         };
 
         void add_model(IModel* model) override {
-            std::cout << "HEADER SIZE: " << model->headers().size() << std::endl;
             auto tmp = model->headers();
             headers_.insert(headers_.end(), tmp.begin(), tmp.end());
             models_.push_back(model);

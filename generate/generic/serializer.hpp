@@ -10,15 +10,15 @@ namespace Generate {
 
     struct Serializer : ISerializer {
     protected:
-        std::unique_ptr<std::ostream> out;
-    };
+        std::unique_ptr<std::ostream> out_;
 
-    struct FileSerializer final : Serializer {
-        FileSerializer(const std::string &file_name) { out = std::make_unique<std::ofstream>(file_name); };
-        FileSerializer(const std::string &&file_name) { out = std::make_unique<std::ofstream>(file_name); };
+    public:
+        Serializer() = delete;
+        Serializer(Serializer&& obj) = delete;
+        Serializer(std::unique_ptr<std::ostream> out) : out_(std::move(out)) {}
 
         void serialize(const ILayout& layout) override {
-            *out << layout.render() << std::endl;
+            *out_ << layout.render() << std::endl;
         };
     };
 
