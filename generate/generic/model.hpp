@@ -1,6 +1,6 @@
 #pragma once
 
-#include "imodel.hpp"
+#include "interface/imodel.hpp"
 
 #include "type.hpp"
 
