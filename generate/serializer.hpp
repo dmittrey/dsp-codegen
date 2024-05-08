@@ -17,8 +17,8 @@ namespace Generate {
         FileSerializer(const std::string &file_name) { out = std::make_unique<std::ofstream>(file_name); };
         FileSerializer(const std::string &&file_name) { out = std::make_unique<std::ofstream>(file_name); };
 
-        void serialize(const Layout& layout) override {
-            layout.flush(*out);
+        void serialize(const ILayout& layout) override {
+            *out << layout.render() << std::endl;
         };
     };
 
