@@ -38,10 +38,13 @@ namespace Generate {
 
     public:
         Structure(RVal name, std::vector<RVal> fields) : name_(name), fields_(fields) {
-            headers_.insert(headers_.end(), name.headers_.begin(), name.headers_.end());
+            auto tmp = name.headers();
+            headers_.insert(headers_.end(), tmp.begin(), tmp.end());
 
-            for (auto field : fields_)
-                headers_.insert(headers_.end(), field.headers_.begin(), field.headers_.end());
+            for (auto field : fields_) {
+                tmp = field.headers();
+                headers_.insert(headers_.end(), tmp.begin(), tmp.end());
+            }
         }
 
         std::string code() const override {
@@ -57,19 +60,20 @@ namespace Generate {
         }
     };
 
-    struct Function final : Model {
+    struct Function final : public Model {
     private:
         RVal name_;
         std::vector<RVal> params_;
 
     public:
         Function(RVal name, std::vector<RVal> params) : name_(name), params_(params) {
-            for (auto header : name.headers())
-                headers_.push_back(header);
+            auto tmp = name.headers();
+            headers_.insert(headers_.end(), tmp.begin(), tmp.end());
 
-            for (auto param: params_)
-                for (auto header : param.headers())
-                    headers_.push_back(header);
+            for (auto param : params_) {
+                tmp = param.headers();
+                headers_.insert(headers_.end(), tmp.begin(), tmp.end());
+            }
         }
 
         std::string code() const override {
