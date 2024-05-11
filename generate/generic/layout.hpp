@@ -13,11 +13,12 @@ namespace Generate {
 
     public:
         std::vector<IModel*> models() const override { return models_; };
-        void add_model(IModel* model) override {
+        Layout& add_model(IModel* model) override {
             const auto& tmp = model->headers();
             headers_.insert(headers_.end(), tmp.begin(), tmp.end());
-            
+
             models_.push_back(model);
+            return *this;
         };
     };
  

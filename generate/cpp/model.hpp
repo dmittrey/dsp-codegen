@@ -15,11 +15,12 @@ namespace Generate {
     struct CppStructure final : Structure {
         CppStructure(RVal* name) : Structure(name) {}
 
-        void field_add(RVal* field) override {
+        CppStructure& field_add(RVal* field) override {
             const auto& tmp = field->headers();
             headers_.insert(headers_.end(), tmp.begin(), tmp.end());
 
             fields_.push_back(field);
+            return *this;
         };
 
         std::string code() const override {
@@ -38,11 +39,12 @@ namespace Generate {
     struct CppFunction final : Function {
         CppFunction(RVal* name) : Function(name) {}
 
-        void param_add(RVal* param) override {
+        CppFunction& param_add(RVal* param) override {
             const auto& tmp = param->headers();
             headers_.insert(headers_.end(), tmp.begin(), tmp.end());
 
             params_.push_back(param);
+            return *this;
         };
 
         std::string code() const override {

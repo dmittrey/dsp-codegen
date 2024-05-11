@@ -18,7 +18,7 @@ namespace Generate {
 
     struct RVal : Model {
     protected:
-        Type* type_;
+        std::shared_ptr<Type> type_;
         std::string name_;
 
     protected:
@@ -33,7 +33,7 @@ namespace Generate {
         std::vector<RVal*> fields_ = {};
     
     public:
-        virtual void field_add(RVal* field) = 0;
+        virtual Structure& field_add(RVal* field) = 0;
 
     protected:
         Structure(RVal* name) : name_(name) {
@@ -48,7 +48,7 @@ namespace Generate {
         std::vector<RVal*> params_ = {};
 
     public:
-        virtual void param_add(RVal* param) = 0;
+        virtual Function& param_add(RVal* param) = 0;
 
     protected:
         Function(RVal* name) : name_(name) {
