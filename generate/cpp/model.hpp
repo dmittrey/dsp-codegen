@@ -5,7 +5,8 @@
 namespace Generate {
 
     struct CppRVal final : RVal {
-        CppRVal(Type* type, std::string name) : RVal(type, name) {}
+        CppRVal(std::shared_ptr<Type> type, std::string name) : RVal(type, name) {}
+        CppRVal(const RVal& obj) : RVal(obj) {}
 
         std::string code() const override {
             return type_->name() + " " + name_;
@@ -13,13 +14,13 @@ namespace Generate {
     };
 
     struct CppStructure final : Structure {
-        CppStructure(RVal* name) : Structure(name) {}
+        CppStructure(const CppRVal& name) : Structure(std::make_unique<CppRVal>(name)) {}
 
-        CppStructure& field_add(RVal* field) override {
-            const auto& tmp = field->headers();
+        CppStructure& field_add(const RVal& field) override {
+            const auto& tmp = field.headers();
             headers_.insert(headers_.end(), tmp.begin(), tmp.end());
 
-            fields_.push_back(field);
+            fields_.push_back(std::make_unique<CppRVal>(field));
             return *this;
         };
 
@@ -37,13 +38,13 @@ namespace Generate {
     };
 
     struct CppFunction final : Function {
-        CppFunction(RVal* name) : Function(name) {}
+        CppFunction(const CppRVal& name) : Function(std::make_unique<CppRVal>(name)) {}
 
-        CppFunction& param_add(RVal* param) override {
-            const auto& tmp = param->headers();
+        CppFunction& param_add(const RVal& param) override {
+            const auto& tmp = param.headers();
             headers_.insert(headers_.end(), tmp.begin(), tmp.end());
 
-            params_.push_back(param);
+            params_.push_back(std::make_unique<CppRVal>(param));
             return *this;
         };
 

@@ -22,37 +22,38 @@ namespace Generate {
         std::string name_;
 
     protected:
-        RVal(Type* type, std::string name) : type_(type), name_(name) { 
-            headers_.push_back(type->header()); 
+        RVal(const RVal& obj) : type_(obj.type_), name_(obj.name_) {}
+        RVal(std::shared_ptr<Type> type, std::string name) : type_(type), name_(name) { 
+            headers_.push_back(type->header());
         }
     };
 
     struct Structure : Model {
     protected:
-        RVal* name_;
-        std::vector<RVal*> fields_ = {};
+        std::unique_ptr<RVal> name_;
+        std::vector<std::unique_ptr<RVal>> fields_ = {};
     
     public:
-        virtual Structure& field_add(RVal* field) = 0;
+        virtual Structure& field_add(const RVal& field) = 0;
 
     protected:
-        Structure(RVal* name) : name_(name) {
-            const auto& tmp = name->headers();
+        Structure(std::unique_ptr<RVal> name) : name_(std::move(name)) {
+            const auto& tmp = name_->headers();
             headers_.insert(headers_.end(), tmp.begin(), tmp.end());
         }
     };
 
     struct Function : public Model {
     protected:
-        RVal* name_;
-        std::vector<RVal*> params_ = {};
+        std::unique_ptr<RVal> name_;
+        std::vector<std::unique_ptr<RVal>> params_ = {};
 
     public:
-        virtual Function& param_add(RVal* param) = 0;
+        virtual Function& param_add(const RVal& param) = 0;
 
     protected:
-        Function(RVal* name) : name_(name) {
-            const auto& tmp = name->headers();
+        Function(std::unique_ptr<RVal> name) : name_(std::move(name)) {
+            const auto& tmp = name_->headers();
             headers_.insert(headers_.end(), tmp.begin(), tmp.end());
         }
     };
