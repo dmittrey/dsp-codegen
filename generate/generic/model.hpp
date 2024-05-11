@@ -13,7 +13,7 @@ namespace Generate {
         std::vector<std::string> headers_ = {};
     
     public:
-        std::vector<std::string> headers() override { return headers_; }
+        std::vector<std::string> headers() const override { return headers_; }
     };
 
     struct RVal : Model {
@@ -21,9 +21,7 @@ namespace Generate {
         Type* type_;
         std::string name_;
 
-    public:
-        RVal() = delete;
-        RVal(RVal&& arg) = delete; /* Constraints to save headers_ invariant */
+    protected:
         RVal(Type* type, std::string name) : type_(type), name_(name) { 
             headers_.push_back(type->header()); 
         }
@@ -33,16 +31,15 @@ namespace Generate {
     protected:
         RVal* name_;
         std::vector<RVal*> fields_ = {};
-
+    
     public:
-        Structure() = delete;
-        Structure(Structure&& arg) = delete; /* Constraints to save headers_ invariant */
+        virtual void field_add(RVal* field) = 0;
+
+    protected:
         Structure(RVal* name) : name_(name) {
             const auto& tmp = name->headers();
             headers_.insert(headers_.end(), tmp.begin(), tmp.end());
         }
-
-        virtual void field_add(RVal* field) = 0;
     };
 
     struct Function : public Model {
@@ -51,14 +48,13 @@ namespace Generate {
         std::vector<RVal*> params_ = {};
 
     public:
-        Function() = delete;
-        Function(Function&& arg) = delete; /* Constraints to save headers_ invariant */
+        virtual void param_add(RVal* param) = 0;
+
+    protected:
         Function(RVal* name) : name_(name) {
-            auto tmp = name->headers();
+            const auto& tmp = name->headers();
             headers_.insert(headers_.end(), tmp.begin(), tmp.end());
         }
-
-        virtual void param_add(RVal* param) = 0;
     };
 
 }; /* Generate */

@@ -17,7 +17,7 @@ namespace Generate {
         Serializer(Serializer&& obj) = delete;
         Serializer(std::unique_ptr<std::ostream> out) : out_(std::move(out)) {}
 
-        void serialize(const ILayout& layout) override {
+        void serialize(const ILayout& layout) const override {
             *out_ << layout.render() << std::endl;
         };
     };

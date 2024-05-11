@@ -4,24 +4,11 @@
 #include <vector>
 #include <iostream>
 
-#include "interface/ilayout.hpp"
+#include "generic/layout.hpp"
 
 namespace Generate {
 
-    struct CppLayout : ILayout {
-        std::vector<std::string> headers_;
-        std::vector<IModel*> models_;
-
-        std::vector<IModel*> models() override {
-            return models_;
-        };
-
-        void add_model(IModel* model) override {
-            auto tmp = model->headers();
-            headers_.insert(headers_.end(), tmp.begin(), tmp.end());
-            models_.push_back(model);
-        };
-
+    struct CppLayout final : Layout {
         std::string render() const override {
             std::string res;
             res += std::string("// Headers\n");

@@ -7,7 +7,7 @@
 namespace Generate {
 
     struct ISerializer {
-        virtual void serialize(const ILayout& layout) = 0;
+        virtual void serialize(const ILayout& layout) const = 0;
         virtual ~ISerializer() {};
     };
 
