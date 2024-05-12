@@ -5,7 +5,7 @@
 namespace Utility {
 
     struct Struct final : Type {
-        Struct() : Type("struct", "") { }
+        Struct() : Type("struct") { }
     };
 
 }; /* Utility */

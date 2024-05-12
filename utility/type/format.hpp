@@ -5,7 +5,7 @@
 namespace Utility {
 
     struct Format final : Type {
-        Format() : Type("Format", "format.hpp") { }
+        Format() : Type("FormatEnum", "format.hpp") { }
     };
 
 }; /* Utility */
