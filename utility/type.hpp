@@ -9,8 +9,15 @@
 namespace Utility {
 
     struct Type {
-        virtual std::string header() const = 0;
-        virtual std::string name() const = 0;
+    public:
+        std::string name;
+        std::string header;
+
+    public:
+        Type(const std::string name_, const std::string& header_) :  name(name_), header(header_) {}
+        Type(const Type& obj) : header(obj.header), name(obj.name) {}
+
+    public:
         virtual ~Type() {}
     };
 
