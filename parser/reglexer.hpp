@@ -8,96 +8,72 @@
 #include <vector>
 #include <string>
 
+#include "register.hpp"
+
 #include "type/uint.hpp"
-#include "format.hpp"
+#include "type/string.hpp"
+#include "type/format.hpp"
 
 using namespace Utility;
 
 class RegLexer : public yyFlexLexer {
-    struct Register {
-        std::string family_;
-        std::string name_;
-        uint64_t addr_;
-        uint64_t offset_;
-        uint64_t size_;
-        Format fmt_;
-
-        void print() const {
-            std::cout << "Register:" << "\n"
-                << "\tFamily: " << family_ << "\n"
-                << "\tName: " << name_ << "\n"
-                << "\tAddr: " << addr_ << "\n"
-                << "\tOffset: " << offset_ << "\n"
-                << "\tSize: " << size_ << "\n"
-                << "\tFormat: " << fmt_ << "\n"
-                << std::endl;
-        }
-        
-        Type *type() const {
-            switch (size_)
-            {
-            case 8:
-                return new Uint8{};
-            case 16:
-                return new Uint16{};
-            case 32:
-                return new Uint32{};
-            case 64:
-                return new Uint64{};
-            default:
-                exit(1);
-            }
-        }
-    };
-
+private:
     std::vector<Register> vec = {};
     Register r;
 
+private:
     int process_family() {
-        r.family_ = yytext;
+        Type *type = new String();
+        r.fields.emplace_back(type, "family");
 #ifdef DEBUG_LEX
-        std::cout << "FAMILY: <" << r.family_ << ">" << std::endl; 
+        // std::cout << "FAMILY: <" << yytext << ">" << std::endl; 
 #endif
         return 1;
     }
 
     int process_name() {
-        r.name_ = yytext;
+        r.name = yytext;
 #ifdef DEBUG_LEX
-        std::cout << "NAME: <" << r.name_ << ">" << std::endl; 
+        // std::cout << "NAME: <" << yytext << ">" << std::endl; 
 #endif
         return 1;
     }
 
     int process_address() {
-        r.addr_ = std::stoi(yytext, nullptr, 16);
+        Type *type = new Uint64();
+        r.fields.emplace_back(type, "address");
 #ifdef DEBUG_LEX
-        std::cout << "ADDRESS: <" << r.addr_ << ">" << std::endl;
+        // std::cout << "ADDRESS: <" << yytext << ">" << std::endl;
 #endif 
         return 1;
     }
 
     int process_offset() {
-        r.offset_ = std::stoi(yytext);
+        Type *type = new Uint64();
+        r.fields.emplace_back(type, "offset");
 #ifdef DEBUG_LEX
-        std::cout << "OFFSET: <" << r.offset_ << ">" << std::endl;
+        // std::cout << "OFFSET: <" << yytext << ">" << std::endl;
 #endif 
         return 1;
     }
 
     int process_size() {
-        r.size_ = std::stoi(yytext);
+        Type *type = new Uint64();
+        r.fields.emplace_back(type, "size");
 #ifdef DEBUG_LEX
-        std::cout << "SIZE: <" << r.size_ << ">" << std::endl;
+        // std::cout << "SIZE: <" << yytext << ">" << std::endl;
 #endif 
         return 1;
     }    
 
-    int process_type(Format fmt) {
-        r.fmt_ = fmt;
+    int process_type(FormatEnum fmt) {
+        Type *type = new Format();
+        r.fields.emplace_back(type, "format");
+
         vec.push_back(r);
+        r.fields.clear();
 #ifdef DEBUG_LEX
-        std::cout << "TYPE: <" << r.fmt_ << ">" << std::endl;
+        // std::cout << "TYPE: <" << yytext << ">" << std::endl;
 #endif 
         return 1;
     }
@@ -110,8 +86,7 @@ class RegLexer : public yyFlexLexer {
 
 public:
     int yylex() override;
-    void print() const {
-        for (auto reg : vec)
-            reg.print();
-    }
+
+public:
+    std::vector<Register> registers() const { return vec; }
 };

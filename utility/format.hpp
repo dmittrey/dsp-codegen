@@ -2,7 +2,7 @@
 
 namespace Utility {
     
-    enum Format {
+    enum FormatEnum {
         HEX_UNSIGNED = 0,
         HEX_SIGNED, 
         FP_UNSIGNED, /* u4q3 */
