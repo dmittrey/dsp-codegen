@@ -24,7 +24,8 @@ namespace Generate {
     protected:
         RVal(const RVal& obj) : RVal(*obj.type_, obj.name_) {} 
         RVal(const Type& type, const std::string& name) : type_(std::make_unique<Type>(type)), name_(name) { 
-            headers_.push_back(type_->header);
+            if (type_->header.has_value())
+                headers_.push_back(type_->header.value());
         }
     };
 

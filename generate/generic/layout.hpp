@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <algorithm>
 
 #include "interface/ilayout.hpp"
 
@@ -10,6 +11,13 @@ namespace Generate {
     protected:
         std::vector<std::string> headers_;
         std::vector<IModel*> models_; // Fix Migrate to unique ptr
+
+    public:
+        virtual Layout& prepare() {
+            std::sort(headers_.begin(), headers_.end());
+            headers_.erase(std::unique(headers_.begin(), headers_.end()), headers_.end());
+            return *this;
+        }
 
     public:
         std::vector<IModel*> models() const override { return models_; };
