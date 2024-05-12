@@ -18,13 +18,13 @@ namespace Generate {
 
     struct RVal : Model {
     protected:
-        std::shared_ptr<Type> type_;
+        std::unique_ptr<Type> type_;
         std::string name_;
 
     protected:
-        RVal(const RVal& obj) : type_(obj.type_), name_(obj.name_) {}
-        RVal(std::shared_ptr<Type> type, std::string name) : type_(type), name_(name) { 
-            headers_.push_back(type->header());
+        RVal(const RVal& obj) : RVal(*obj.type_, obj.name_) {} 
+        RVal(const Type& type, const std::string& name) : type_(std::make_unique<Type>(type)), name_(name) { 
+            headers_.push_back(type_->header);
         }
     };
 

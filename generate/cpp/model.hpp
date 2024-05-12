@@ -5,11 +5,11 @@
 namespace Generate {
 
     struct CppRVal final : RVal {
-        CppRVal(std::shared_ptr<Type> type, std::string name) : RVal(type, name) {}
         CppRVal(const RVal& obj) : RVal(obj) {}
+        CppRVal(const Type& type, std::string name) : RVal(type, name) {}
 
         std::string code() const override {
-            return type_->name() + " " + name_;
+            return type_->name + " " + name_;
         }
     };
 
