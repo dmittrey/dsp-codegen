@@ -2,7 +2,7 @@
 
 #include "interface/imodel.hpp"
 
-#include "type.hpp"
+#include "type/type.hpp"
 
 using namespace Utility;
 

@@ -3,7 +3,12 @@
 #include <vector>
 
 #include "reglexer.hpp"
-#include "model.hpp"
+#include "cpp/layout.hpp"
+#include "cpp/model.hpp"
+
+#include "file/serializer.hpp"
+
+#include "type/string.hpp"
 
 using namespace Generate;
 

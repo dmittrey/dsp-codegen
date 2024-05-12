@@ -8,7 +8,7 @@
 #include <vector>
 #include <string>
 
-#include "uint.hpp"
+#include "type/uint.hpp"
 #include "format.hpp"
 
 using namespace Utility;

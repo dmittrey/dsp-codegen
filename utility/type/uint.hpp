@@ -24,8 +24,4 @@ namespace Utility {
         Uint64() : Uint("uint64_t") {}
     };
 
-    struct String final : Type {
-        String() : Type("std::string", "string") { }
-    };
-
 }; /* Utility */
