@@ -5,7 +5,7 @@
 namespace Utility {
 
     struct Uint : Type {
-        Uint(const std::string name) : Type(name, "cstdint") { }
+        Uint(const std::string& name) : Type(name, "cstdint") { }
     };
 
     struct Uint8 final : Uint {

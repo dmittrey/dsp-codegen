@@ -6,7 +6,7 @@ namespace Generate {
 
     struct CppRVal final : RVal {
         CppRVal(const RVal& obj) : RVal(obj) {}
-        CppRVal(const Type& type, std::string name) : RVal(type, name) {}
+        CppRVal(const Type& type, const std::string& name) : RVal(type, name) {}
 
         std::string code() const override {
             return type_->name + " " + name_;

@@ -10,7 +10,7 @@ namespace Generate {
     struct Layout : ILayout {
     protected:
         std::vector<std::string> headers_;
-        std::vector<IModel*> models_; // Fix Migrate to unique ptr
+        std::vector<IModel*> models_;
 
     public:
         virtual Layout& prepare() {
