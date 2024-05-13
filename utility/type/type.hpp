@@ -7,6 +7,8 @@
 #include <vector>
 #include <optional>
 
+/* TODO Types oriented on c++ specific, need to fix later */
+
 namespace Utility {
 
     struct Type {
