@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Utility {
+namespace Common {
     
     enum FormatEnum {
         HEX_UNSIGNED = 0,
@@ -11,4 +11,4 @@ namespace Utility {
         FP_TWOS_COMPLEMENT, /* t4q3 */
     };
 
-}; /* Utility */
+}; /* Common */

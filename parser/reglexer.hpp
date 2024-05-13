@@ -14,7 +14,10 @@
 #include "type/string.hpp"
 #include "type/format.hpp"
 
+#include "eformat.hpp"
+
 using namespace Utility;
+using namespace Common;
 
 class RegLexer : public yyFlexLexer {
 private:

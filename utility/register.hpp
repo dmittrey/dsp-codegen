@@ -3,7 +3,6 @@
 #include <iostream>
 #include <string>
 
-#include "format.hpp"
 #include "type/uint.hpp"
 
 namespace Utility {
