@@ -1,8 +1,8 @@
 #pragma once
 
-namespace Common {
+namespace Parser {
     
-    enum FormatEnum {
+    enum Format {
         HEX_UNSIGNED = 0,
         HEX_SIGNED, 
         FP_UNSIGNED, /* u4q3 */
@@ -11,4 +11,4 @@ namespace Common {
         FP_TWOS_COMPLEMENT, /* t4q3 */
     };
 
-}; /* Common */
+}; /* Parser */

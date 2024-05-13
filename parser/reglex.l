@@ -14,6 +14,11 @@
 %option yyclass="RegLexer"
 %option c++
 
+%x IREG
+
+%x IOFS
+%x ISIZE
+
 %x INAME
 %x IDESC
 %x IRNG
@@ -28,11 +33,12 @@
 
 WS          [ \t\n\v]+
 
-WORD        [a-zA-Z_]+
-SENTENCE    [a-z|A-Z|0-9|[:punct:]| ]+
+UP_WORD        [A-Z_]+
+WORD           [a-z_]+
+SENTENCE       [a-z|A-Z|0-9|[:punct:]| ]+
 
-HEX         0x[0-9]+
-DEC         [1-9]*[0-9]+
+HEX            0x[0-9]+
+DEC            [1-9]*[0-9]+
 
 U_NUM       u
 S_NUM       s
@@ -45,35 +51,51 @@ TC_FP_NUM   t[0-9]+q[0-9]+
 
 {WS}              /* skip blanks and tabs */
 
-{WORD}            { BEGIN INAME;
-                    return process_regname(); }
+{UP_WORD}               { BEGIN IOFS;
+                        return process_reg_name(); }
+{WORD}:                 { BEGIN IDESC;
+                        return process_opt_name(); }
 
-<INAME>^{WORD}$      { BEGIN IDESC;
-                    return process_name(); }
+<IREG>{UP_WORD}:        { BEGIN IOFS;
+                        return process_reg_name_retry(); }
+<IREG>{WORD}:           { BEGIN IDESC;
+                        return process_opt_name(); }
 
-<IDESC>^{SENTENCE}$  { BEGIN IRNG;
-                    return process_desc(); }
+<IOFS>{HEX}             { BEGIN ISIZE;
+                        return process_reg_offset(); }
+<ISIZE>{DEC}            { BEGIN INAME;
+                        return process_reg_size(); }
 
-<IRNG><{DEC};{DEC}>       { BEGIN IRWM;
-                    return process_range(); }
+<INAME>{WORD}:         { BEGIN IDESC;
+                        return process_opt_name(); }
 
-<IRWM>RO|WO|RW       { BEGIN IFMT;
-                    return process_rwmode(); }
+<IDESC>{SENTENCE};     { BEGIN IRNG;
+                        return process_opt_desc(); }
 
-<IFMT>{U_NUM}     { BEGIN INITIAL;
-                    return process_type(HEX_UNSIGNED); }
-<IFMT>{S_NUM}     { BEGIN INITIAL;
-                    return process_type(HEX_SIGNED); }
-<IFMT>{U_FP_NUM}  { BEGIN INITIAL; 
-                    return process_type(FP_UNSIGNED); }
-<IFMT>{S_FP_NUM}  { BEGIN INITIAL;
-                    return process_type(FP_SIGNED); }
-<IFMT>{SM_FP_NUM} { BEGIN INITIAL; 
-                    return process_type(FP_SIGN_MAGNITUDE); }
-<IFMT>{TC_FP_NUM} { BEGIN INITIAL; 
-                    return process_type(FP_TWOS_COMPLEMENT); }
+<IRNG>\[{DEC};{DEC}\];  { BEGIN IRWM;
+                        return process_opt_range(); }
 
-.                 { return process_unknown(); }
+<IRWM>RO;                { BEGIN IFMT;
+                        return process_opt_rwmode(RO); }
+<IRWM>WO;                { BEGIN IFMT;
+                        return process_opt_rwmode(WO); }
+<IRWM>RW;                { BEGIN IFMT;
+                        return process_opt_rwmode(RW); }
+
+<IFMT>{U_NUM};           { BEGIN IREG;
+                        return process_opt_type(HEX_UNSIGNED); }
+<IFMT>{S_NUM};          { BEGIN IREG;
+                        return process_opt_type(HEX_SIGNED); }
+<IFMT>{U_FP_NUM};        { BEGIN IREG; 
+                        return process_opt_type(FP_UNSIGNED); }
+<IFMT>{S_FP_NUM};        { BEGIN IREG;
+                        return process_opt_type(FP_SIGNED); }
+<IFMT>{SM_FP_NUM};       { BEGIN IREG; 
+                        return process_opt_type(FP_SIGN_MAGNITUDE); }
+<IFMT>{TC_FP_NUM};       { BEGIN IREG; 
+                        return process_opt_type(FP_TWOS_COMPLEMENT); }
+
+.                   { return process_unknown(); }
 
 %%
 
