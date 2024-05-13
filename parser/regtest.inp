@@ -1,0 +1,6 @@
+ISP_FLASH_CMD
+preflash_on
+Preflash on 0: no effect 1: flash delay counter is started at next trigger event, No capture event is signaled to the sensor interface block.
+<2;2>
+WO
+u

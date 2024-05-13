@@ -61,7 +61,6 @@ dkms.conf
 *.bin
 /*/obj
 build
-*.inp
 
 
 # Local lib

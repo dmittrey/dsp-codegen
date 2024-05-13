@@ -2,22 +2,22 @@
  *
  *  Simplest state machine
  *           -------------
- *  start -> |  INITIAL  | --WORD--> | IREG | --WORD--> | IADR |
- *           -------------                                  |
-                 /\(Push reg to global storage)             HEX
-                 |                                          \/
- *               -NUM- | IFMT | <--DEC-- | ISZ | <--DEC-- | IOFS |
+ *  start -> |  INITIAL  | ---WORD---> | INAME | ---WORD---> | IDESC |
+ *           -------------                                       |
+                 /\(Push opt to global storage)                  SENTENCE
+                 |                                               \/
+ *               -NUM- | IFMT | <--RWMODE-- | IRWM | <--RANGE-- | IRNG |
  *
  *  Register description: 
- *      FAMILY(WORD) NAME(WORD) ADDR(HEX) OFFSET(DEC) SIZE(DEC) FMT(NUM_FMT)
+ *      REG_NAME(WORD) NAME(WORD) DESC(SENTENCE) BIT_RANGE(RANGE) RWMODE(RWMODE) FMT(NUM_FMT)
  * ------------------------------------------------------------------------- */
 %option yyclass="RegLexer"
 %option c++
 
-%x IREG
-%x IADR
-%x IOFS
-%x ISZ
+%x INAME
+%x IDESC
+%x IRNG
+%x IRWM
 %x IFMT
 
 %{
@@ -28,7 +28,8 @@
 
 WS          [ \t\n\v]+
 
-WORD        [a-z|A-z]+
+WORD        [a-zA-Z_]+
+SENTENCE    [a-z|A-Z|0-9|[:punct:]| ]+
 
 HEX         0x[0-9]+
 DEC         [1-9]*[0-9]+
@@ -44,20 +45,20 @@ TC_FP_NUM   t[0-9]+q[0-9]+
 
 {WS}              /* skip blanks and tabs */
 
-{WORD}            { BEGIN IREG;
-                    return process_family(); }
+{WORD}            { BEGIN INAME;
+                    return process_regname(); }
 
-<IREG>{WORD}      { BEGIN IADR;
+<INAME>^{WORD}$      { BEGIN IDESC;
                     return process_name(); }
 
-<IADR>{HEX}       { BEGIN IOFS;
-                    return process_address(); }
+<IDESC>^{SENTENCE}$  { BEGIN IRNG;
+                    return process_desc(); }
 
-<IOFS>{DEC}       { BEGIN ISZ;
-                    return process_size(); }
+<IRNG><{DEC};{DEC}>       { BEGIN IRWM;
+                    return process_range(); }
 
-<ISZ>{DEC}       { BEGIN IFMT;
-                    return process_offset(); }
+<IRWM>RO|WO|RW       { BEGIN IFMT;
+                    return process_rwmode(); }
 
 <IFMT>{U_NUM}     { BEGIN INITIAL;
                     return process_type(HEX_UNSIGNED); }

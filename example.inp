@@ -1,0 +1,48 @@
+// Headers
+#include <cstdint>
+#include <format.hpp>
+#include <string>
+// Models
+struct somename {
+	std::string family;
+	uint64_t address;
+	uint64_t size;
+	uint64_t offset;
+	FormatEnum format;
+};
+struct alefkd_awd {
+	std::string family;
+	uint64_t address;
+	uint64_t size;
+	uint64_t offset;
+	FormatEnum format;
+};
+struct somename {
+	std::string family;
+	uint64_t address;
+	uint64_t size;
+	uint64_t offset;
+	FormatEnum format;
+};
+struct alefkd_awd {
+	std::string family;
+	uint64_t address;
+	uint64_t size;
+	uint64_t offset;
+	FormatEnum format;
+};
+struct somename {
+	std::string family;
+	uint64_t address;
+	uint64_t size;
+	uint64_t offset;
+	FormatEnum format;
+};
+struct alefkd_awd {
+	std::string family;
+	uint64_t address;
+	uint64_t size;
+	uint64_t offset;
+	FormatEnum format;
+};
+
