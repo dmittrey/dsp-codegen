@@ -1,0 +1,28 @@
+{
+    "name" : "ISP_FLASH_CMD",
+    "address": "0x600",
+    "description": "Flash command",
+    "size": 32,
+    "mode": "WO",
+    "options": [
+        {
+            "name": "preflash_on",
+            "format": "u0q1",
+            "description": "Preflash on 0: no effect 1: flash delay counter is started at next trigger event, No capture",
+            "range": {
+                "min": 2,
+                "max": 2
+            }
+        },
+        {
+            "name": "flash_on",
+            "format": "u",
+            "description": "Flash on 0: no effect 1: flash delay counter is started at next trigger event A capture event is signaled to the sensor interface block",
+            "range": {
+                "min": 1,
+                "max": 1
+            }
+        }
+    ]
+}
+    

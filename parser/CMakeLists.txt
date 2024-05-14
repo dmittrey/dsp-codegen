@@ -1,22 +1,31 @@
 cmake_minimum_required(VERSION 3.11)
 project(parser)
 
-find_package(FLEX REQUIRED)
+include(FetchContent)
 
-flex_target(scanner
-  reglex.l
-  ${CMAKE_CURRENT_BINARY_DIR}/lexer.cc
+FetchContent_Declare(
+        jsoncpp
+        GIT_REPOSITORY https://github.com/open-source-parsers/jsoncpp.git
+        GIT_TAG        master
 )
 
-add_library(${PROJECT_NAME} ${FLEX_scanner_OUTPUTS})
+FetchContent_GetProperties(jsoncpp)
+if (NOT jsoncpp_POPULATED)
+    FetchContent_Populate(jsoncpp)
+    add_subdirectory(${jsoncpp_SOURCE_DIR} ${jsoncpp_BINARY_DIR})
+    message(${jsoncpp_SOURCE_DIR})
+    message(${jsoncpp_BINARY_DIR})
+endif ()
+
+FetchContent_MakeAvailable(jsoncpp)
+
+add_executable(${PROJECT_NAME} main.cpp)
+
+target_link_libraries(${PROJECT_NAME} jsoncpp_static)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
   $<$<CONFIG:Debug>:DEBUG_LEX=1>)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE utility)
-target_link_libraries(${PROJECT_NAME} PUBLIC common)
-
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
