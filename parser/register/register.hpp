@@ -7,7 +7,7 @@
 
 namespace Parser {
 
-    struct Register {
+    struct Register final {
         std::string name;
         uint64_t address;
         std::string description;

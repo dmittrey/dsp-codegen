@@ -9,7 +9,7 @@
 
 namespace Parser {
 
-    struct Option {
+    struct Option final {
         std::string name;
         std::string description;
         std::pair<uint64_t, uint64_t> bit_range;

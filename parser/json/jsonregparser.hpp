@@ -10,7 +10,7 @@
 
 namespace Parser {
 
-    struct JsonRegParser : IRegParser {
+    struct JsonRegParser final : IRegParser {
     private:
         const std::unique_ptr<std::ifstream> ifstreamp;
         std::vector<Register> vec = {};
@@ -21,8 +21,13 @@ namespace Parser {
 			*ifstreamp >> root;
 			vec = parse_register_vec(root["registers"]);
 		}
-
-		virtual ~JsonRegParser() {}
+    
+    public:
+        const std::vector<Register>& registers() override const & { return vec; }
+        void print() const {
+            for (const auto& reg : vec)
+                reg.dump();
+        }
 
 	private:
 		static std::vector<Register> parse_register_vec(const Json::Value& val) {
@@ -95,13 +100,6 @@ namespace Parser {
 			o.bit_range.second = val["range"]["max"].asUInt();
 			return o;
 		}
-    
-    public:
-        const std::vector<Register>& registers() const { return vec; }
-        void print() const {
-            for (const auto& reg : vec)
-                reg.dump();
-        }
     };
 
 } /* Parser */
