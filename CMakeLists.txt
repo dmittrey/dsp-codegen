@@ -5,8 +5,7 @@ set(LIBS
         parser
         utility
         generate
-        agregate
-        common)
+        agregate)
 
 foreach(elem ${LIBS})
     add_subdirectory(${elem})
