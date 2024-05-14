@@ -13,7 +13,7 @@ namespace Generate {
         std::vector<std::string> headers_ = {};
     
     public:
-        std::vector<std::string>& headers() const & override { return headers_; }
+        const std::vector<std::string>& headers() const & override { return headers_; }
     };
 
     struct RVal : Model {

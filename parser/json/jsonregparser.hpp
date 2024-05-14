@@ -23,7 +23,7 @@ namespace Parser {
 		}
     
     public:
-        const std::vector<Register>& registers() override const & { return vec; }
+        const std::vector<Register>& registers() const & override { return vec; }
         void print() const {
             for (const auto& reg : vec)
                 reg.dump();
