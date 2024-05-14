@@ -1,28 +1,85 @@
 {
-    "name" : "ISP_FLASH_CMD",
-    "address": "0x600",
-    "description": "Flash command",
-    "size": 32,
-    "mode": "WO",
-    "options": [
+    "registers" : [
         {
-            "name": "preflash_on",
-            "format": "u0q1",
-            "description": "Preflash on 0: no effect 1: flash delay counter is started at next trigger event, No capture",
-            "range": {
-                "min": 2,
-                "max": 2
-            }
+            "name" : "ISP_FLASH_CMD",
+            "address": "0x600",
+            "description": "Flash command",
+            "size": 32,
+            "mode": "WO",
+            "options": [
+                {
+                    "name": "preflash_on",
+                    "format": "u0q1",
+                    "description": "Preflash on 0: no effect 1: flash delay counter is started at next trigger event, No capture",
+                    "range": {
+                        "min": 2,
+                        "max": 2
+                    }
+                },
+                {
+                    "name": "flash_on",
+                    "format": "u",
+                    "description": "Flash on 0: no effect 1: flash delay counter is started at next trigger event A capture event is signaled to the sensor interface block",
+                    "range": {
+                        "min": 1,
+                        "max": 1
+                    }
+                }
+            ]
         },
         {
-            "name": "flash_on",
-            "format": "u",
-            "description": "Flash on 0: no effect 1: flash delay counter is started at next trigger event A capture event is signaled to the sensor interface block",
-            "range": {
-                "min": 1,
-                "max": 1
-            }
+            "name" : "ISP_FLASH_CONFIG",
+            "address": "0x00000264",
+            "description": "Flash config",
+            "size": 32,
+            "mode": "RW",
+            "options": [
+                {
+                    "name": "fl_cap_delay",
+                    "format": "u0q4",
+                    "description": "Preflash on 0: no effect 1: flash delay counter is started at next trigger event, No capture",
+                    "range": {
+                        "min": 4,
+                        "max": 7
+                    }
+                },
+                {
+                    "name": "fl_trig_src",
+                    "format": "u",
+                    "description": "Flash on 0: no effect 1: flash delay counter is started at next trigger event A capture event is signaled to the sensor interface block",
+                    "range": {
+                        "min": 3,
+                        "max": 3
+                    }
+                },
+                {
+                    "name": "fl_pol",
+                    "format": "s",
+                    "description": "Flash on 0: no effect 1: flash delay counter is started at next trigger event A capture event is signaled to the sensor interface block",
+                    "range": {
+                        "min": 2,
+                        "max": 2
+                    }
+                },
+                {
+                    "name": "fl_trig_pol",
+                    "format": "s",
+                    "description": "Flash on 0: no effect 1: flash delay counter is started at next trigger event A capture event is signaled to the sensor interface block",
+                    "range": {
+                        "min": 1,
+                        "max": 1
+                    }
+                },
+                {
+                    "name": "prelight_mode",
+                    "format": "s",
+                    "description": "Flash on 0: no effect 1: flash delay counter is started at next trigger event A capture event is signaled to the sensor interface block",
+                    "range": {
+                        "min": 0,
+                        "max": 0
+                    }
+                }
+            ]
         }
     ]
 }
-    
