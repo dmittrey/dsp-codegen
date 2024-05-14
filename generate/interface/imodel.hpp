@@ -6,7 +6,7 @@
 namespace Generate {
 
     struct IModel {
-        virtual std::vector<std::string> headers() const = 0;
+        virtual std::vector<std::string>& headers() const & = 0;
         virtual std::string code() const = 0;
         virtual ~IModel() {};
     };
