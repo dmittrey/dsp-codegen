@@ -19,13 +19,12 @@ endif ()
 
 FetchContent_MakeAvailable(jsoncpp)
 
-add_executable(${PROJECT_NAME} main.cpp)
+add_library(${PROJECT_NAME} INTERFACE)
 
-target_link_libraries(${PROJECT_NAME} jsoncpp_static)
-
-target_compile_definitions(${PROJECT_NAME} PRIVATE
+target_compile_definitions(${PROJECT_NAME} INTERFACE
   $<$<CONFIG:Debug>:DEBUG_LEX=1>)
+target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_20)
 
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
+target_link_libraries(${PROJECT_NAME} INTERFACE jsoncpp_static)
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
