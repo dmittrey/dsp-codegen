@@ -12,8 +12,8 @@
                     "format": "u0q1",
                     "description": "Preflash on 0: no effect 1: flash delay counter is started at next trigger event, No capture",
                     "range": {
-                        "min": 2,
-                        "max": 2
+                        "min": 1,
+                        "max": 25
                     }
                 },
                 {

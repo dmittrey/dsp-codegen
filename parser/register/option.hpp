@@ -7,6 +7,10 @@
 #include "rwmode.hpp"
 #include "format.hpp"
 
+#include "type/uint.hpp"
+
+using namespace Utility;
+
 namespace Parser {
 
     struct Option final {
@@ -14,6 +18,19 @@ namespace Parser {
         std::string description;
         std::pair<uint64_t, uint64_t> bit_range;
         Format format;
+
+        //TODO memory leak
+        Type type() const {
+            uint64_t size = bit_range.second - bit_range.first + 1; // [4; 8] = 5bits 
+            if (size <= 8)
+                return Uint8();
+            else if (size <= 16)
+                return Uint16();
+            else if (size <= 32)
+                return Uint32();
+            else
+                return Uint64();
+        }
 
         void dump() const {
             std::cout << "Option:" << "\n"

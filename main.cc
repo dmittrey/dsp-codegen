@@ -5,47 +5,40 @@
 #include "reglexer.hpp"
 #include "cpp/layout.hpp"
 #include "cpp/model.hpp"
+#include "cpp/agregator.hpp"
 
 #include "file/serializer.hpp"
 
 #include "type/string.hpp"
 
 using namespace Generate;
+using namespace Parser;
+
+using namespace Agregate;
 
 /*
-0) Посмотреть лекцию про наследование
-1) Поженить отдаваемые парсером значения с кодгеном
-2) Поправить парсинг чтобы в рамках регистра были поля, надо менять грамматику => Сделать так чтобы от этого не изменился generate
+
+TODO: Немножко конечно проиграл в том, что типы ориентируются на C++, потом надо переделать
+
+2)Агрегатор дописать и протестировать, обновить main.cc
+
+3)Ребейз проекта
+
+4) Сделать наконец функции
+УРА КОДГЕН ГОТОВ
+
+1) Сделать модуль генератора kernel
+
+1) Сделать маппинг наконец fp <-> fixp
+
+LATER...
 3) Добавить автогенерацию кернел модуля чтобы работать с регистрами и подставить вызов этих функций уже в код сеттеров геттеров
 */
 
 int main() {
-  auto lexer = std::make_unique<RegLexer>();
-  while (lexer->yylex() != 0) {
-    // do nothing for now, all is in rules
-  }
-  lexer->print();
-
-  auto stringType = new String();
-  auto uintType = new Uint8();
-  Structure s;
-
-  RVal s_name;
-  s_name.type = stringType;
-  s_name.name = "somestruct";
-
-  RVal s_field;
-  s_field.type = uintType;
-  s_field.name = "somefield";
-
-  s.name = s_name;
-  s.fields = {s_field};
-
-  std::cout << s.render() << std::endl;
-
-  // Uint8 type = Uint8{};
-  // Getter getter = Getter{};
-
-  // Function unit = {type, {std::make_pair(type, "arg")}, "somename", getter};
-  // render(std::cout, unit);
+  std::unique_ptr<IRegParser> parser = std::make_unique<JsonRegParser>("parser/regtest.json");
+  std::unique_ptr<ISerializer> serializer = std::make_unique<FileSerializer>("example.inp");
+  
+  CppAgregator agr = {parser, serializer};
+  agr.process();
 }
