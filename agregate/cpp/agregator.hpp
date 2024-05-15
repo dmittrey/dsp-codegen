@@ -36,13 +36,20 @@ namespace Agregate {
                     s->field_add(field);
 
                     // Option modifier
-                    CppRVal sfname = {Types::make_void(), reg.name + '_' + 's' + '_' + opt.name};
-                    auto sf = new CppFunction{sfname};
-                    layout.add_model(sf);
+                    // Later... Need to move to Base, delete all methods and use derived CppBool
+                    if (opt_type.name == "bool") {
+                        auto se = new CppFunction{{Types::make_void(), reg.name + '_' + "enable" + '_' + opt.name}};
+                        auto sd = new CppFunction{{Types::make_void(), reg.name + '_' + "disable" + '_' + opt.name}};
+                        layout.add_model(se);
+                        layout.add_model(sd);
+                    } else {
+                        auto sf = new CppFunction{{Types::make_void(), reg.name + '_' + 's' + '_' + opt.name}};
+                        sf->param_add(CppRVal{opt_type, opt.name});
+                        layout.add_model(sf);
+                    }
 
                     // Option getter
-                    CppRVal gfname = {opt_type, reg.name + '_' + 'g' + '_' + opt.name};
-                    auto gf = new CppFunction{gfname};
+                    auto gf = new CppFunction{{opt_type, reg.name + '_' + 'g' + '_' + opt.name}};
                     layout.add_model(gf);
                 }
 

@@ -3,13 +3,16 @@
 // Models
 struct ISP_FLASH_CMD;
 
-void ISP_FLASH_CMD_s_preflash_on(){
+void ISP_FLASH_CMD_s_preflash_on(uint32_t preflash_on){
 };
 
 uint32_t ISP_FLASH_CMD_g_preflash_on(){
 };
 
-void ISP_FLASH_CMD_s_flash_on(){
+void ISP_FLASH_CMD_enable_flash_on(){
+};
+
+void ISP_FLASH_CMD_disable_flash_on(){
 };
 
 bool ISP_FLASH_CMD_g_flash_on(){
@@ -22,31 +25,43 @@ struct ISP_FLASH_CMD {
 
 struct ISP_FLASH_CONFIG;
 
-void ISP_FLASH_CONFIG_s_fl_cap_delay(){
+void ISP_FLASH_CONFIG_s_fl_cap_delay(uint8_t fl_cap_delay){
 };
 
 uint8_t ISP_FLASH_CONFIG_g_fl_cap_delay(){
 };
 
-void ISP_FLASH_CONFIG_s_fl_trig_src(){
+void ISP_FLASH_CONFIG_enable_fl_trig_src(){
+};
+
+void ISP_FLASH_CONFIG_disable_fl_trig_src(){
 };
 
 bool ISP_FLASH_CONFIG_g_fl_trig_src(){
 };
 
-void ISP_FLASH_CONFIG_s_fl_pol(){
+void ISP_FLASH_CONFIG_enable_fl_pol(){
+};
+
+void ISP_FLASH_CONFIG_disable_fl_pol(){
 };
 
 bool ISP_FLASH_CONFIG_g_fl_pol(){
 };
 
-void ISP_FLASH_CONFIG_s_fl_trig_pol(){
+void ISP_FLASH_CONFIG_enable_fl_trig_pol(){
+};
+
+void ISP_FLASH_CONFIG_disable_fl_trig_pol(){
 };
 
 bool ISP_FLASH_CONFIG_g_fl_trig_pol(){
 };
 
-void ISP_FLASH_CONFIG_s_prelight_mode(){
+void ISP_FLASH_CONFIG_enable_prelight_mode(){
+};
+
+void ISP_FLASH_CONFIG_disable_prelight_mode(){
 };
 
 bool ISP_FLASH_CONFIG_g_prelight_mode(){
