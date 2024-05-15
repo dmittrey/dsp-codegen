@@ -3,13 +3,13 @@
 // Models
 struct ISP_FLASH_CMD {
 	uint32_t preflash_on;
-	uint8_t flash_on;
+	bool flash_on;
 };
 struct ISP_FLASH_CONFIG {
 	uint8_t fl_cap_delay;
-	uint8_t fl_trig_src;
-	uint8_t fl_pol;
-	uint8_t fl_trig_pol;
-	uint8_t prelight_mode;
+	bool fl_trig_src;
+	bool fl_pol;
+	bool fl_trig_pol;
+	bool prelight_mode;
 };
 

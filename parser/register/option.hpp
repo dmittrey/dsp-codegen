@@ -8,6 +8,7 @@
 #include "format.hpp"
 
 #include "type/uint.hpp"
+#include "type/bool.hpp"
 
 using namespace Utility;
 
@@ -22,7 +23,9 @@ namespace Parser {
         //TODO memory leak
         Type type() const {
             uint64_t size = bit_range.second - bit_range.first + 1; // [4; 8] = 5bits 
-            if (size <= 8)
+            if (size == 1) 
+                return Bool();
+            else if (size <= 8)
                 return Uint8();
             else if (size <= 16)
                 return Uint16();
