@@ -29,6 +29,10 @@ namespace Agregate {
                 for (const auto& opt : reg.options) {
                     CppRVal field = {opt.type(), opt.name};
                     s->field_add(field);
+
+                    CppRVal fname = {Void(), reg.name + '_' + 's' + '_' + opt.name};
+                    auto f = new CppFunction{fname};
+                    layout.add_model(f);
                 }
 
                 layout.add_model(s);
