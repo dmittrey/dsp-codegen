@@ -1,15 +1,8 @@
-#include <iostream>
-#include <memory>
-#include <vector>
-
-#include "reglexer.hpp"
-#include "cpp/layout.hpp"
-#include "cpp/model.hpp"
 #include "cpp/agregator.hpp"
 
 #include "file/serializer.hpp"
 
-#include "type/string.hpp"
+#include "json/regparser.hpp"
 
 using namespace Generate;
 using namespace Parser;
@@ -19,10 +12,6 @@ using namespace Agregate;
 /*
 
 TODO: Немножко конечно проиграл в том, что типы ориентируются на C++, потом надо переделать
-
-2)Агрегатор дописать и протестировать, обновить main.cc
-
-3)Ребейз проекта
 
 4) Сделать наконец функции
 УРА КОДГЕН ГОТОВ
