@@ -29,6 +29,14 @@ namespace Generate {
         }
     };
 
+    struct Decl : Model {
+    protected:
+        std::unique_ptr<RVal> name_;
+
+    protected:
+        Decl(std::unique_ptr<RVal> name) : name_(std::move(name)) { }
+    };
+
     struct Structure : Model {
     protected:
         std::unique_ptr<RVal> name_;

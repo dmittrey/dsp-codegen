@@ -13,6 +13,14 @@ namespace Generate {
         }
     };
 
+    struct CppDecl final : Decl {
+        CppDecl(const CppRVal& name) : Decl(std::make_unique<CppRVal>(name)) {}
+
+        std::string code() const override {
+            return name_->code() + ';' + '\n';
+        }
+    };
+
     struct CppStructure final : Structure {
         CppStructure(const CppRVal& name) : Structure(std::make_unique<CppRVal>(name)) {}
 
