@@ -23,16 +23,27 @@ namespace Agregate {
             CppLayout layout;
 
             for (const auto& reg : vec) {
-                CppRVal name = {Struct(), reg.name};
-                auto s = new CppStructure{name};
+                auto sname = CppRVal{Struct(), reg.name};
 
+                auto sdecl = new CppDecl(sname);
+                layout.add_model(sdecl); // Decl before function that use sname
+
+                auto s = new CppStructure{sname};
                 for (const auto& opt : reg.options) {
-                    CppRVal field = {opt.type(), opt.name};
+                    auto opt_type = opt.type();
+
+                    CppRVal field = {opt_type, opt.name};
                     s->field_add(field);
 
-                    CppRVal fname = {Void(), reg.name + '_' + 's' + '_' + opt.name};
-                    auto f = new CppFunction{fname};
-                    layout.add_model(f);
+                    // Option modifier
+                    CppRVal sfname = {Void(), reg.name + '_' + 's' + '_' + opt.name};
+                    auto sf = new CppFunction{sfname};
+                    layout.add_model(sf);
+
+                    // Option getter
+                    CppRVal gfname = {opt_type, reg.name + '_' + 'g' + '_' + opt.name};
+                    auto gf = new CppFunction{gfname};
+                    layout.add_model(gf);
                 }
 
                 layout.add_model(s);
