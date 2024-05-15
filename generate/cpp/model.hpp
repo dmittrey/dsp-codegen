@@ -62,7 +62,7 @@ namespace Generate {
 
             if (params_.size()) {
                 for (const auto &param : params_) {
-                    str += '\t' + param->code() + ',' + ' ';
+                    str += param->code() + ',' + ' ';
                 }
                 str.pop_back();
                 str.pop_back(); // Remove last ", "

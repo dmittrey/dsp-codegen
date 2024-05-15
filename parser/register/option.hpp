@@ -7,8 +7,6 @@
 #include "rwmode.hpp"
 #include "format.hpp"
 
-#include "type.hpp"
-
 #include "cpp/type/uint.hpp"
 #include "cpp/type/bool.hpp"
 
