@@ -1,6 +1,6 @@
 #pragma once
 
-#include "type.hpp"
+#include "interface/type.hpp"
 
 using Utility::Type;
 
