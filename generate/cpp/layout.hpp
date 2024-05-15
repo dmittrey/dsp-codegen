@@ -17,7 +17,7 @@ namespace Generate {
 
             res += std::string("// Models\n");
             for (auto model : models_)
-                res += model->code();
+                res += model->code() + '\n';
             
             return res;
         };

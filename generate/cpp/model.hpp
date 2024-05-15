@@ -50,17 +50,19 @@ namespace Generate {
 
         std::string code() const override {
             std::string str;
-            str += name_->code() + '(' + '\n';
+            str += name_->code() + '(';
 
-            for (const auto &param : params_) {
-                str += '\t' + param->code() + ',' + ' ';
+            if (params_.size()) {
+                for (const auto &param : params_) {
+                    str += '\t' + param->code() + ',' + ' ';
+                }
+                str.pop_back();
+                str.pop_back(); // Remove last ", "
             }
-            str.pop_back();
-            str.pop_back(); // Remove last ", "
 
             str += std::string(")") + '{' + '\n';
             //Payload
-            str += std::string("}") + ';';
+            str += std::string("}") + ';' + '\n';
             return str;
         };
     };
