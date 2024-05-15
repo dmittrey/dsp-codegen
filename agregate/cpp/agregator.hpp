@@ -6,6 +6,7 @@
 #include "cpp/model.hpp"
 
 #include "type/struct.hpp"
+#include "type/void.hpp"
 
 using namespace Utility;
 using namespace Generate;
