@@ -5,8 +5,8 @@
 #include "cpp/layout.hpp"
 #include "cpp/model.hpp"
 
-#include "type/struct.hpp"
-#include "type/void.hpp"
+#include "cpp/type/struct.hpp"
+#include "cpp/type/void.hpp"
 
 using namespace Utility;
 using namespace Generate;
@@ -23,7 +23,7 @@ namespace Agregate {
             CppLayout layout;
 
             for (const auto& reg : vec) {
-                auto sname = CppRVal{Struct(), reg.name};
+                auto sname = CppRVal{Types::make_struct(), reg.name};
 
                 auto sdecl = new CppDecl(sname);
                 layout.add_model(sdecl); // Decl before function that use sname
@@ -36,7 +36,7 @@ namespace Agregate {
                     s->field_add(field);
 
                     // Option modifier
-                    CppRVal sfname = {Void(), reg.name + '_' + 's' + '_' + opt.name};
+                    CppRVal sfname = {Types::make_void(), reg.name + '_' + 's' + '_' + opt.name};
                     auto sf = new CppFunction{sfname};
                     layout.add_model(sf);
 

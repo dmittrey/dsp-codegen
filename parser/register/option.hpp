@@ -7,10 +7,13 @@
 #include "rwmode.hpp"
 #include "format.hpp"
 
-#include "type/uint.hpp"
-#include "type/bool.hpp"
+#include "type.hpp"
+
+#include "cpp/type/uint.hpp"
+#include "cpp/type/bool.hpp"
 
 using namespace Utility;
+using namespace Generate;
 
 namespace Parser {
 
@@ -24,15 +27,15 @@ namespace Parser {
         Type type() const {
             uint64_t size = bit_range.second - bit_range.first + 1; // [4; 8] = 5bits 
             if (size == 1) 
-                return Bool();
+                return Types::make_bool();
             else if (size <= 8)
-                return Uint8();
+                return Types::make_uint8();
             else if (size <= 16)
-                return Uint16();
+                return Types::make_uint16();
             else if (size <= 32)
-                return Uint32();
+                return Types::make_uint32();
             else
-                return Uint64();
+                return Types::make_uint64();
         }
 
         void dump() const {
