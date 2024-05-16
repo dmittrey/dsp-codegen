@@ -19,10 +19,10 @@ namespace Generate {
     struct RVal : Model {
     public:
         const Type type;
-        const std::string name;
+        const std::optional<std::string> name; // Anon structures if possible
 
     protected:
-        RVal(const Type& type, const std::string& name) : type(type), name(name) { 
+        RVal(const Type& type, const std::optional<std::string>& name) : type(type), name(name) { 
             if (type.header.has_value())
                 headers_.push_back(type.header.value());
         }

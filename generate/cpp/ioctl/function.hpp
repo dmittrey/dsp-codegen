@@ -23,7 +23,7 @@ namespace Generate {
             return std::string("ioctl") + '(' 
                     + "fd" + ',' + ' ' 
                     + ioctl_macro_ + ',' + ' ' 
-                    + (self_arg_.has_value() ? self_arg_->name : "")
+                    + (self_arg_.has_value() ? self_arg_->name.value_or("") : "")
                     + ')' + ';' + '\n';
         }
     };
