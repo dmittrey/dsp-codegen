@@ -4,16 +4,16 @@
 
 namespace Generate {
 
-    namespace Types {
+    namespace Cpp {
 
-        namespace Cpp {
+        namespace Types {
             
             Utility::Type make_empty() {
                 return {""};
             }
 
-        }; /* Cpp */
+        }; /* Types */
 
-    }; /* Types */
+    }; /* Cpp */
 
 }; /* Generate */

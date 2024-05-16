@@ -4,9 +4,9 @@
 
 namespace Generate {
 
-    namespace Types {
+    namespace Cpp {
 
-        namespace Cpp {
+        namespace Types {
 
             Utility::Type make_uint(const std::string &name) {
                 return Type{name, "cstdint"};
@@ -28,8 +28,8 @@ namespace Generate {
                 return make_uint("uint64_t");
             }
 
-        }; /* Cpp */
+        }; /* Types */
 
-    }; /* Types */
+    }; /* Cpp */
 
 }; /* Generate */

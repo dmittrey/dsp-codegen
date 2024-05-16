@@ -4,16 +4,16 @@
 
 namespace Generate {
 
-    namespace Types {
+    namespace Cpp {
 
-        namespace Cpp {
+        namespace Types {
 
             Utility::Type make_bool() {
                 return {"bool"};
             }
 
-        }; /* Cpp */
+        }; /* Types */
 
-    }; /* Types */
+    }; /* Cpp */
 
 }; /* Generate */
