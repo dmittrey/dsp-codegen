@@ -1,16 +1,13 @@
 #pragma once
 
-#include <string>
-#include <vector>
-#include <iostream>
-
 #include "generic/layout.hpp"
 
 namespace Generate {
 
     struct CppLayout final : Layout {
-        std::string render() const override {
+        std::string render() override {
             std::string res;
+            prepare();
             res += std::string("// Headers\n");
             for (auto header : headers_)
                 res += "#include <" + header + '>' + '\n';

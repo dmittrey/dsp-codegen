@@ -13,7 +13,7 @@ namespace Generate {
         const std::unique_ptr<std::ostream> out_;
 
     public:
-        void serialize(const ILayout& layout) const override {
+        void serialize(ILayout& layout) const override {
             *out_ << layout.render() << std::endl;
         }
 

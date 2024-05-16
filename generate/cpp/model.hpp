@@ -9,15 +9,7 @@ namespace Generate {
         CppRVal(const Type& type, const std::string& name) : RVal(type, name) {}
 
         std::string code() const override {
-            return type_->name + " " + name_;
-        }
-    };
-
-    struct CppDecl final : Decl {
-        CppDecl(const CppRVal& name) : Decl(std::make_unique<CppRVal>(name)) {}
-
-        std::string code() const override {
-            return name_->code() + ';' + '\n';
+            return type.name + " " + name;
         }
     };
 
@@ -45,7 +37,7 @@ namespace Generate {
         };
     };
 
-    struct CppFunction final : Function {
+    struct CppFunction : Function {
         CppFunction(const CppRVal& name) : Function(std::make_unique<CppRVal>(name)) {}
 
         CppFunction& param_add(const RVal& param) override {
@@ -69,7 +61,7 @@ namespace Generate {
             }
 
             str += std::string(")") + '{' + '\n';
-            //Payload
+            str += '\t' + payload();
             str += std::string("}") + ';' + '\n';
             return str;
         };

@@ -4,7 +4,7 @@
 
 #include "interface/type.hpp"
 
-using namespace Utility;
+using Utility::Type;
 
 namespace Generate {
 
@@ -17,29 +17,20 @@ namespace Generate {
     };
 
     struct RVal : Model {
-    protected:
-        std::unique_ptr<Type> type_;
-        std::string name_;
+    public:
+        const Type type;
+        const std::string name;
 
     protected:
-        RVal(const RVal& obj) : RVal(*obj.type_, obj.name_) {} 
-        RVal(const Type& type, const std::string& name) : type_(std::make_unique<Type>(type)), name_(name) { 
-            if (type_->header.has_value())
-                headers_.push_back(type_->header.value());
+        RVal(const Type& type, const std::string& name) : type(type), name(name) { 
+            if (type.header.has_value())
+                headers_.push_back(type.header.value());
         }
-    };
-
-    struct Decl : Model {
-    protected:
-        std::unique_ptr<RVal> name_;
-
-    protected:
-        Decl(std::unique_ptr<RVal> name) : name_(std::move(name)) { }
     };
 
     struct Structure : Model {
     protected:
-        std::unique_ptr<RVal> name_;
+        const std::unique_ptr<RVal> name_;
         std::vector<std::unique_ptr<RVal>> fields_ = {};
     
     public:
@@ -54,7 +45,7 @@ namespace Generate {
 
     struct Function : public Model {
     protected:
-        std::unique_ptr<RVal> name_;
+        const std::unique_ptr<RVal> name_;
         std::vector<std::unique_ptr<RVal>> params_ = {};
 
     public:
@@ -65,6 +56,9 @@ namespace Generate {
             const auto& tmp = name_->headers();
             headers_.insert(headers_.end(), tmp.begin(), tmp.end());
         }
+    
+    protected:
+        virtual const std::string payload() const = 0;
     };
 
 }; /* Generate */

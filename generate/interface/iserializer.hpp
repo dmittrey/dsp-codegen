@@ -2,12 +2,11 @@
 
 #include "ilayout.hpp"
 
-/* RAII for render layouts */
-
 namespace Generate {
 
+    /* Abstraction to render layouts */
     struct ISerializer {
-        virtual void serialize(const ILayout& layout) const = 0;
+        virtual void serialize(ILayout& layout) const = 0;
         virtual ~ISerializer() {};
     };
 
