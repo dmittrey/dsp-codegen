@@ -9,9 +9,9 @@ namespace Generate {
     namespace Types {
 
         namespace Cpp {
-
-            Type make_struct() {
-                return {"struct"};
+            
+            Type make_empty() {
+                return {""};
             }
 
         }; /* Cpp */

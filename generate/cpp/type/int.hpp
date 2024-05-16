@@ -10,8 +10,8 @@ namespace Generate {
 
         namespace Cpp {
 
-            Type make_struct() {
-                return {"struct"};
+            Type make_int() {
+                return {"int"};
             }
 
         }; /* Cpp */

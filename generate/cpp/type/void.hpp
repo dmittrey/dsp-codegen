@@ -8,9 +8,13 @@ namespace Generate {
 
     namespace Types {
 
-        Type make_void() {
-            return {"void"};
-        }
+        namespace Cpp {
+
+            Type make_void() {
+                return {"void"};
+            }
+
+        }; /* Cpp */
 
     }; /* Types */
 

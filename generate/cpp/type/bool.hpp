@@ -8,9 +8,13 @@ namespace Generate {
 
     namespace Types {
 
-        Type make_bool() {
-            return {"bool"};
-        }
+        namespace Cpp {
+
+            Type make_bool() {
+                return {"bool"};
+            }
+
+        }; /* Cpp */
 
     }; /* Types */
 
