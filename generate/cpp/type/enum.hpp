@@ -2,15 +2,13 @@
 
 #include "interface/type.hpp"
 
-using Utility::Type;
-
 namespace Generate {
 
     namespace Types {
 
         namespace Cpp {
 
-            Type make_enum() {
+            Utility::Type make_enum() {
                 return {"enum"};
             }
 

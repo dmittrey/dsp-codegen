@@ -2,15 +2,13 @@
 
 #include "interface/type.hpp"
 
-using Utility::Type;
-
 namespace Generate {
 
     namespace Types {
 
         namespace Cpp {
 
-            Type make_int() {
+            Utility::Type make_int() {
                 return {"int"};
             }
 

@@ -2,15 +2,13 @@
 
 #include "interface/type.hpp"
 
-using Utility::Type;
-
 namespace Generate {
 
     namespace Types {
 
         namespace Cpp {
 
-            Type make_bool() {
+            Utility::Type make_bool() {
                 return {"bool"};
             }
 
