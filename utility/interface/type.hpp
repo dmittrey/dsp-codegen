@@ -1,13 +1,7 @@
-/*
-    Share same types with parse and generate modules to compatible interface
-*/
 #pragma once
 
 #include <string>
-#include <vector>
 #include <optional>
-
-/* TODO Types oriented on c++ specific, need to fix later */
 
 namespace Utility {
 
