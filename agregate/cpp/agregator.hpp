@@ -38,28 +38,32 @@ namespace Agregate {
             layout.add_model(e);
 
             for (const auto& reg : regs_) {
+                layout.add_model(new CppComment(reg.description));
                 auto s = new CppStructure{{Types::make_struct(), reg.name}};
                 layout.add_model(s);
 
                 for (const auto& opt : reg.options) {
                     auto opt_type = option_type(opt);
 
-                    CppRVal opt_field = {opt_type, opt.name};
+                    CppStructure::Field opt_field = {opt_type, opt.name, opt.size()};
                     s->field_add(opt_field);
 
                     // Option modifier
                     // Later... Need to move to Base, delete all methods and use derived CppBool
                     auto sf = new IoctlCppFunction{{Types::make_void(), reg.name + '_' + "s" + '_' + opt.name}, 
                                                     std::string("IOCTL_") + "S_" + opt.name, opt_field};
-                    e->field_add(CppRVal{Types::make_empty(), std::string("IOCTL_") + "S_" + opt.name});
+                    e->field_add({Types::make_empty(), std::string("IOCTL_") + "S_" + opt.name});
                     layout.add_model(sf);
 
                     // Option getter
                     auto gf = new IoctlCppFunction{{opt_type, reg.name + '_' + "g" + '_' + opt.name},
                                                     std::string("IOCTL_") + "G_" + opt.name};
-                    e->field_add(CppRVal{Types::make_empty(), std::string("IOCTL_") + "G_" + opt.name});
+                    e->field_add({Types::make_empty(), std::string("IOCTL_") + "G_" + opt.name});
                     layout.add_model(gf);
                 }
+
+                auto extra = 32 - s->size;
+                s->field_add({Types::make_uint32(), "align", extra});
             }
 
             serializer_->serialize(layout);

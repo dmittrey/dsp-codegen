@@ -18,9 +18,11 @@ enum {
 	 IOCTL_G_prelight_mode;
 };
 
+/* Flash command */
 struct ISP_FLASH_CMD {
-	uint32_t preflash_on;
-	bool flash_on;
+	uint32_t preflash_on:25;
+	bool flash_on:1;
+	uint32_t extra:6;
 };
 
 void ISP_FLASH_CMD_s_preflash_on(uint32_t preflash_on){
@@ -28,7 +30,7 @@ void ISP_FLASH_CMD_s_preflash_on(uint32_t preflash_on){
 };
 
 uint32_t ISP_FLASH_CMD_g_preflash_on(){
-	ioctl(fd, IOCTL_G_preflash_on, );
+	ioctl(fd, IOCTL_G_preflash_on);
 };
 
 void ISP_FLASH_CMD_s_flash_on(bool flash_on){
@@ -36,15 +38,17 @@ void ISP_FLASH_CMD_s_flash_on(bool flash_on){
 };
 
 bool ISP_FLASH_CMD_g_flash_on(){
-	ioctl(fd, IOCTL_G_flash_on, );
+	ioctl(fd, IOCTL_G_flash_on);
 };
 
+/* Flash config */
 struct ISP_FLASH_CONFIG {
-	uint8_t fl_cap_delay;
-	bool fl_trig_src;
-	bool fl_pol;
-	bool fl_trig_pol;
-	bool prelight_mode;
+	uint8_t fl_cap_delay:4;
+	bool fl_trig_src:1;
+	bool fl_pol:1;
+	bool fl_trig_pol:1;
+	bool prelight_mode:1;
+	uint32_t extra:24;
 };
 
 void ISP_FLASH_CONFIG_s_fl_cap_delay(uint8_t fl_cap_delay){
@@ -52,7 +56,7 @@ void ISP_FLASH_CONFIG_s_fl_cap_delay(uint8_t fl_cap_delay){
 };
 
 uint8_t ISP_FLASH_CONFIG_g_fl_cap_delay(){
-	ioctl(fd, IOCTL_G_fl_cap_delay, );
+	ioctl(fd, IOCTL_G_fl_cap_delay);
 };
 
 void ISP_FLASH_CONFIG_s_fl_trig_src(bool fl_trig_src){
@@ -60,7 +64,7 @@ void ISP_FLASH_CONFIG_s_fl_trig_src(bool fl_trig_src){
 };
 
 bool ISP_FLASH_CONFIG_g_fl_trig_src(){
-	ioctl(fd, IOCTL_G_fl_trig_src, );
+	ioctl(fd, IOCTL_G_fl_trig_src);
 };
 
 void ISP_FLASH_CONFIG_s_fl_pol(bool fl_pol){
@@ -68,7 +72,7 @@ void ISP_FLASH_CONFIG_s_fl_pol(bool fl_pol){
 };
 
 bool ISP_FLASH_CONFIG_g_fl_pol(){
-	ioctl(fd, IOCTL_G_fl_pol, );
+	ioctl(fd, IOCTL_G_fl_pol);
 };
 
 void ISP_FLASH_CONFIG_s_fl_trig_pol(bool fl_trig_pol){
@@ -76,7 +80,7 @@ void ISP_FLASH_CONFIG_s_fl_trig_pol(bool fl_trig_pol){
 };
 
 bool ISP_FLASH_CONFIG_g_fl_trig_pol(){
-	ioctl(fd, IOCTL_G_fl_trig_pol, );
+	ioctl(fd, IOCTL_G_fl_trig_pol);
 };
 
 void ISP_FLASH_CONFIG_s_prelight_mode(bool prelight_mode){
@@ -84,7 +88,7 @@ void ISP_FLASH_CONFIG_s_prelight_mode(bool prelight_mode){
 };
 
 bool ISP_FLASH_CONFIG_g_prelight_mode(){
-	ioctl(fd, IOCTL_G_prelight_mode, );
+	ioctl(fd, IOCTL_G_prelight_mode);
 };
 
 

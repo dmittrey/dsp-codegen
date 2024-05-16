@@ -16,6 +16,12 @@ namespace Generate {
         const std::vector<std::string>& headers() const & override { return headers_; }
     };
 
+    struct Comment : Model {
+        const std::string text;
+
+        Comment(const std::string& text) : text(text) {}
+    };
+
     struct RVal : Model {
     public:
         const Type type;
@@ -32,9 +38,6 @@ namespace Generate {
     protected:
         const std::unique_ptr<RVal> name_;
         std::vector<std::unique_ptr<RVal>> fields_ = {};
-    
-    public:
-        virtual Structure& field_add(const RVal& field) = 0;
 
     protected:
         Structure(std::unique_ptr<RVal> name) : name_(std::move(name)) {

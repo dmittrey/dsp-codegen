@@ -13,7 +13,7 @@ namespace Generate {
         IoctlCppFunction(const CppRVal& name, const std::string& ioctl_macro) : 
                             CppFunction(name), ioctl_macro_(ioctl_macro), self_arg_(std::nullopt) {}
 
-        IoctlCppFunction(const CppRVal& name, const std::string& ioctl_macro, const CppRVal& self_arg) : 
+    IoctlCppFunction(const CppRVal& name, const std::string& ioctl_macro, const CppRVal& self_arg) : 
                             CppFunction(name), ioctl_macro_(ioctl_macro), self_arg_(self_arg) {
             param_add(self_arg);
         }
@@ -22,8 +22,8 @@ namespace Generate {
         const std::string payload() const override {
             return std::string("ioctl") + '(' 
                     + "fd" + ',' + ' ' 
-                    + ioctl_macro_ + ',' + ' ' 
-                    + (self_arg_.has_value() ? self_arg_->name.value_or("") : "")
+                    + ioctl_macro_ 
+                    + (self_arg_.has_value() ? std::string(",") + " " + self_arg_->name.value_or("") : "")
                     + ')' + ';' + '\n';
         }
     };
