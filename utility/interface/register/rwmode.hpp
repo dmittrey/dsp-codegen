@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Parser {
+namespace Utility {
 
     enum RWMode {
         RO,
@@ -8,4 +8,4 @@ namespace Parser {
         RW,
     };
 
-}; /* Parser */
+}; /* Utility */

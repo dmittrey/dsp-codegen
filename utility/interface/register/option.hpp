@@ -5,7 +5,7 @@
 
 #include "format.hpp"
 
-namespace Parser {
+namespace Utility {
 
     struct Option final {
         std::string name;
@@ -26,4 +26,4 @@ namespace Parser {
         }
     };
 
-}; /* Parser */
+}; /* Utility */

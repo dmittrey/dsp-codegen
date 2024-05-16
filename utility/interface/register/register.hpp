@@ -5,7 +5,7 @@
 #include "option.hpp"
 #include "rwmode.hpp"
 
-namespace Parser {
+namespace Utility {
 
     struct Register final {
         std::string name;
@@ -28,4 +28,4 @@ namespace Parser {
         }
     };
 
-}; /* Parser */
+}; /* Utility */

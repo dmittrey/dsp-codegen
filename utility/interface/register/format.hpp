@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Parser {
+namespace Utility {
     
     enum Format {
         HEX_UNSIGNED = 0,
@@ -11,4 +11,4 @@ namespace Parser {
         FP_TWOS_COMPLEMENT, /* t4q3 */
     };
 
-}; /* Parser */
+}; /* Utility */
