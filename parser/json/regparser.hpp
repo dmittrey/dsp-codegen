@@ -10,15 +10,16 @@
 
 namespace Parser {
 
+	//TODO Add parsing exceptions
     struct JsonRegParser final : IRegParser {
     private:
-        const std::unique_ptr<std::ifstream> ifstreamp;
         std::vector<Register> vec = {};
     
     public:
-        JsonRegParser(const std::string &fname) : ifstreamp(std::make_unique<std::ifstream>(fname)) {
+        JsonRegParser(const std::string &fname) {
+			std::ifstream istream{fname};
 			Json::Value root;
-			*ifstreamp >> root;
+			istream >> root;
 			vec = parse_register_vec(root["registers"]);
 		}
     
@@ -96,6 +97,8 @@ namespace Parser {
 
 			o.name = val["name"].asString();
 			o.description = val["description"].asString();
+
+			// TODO Add validation of no interact between ranges and max >= min
 			o.bit_range.first = val["range"]["min"].asUInt();
 			o.bit_range.second = val["range"]["max"].asUInt();
 			return o;

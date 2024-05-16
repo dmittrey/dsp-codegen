@@ -21,8 +21,6 @@ FetchContent_MakeAvailable(jsoncpp)
 
 add_library(${PROJECT_NAME} INTERFACE)
 
-target_compile_definitions(${PROJECT_NAME} INTERFACE
-  $<$<CONFIG:Debug>:DEBUG_LEX=1>)
 target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_20)
 
 target_link_libraries(${PROJECT_NAME} INTERFACE jsoncpp_static)
