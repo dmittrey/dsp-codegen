@@ -8,6 +8,8 @@
 
 #include "interface/iregparser.hpp"
 
+using namespace Utility;
+
 namespace Parser {
 
 	//TODO Add parsing exceptions
