@@ -1,6 +1,6 @@
 #pragma once
 
-#include "generic/model.hpp"
+#include "generic/model/model.hpp"
 
 namespace Generate {
 
@@ -9,7 +9,7 @@ namespace Generate {
         std::vector<std::string> headers_ = {};
 
     public:
-        std::string name;
+        const std::string name;
 
     public:
         Type(const std::string& name) :  name(name) {}

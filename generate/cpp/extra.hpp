@@ -2,7 +2,7 @@
 
 /* Header for extra language entities */
 
-#include "structure.hpp"
+#include "model/structure.hpp"
 
 #include "type/type.hpp"
 

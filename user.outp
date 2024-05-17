@@ -1,5 +1,6 @@
 // Headers
 #include <cstdint>
+#include <sys/ioctl.h>
 // Models
 /* Flash command */
 struct ISP_FLASH_CMD{

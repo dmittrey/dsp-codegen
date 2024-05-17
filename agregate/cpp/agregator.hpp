@@ -4,9 +4,9 @@
 #include "interface/iregparser.hpp"
 
 #include "cpp/layout.hpp"
-#include "cpp/comment.hpp"
-#include "cpp/structure.hpp"
-#include "cpp/function.hpp"
+#include "cpp/model/comment.hpp"
+#include "cpp/model/structure.hpp"
+#include "cpp/model/function.hpp"
 #include "cpp/extra.hpp"
 
 #include "cpp/ioctl/function.hpp"

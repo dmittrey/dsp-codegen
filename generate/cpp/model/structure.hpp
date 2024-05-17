@@ -1,6 +1,6 @@
 #pragma once
 
-#include "generic/structure.hpp"
+#include "generic/model/structure.hpp"
 
 #include "rval.hpp"
 
@@ -13,14 +13,14 @@ namespace Generate {
     public:
         CppStructure(const Type &type, const std::optional<std::string> &name) : Structure(type, name) {}
 
-        uint64_t size() { return size_; }
+        using Structure::field_add; // Add parent method to use for IModel
 
-        using Structure::field_add;
         CppStructure& field_add(const CppRVal& field) & {
             Structure::field_add(std::make_unique<CppRVal>(field));
-            size_ += field.size();
+            size_ += field.size;
             return *this;
         }
+        uint64_t size() { return size_; }
 
     public:
         std::string code() const override {

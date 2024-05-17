@@ -12,7 +12,7 @@ namespace Generate {
         std::vector<std::string> headers_ = {};
     
     public:
-        const std::vector<std::string>& headers() const & override { return headers_; }
+        const std::vector<std::string>& headers() const & override { return headers_; } // Const prevent edit in consumer
     };
 
 }; /* Generate */
