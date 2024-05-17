@@ -8,7 +8,7 @@ namespace Generate {
 
         namespace Types {
 
-            Utility::Type make_int() {
+            Type make_int() {
                 return {"int"};
             }
 

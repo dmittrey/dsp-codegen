@@ -2,7 +2,7 @@
 
 /* Header for extra language entities */
 
-#include "model.hpp"
+#include "structure.hpp"
 
 #include "type/type.hpp"
 
@@ -13,7 +13,7 @@ namespace Generate {
     namespace Cpp {
 
         CppStructure* make_anon_enum() {
-            return new CppStructure{CppRVal{Types::make_enum(), std::nullopt}};
+            return new CppStructure{Types::make_enum(), std::nullopt};
         }
 
     }; /* Cpp */

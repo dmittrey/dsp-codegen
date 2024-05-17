@@ -8,7 +8,7 @@ namespace Generate {
 
         namespace Types {
             
-            Utility::Type make_empty() {
+            Type make_empty() {
                 return {""};
             }
 

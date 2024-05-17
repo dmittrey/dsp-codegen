@@ -1,0 +1,20 @@
+// Headers
+// Models
+enum {
+	 IOCTL_S_preflash_on;
+	 IOCTL_G_preflash_on;
+	 IOCTL_S_flash_on;
+	 IOCTL_G_flash_on;
+	 IOCTL_S_fl_cap_delay;
+	 IOCTL_G_fl_cap_delay;
+	 IOCTL_S_fl_trig_src;
+	 IOCTL_G_fl_trig_src;
+	 IOCTL_S_fl_pol;
+	 IOCTL_G_fl_pol;
+	 IOCTL_S_fl_trig_pol;
+	 IOCTL_G_fl_trig_pol;
+	 IOCTL_S_prelight_mode;
+	 IOCTL_G_prelight_mode;
+};
+
+

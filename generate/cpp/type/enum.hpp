@@ -8,7 +8,7 @@ namespace Generate {
 
         namespace Types {
 
-            Utility::Type make_enum() {
+            Type make_enum() {
                 return {"enum"};
             }
 

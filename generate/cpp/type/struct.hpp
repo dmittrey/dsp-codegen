@@ -8,7 +8,7 @@ namespace Generate {
 
         namespace Types {
 
-            Utility::Type make_struct() {
+            Type make_struct() {
                 return {"struct"};
             }
 

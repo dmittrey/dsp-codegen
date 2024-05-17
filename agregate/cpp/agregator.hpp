@@ -2,9 +2,11 @@
 
 #include "interface/agregator.hpp"
 #include "interface/iregparser.hpp"
-#include "interface/iserializer.hpp"
 
 #include "cpp/layout.hpp"
+#include "cpp/comment.hpp"
+#include "cpp/structure.hpp"
+#include "cpp/function.hpp"
 #include "cpp/extra.hpp"
 
 #include "cpp/ioctl/function.hpp"
@@ -22,51 +24,51 @@ namespace Agregate {
     struct CppAgregator final : IAgregator {
     private:
         const std::unique_ptr<IRegParser> parser_;
-        const std::unique_ptr<ISerializer> serializer_;
 
     public:
-        CppAgregator(std::unique_ptr<IRegParser> &parser, 
-                    std::unique_ptr<ISerializer> &serializer) : 
-                        parser_(std::move(parser)), serializer_(std::move(serializer)) {}
+        CppAgregator(std::unique_ptr<IRegParser> &parser) : parser_(std::move(parser)) {}
 
-        void process() const override {
+        void process(std::unique_ptr<ISerializer> &user, std::unique_ptr<ISerializer> &ioctl) const override {
             auto regs_ = parser_->registers();
 
             CppLayout layout;
+            CppLayout ioctl_layout;
 
             auto e = make_anon_enum();
-            layout.add_model(e);
+            ioctl_layout.add_model(e);
 
             for (const auto& reg : regs_) {
                 layout.add_model(new CppComment(reg.description));
-                auto s = new CppStructure{{Types::make_struct(), reg.name}};
+                auto s = new CppStructure{Types::make_struct(), reg.name};
                 layout.add_model(s);
 
                 for (const auto& opt : reg.options) {
                     auto opt_type = option_type(opt);
 
-                    CppStructure::Field opt_field = {opt_type, opt.name, opt.size()};
-                    s->field_add(opt_field);
+                    s->field_add(std::make_unique<CppComment>(opt.description)); // :((((((
+                    s->field_add({opt_type, opt.name, opt.size()});
 
                     // Option modifier
                     // Later... Need to move to Base, delete all methods and use derived CppBool
-                    auto sf = new IoctlCppFunction{{Types::make_void(), reg.name + '_' + "s" + '_' + opt.name}, 
-                                                    std::string("IOCTL_") + "S_" + opt.name, opt_field};
+                    auto opt_param = CppRVal{opt_type, opt.name};
+                    auto sf = new IoctlCppFunction{Types::make_void(), reg.name + '_' + "s" + '_' + opt.name, 
+                                                    std::string("IOCTL_") + "S_" + opt.name, opt_param};
                     e->field_add({Types::make_empty(), std::string("IOCTL_") + "S_" + opt.name});
                     layout.add_model(sf);
 
                     // Option getter
-                    auto gf = new IoctlCppFunction{{opt_type, reg.name + '_' + "g" + '_' + opt.name},
+                    auto gf = new IoctlCppFunction{opt_type, reg.name + '_' + "g" + '_' + opt.name,
                                                     std::string("IOCTL_") + "G_" + opt.name};
                     e->field_add({Types::make_empty(), std::string("IOCTL_") + "G_" + opt.name});
                     layout.add_model(gf);
                 }
 
-                auto extra = 32 - s->size;
+                auto extra = 32 - s->size();
                 s->field_add({Types::make_uint32(), "align", extra});
             }
 
-            serializer_->serialize(layout);
+            user->serialize(layout);
+            ioctl->serialize(ioctl_layout);
         }
 
     private:

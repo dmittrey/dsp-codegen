@@ -8,7 +8,7 @@ namespace Generate {
 
         namespace Types {
 
-            Utility::Type make_bool() {
+            Type make_bool() {
                 return {"bool"};
             }
 
