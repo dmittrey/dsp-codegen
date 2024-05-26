@@ -29,8 +29,8 @@ LATER...
 
 int main() {
   std::unique_ptr<IRegParser> parser = make_json_regparser("parser/regtest.json");
-  std::unique_ptr<ISerializer> serializer = std::make_unique<FileSerializer>("user.outp");
-  std::unique_ptr<ISerializer> serializer_ioctl = std::make_unique<FileSerializer>("ioctl.outp");
+  std::unique_ptr<ISerializer> serializer = make_file_serializer("user.outp");
+  std::unique_ptr<ISerializer> serializer_ioctl = make_file_serializer("ioctl.outp");
   
   process_userspace(parser->registers(), serializer);
   process_ioctl_enum(parser->registers(), serializer_ioctl);

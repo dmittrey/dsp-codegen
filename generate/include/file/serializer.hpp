@@ -1,11 +1,9 @@
 #pragma once
 
-#include "syntax/generic/serializer.hpp"
+#include "syntax/interface/iserializer.hpp"
 
 namespace Generate {
 
-    struct FileSerializer final : Serializer {
-        FileSerializer(const std::string &fname) : Serializer(std::make_unique<std::ofstream>(fname)) {};
-    };
+    std::unique_ptr<ISerializer> make_file_serializer(const std::string& fname);
 
 }; /* Generate */

@@ -8,7 +8,7 @@
 
 namespace Generate {
 
-    struct Serializer : ISerializer {
+    struct Serializer final : ISerializer {
     protected:
         const std::unique_ptr<std::ostream> out_;
 
@@ -17,7 +17,6 @@ namespace Generate {
             *out_ << layout.render() << std::endl;
         }
 
-    protected:
         Serializer(std::unique_ptr<std::ostream> out) : out_(std::move(out)) {}
     };
 
