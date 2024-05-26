@@ -13,14 +13,11 @@ FetchContent_GetProperties(jsoncpp)
 if (NOT jsoncpp_POPULATED)
     FetchContent_Populate(jsoncpp)
     add_subdirectory(${jsoncpp_SOURCE_DIR} ${jsoncpp_BINARY_DIR})
-    message(${jsoncpp_SOURCE_DIR})
-    message(${jsoncpp_BINARY_DIR})
 endif ()
 
 FetchContent_MakeAvailable(jsoncpp)
 
 file(GLOB_RECURSE SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
-
 add_library(${PROJECT_NAME} STATIC ${SRC_FILES})
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)

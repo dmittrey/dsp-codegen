@@ -1,6 +1,6 @@
 #pragma once
 
-#include "interface/iregparser.hpp"
+#include "iregparser.hpp"
 
 namespace Parser {
 

@@ -4,8 +4,7 @@ project(portable-isp)
 set(LIBS
         parser
         utility
-        generate
-        agregate)
+        generate)
 
 foreach(elem ${LIBS})
     add_subdirectory(${elem})
@@ -14,4 +13,3 @@ endforeach()
 add_executable(${PROJECT_NAME} main.cc)
 target_link_libraries(${PROJECT_NAME} PRIVATE parser)
 target_link_libraries(${PROJECT_NAME} PRIVATE generate)
-target_link_libraries(${PROJECT_NAME} PRIVATE agregate)

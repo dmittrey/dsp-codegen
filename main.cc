@@ -1,4 +1,4 @@
-#include "cpp/agregator.hpp"
+#include "agregate/interface.hpp"
 
 #include "file/serializer.hpp"
 
@@ -6,8 +6,6 @@
 
 using namespace Generate;
 using namespace Parser;
-
-using namespace Agregate;
 
 /*
 
@@ -34,6 +32,6 @@ int main() {
   std::unique_ptr<ISerializer> serializer = std::make_unique<FileSerializer>("user.outp");
   std::unique_ptr<ISerializer> serializer_ioctl = std::make_unique<FileSerializer>("ioctl.outp");
   
-  CppAgregator agr = {parser};
-  agr.process(serializer, serializer_ioctl);
+  process_userspace(parser->registers(), serializer);
+  process_ioctl_enum(parser->registers(), serializer_ioctl);
 }
