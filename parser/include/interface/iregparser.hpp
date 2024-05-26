@@ -1,6 +1,6 @@
 #pragma once
 
-#include "interface/register/register.hpp"
+#include "register/register.hpp"
 
 namespace Parser {
 

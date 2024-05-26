@@ -19,10 +19,14 @@ endif ()
 
 FetchContent_MakeAvailable(jsoncpp)
 
-add_library(${PROJECT_NAME} INTERFACE)
+file(GLOB_RECURSE SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
-target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_20)
+add_library(${PROJECT_NAME} STATIC ${SRC_FILES})
 
-target_link_libraries(${PROJECT_NAME} INTERFACE jsoncpp_static)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 
-target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_link_libraries(${PROJECT_NAME} PRIVATE jsoncpp_static)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(${PROJECT_NAME} PUBLIC utility)

@@ -1,36 +1,32 @@
-#pragma once
-
-#include <iostream>
-#include <fstream>
 #include <regex>
+#include <fstream>
 
 #include <json/json.h>
 
-#include "interface/iregparser.hpp"
+#include "json/regparser.hpp"
 
 using namespace Utility;
 
 namespace Parser {
 
-	//TODO Add parsing exceptions
     struct JsonRegParser final : IRegParser {
-    private:
-        std::vector<Register> vec = {};
-    
-    public:
-        JsonRegParser(const std::string &fname) {
+	private:
+	    std::vector<Register> vec = {};
+
+	public:
+	    JsonRegParser(const std::string &fname) {
 			std::ifstream istream{fname};
 			Json::Value root;
 			istream >> root;
 			vec = parse_register_vec(root["registers"]);
 		}
-    
-    public:
-        const std::vector<Register>& registers() const & override { return vec; }
-        void print() const {
-            for (const auto& reg : vec)
-                reg.dump();
-        }
+	
+	public:
+	    const std::vector<Register>& registers() const & override { return vec; }
+	    void print() const {
+	        for (const auto& reg : vec)
+	            reg.dump();
+	    }
 
 	private:
 		static std::vector<Register> parse_register_vec(const Json::Value& val) {
@@ -77,7 +73,7 @@ namespace Parser {
 			std::regex signed_r("s(\\d+)q(\\d+)");
 			std::regex unsigned_r("u(\\d+)q(\\d+)");
 
-    		std::smatch result;
+	    	std::smatch result;
 
 			Option o;
 
@@ -105,6 +101,10 @@ namespace Parser {
 			o.bit_range.second = val["range"]["max"].asUInt();
 			return o;
 		}
-    };
+	};
+
+    std::unique_ptr<IRegParser> make_json_regparser(const std::string& fname) {
+        return std::make_unique<JsonRegParser>(fname);
+    }
 
 } /* Parser */
