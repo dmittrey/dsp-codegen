@@ -16,7 +16,7 @@ namespace Generate {
         using Structure::field_add; // Add parent method to use for IModel
 
         CppStructure& field_add(const CppRVal& field) & {
-            Structure::field_add(std::make_unique<CppRVal>(field));
+            Structure::field_add<CppRVal>(field);
             size_ += field.size;
             return *this;
         }

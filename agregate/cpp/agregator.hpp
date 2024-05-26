@@ -3,11 +3,12 @@
 #include "interface/agregator.hpp"
 #include "interface/iregparser.hpp"
 
+#include "cpp/extra.hpp"
 #include "cpp/layout.hpp"
+
 #include "cpp/model/comment.hpp"
 #include "cpp/model/structure.hpp"
 #include "cpp/model/function.hpp"
-#include "cpp/extra.hpp"
 
 #include "cpp/ioctl/function.hpp"
 
@@ -45,7 +46,7 @@ namespace Agregate {
                 for (const auto& opt : reg.options) {
                     auto opt_type = option_type(opt);
 
-                    s->field_add(std::make_unique<CppComment>(opt.description)); // :((((((
+                    s->field_add<CppComment>(opt.description); // :((((((
                     s->field_add({opt_type, opt.name, opt.size()});
 
                     // Option modifier
@@ -53,7 +54,7 @@ namespace Agregate {
                     auto opt_param = CppRVal{opt_type, opt.name};
                     auto sf = new IoctlCppFunction{Types::make_void(), reg.name + '_' + "s" + '_' + opt.name, 
                                                     std::string("IOCTL_") + "S_" + opt.name, opt_param};
-                    e->field_add({Types::make_empty(), std::string("IOCTL_") + "S_" + opt.name});
+                    e->field_add({Types::make_empty(), std::string("IOCTL_") + "S_" + reg.name + '_' + opt.name});
                     layout.add_model(sf);
 
                     // Option getter

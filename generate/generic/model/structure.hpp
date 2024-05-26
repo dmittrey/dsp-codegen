@@ -15,9 +15,14 @@ namespace Generate {
             Structure(const Type &type, const std::optional<std::string> &name) : type(type), name(name) {}
 
         protected:
-            Structure& field_add(std::unique_ptr<IModel> field) & { 
-                headers_.insert(headers_.end(), field->headers().begin(), field->headers().end());
-                fields_.emplace_back(std::move(field)); 
+            template<typename T>
+            Structure& field_add(const T& field) & { 
+                static_assert(std::is_base_of<IModel, T>::value, "Field must inherit from IModel");
+                static_assert(!std::is_abstract<T>::value, "T must be non abstract");
+
+
+                headers_.insert(headers_.end(), field.headers().begin(), field.headers().end());
+                fields_.push_back(std::make_unique<T>(field)); 
                 return *this;
             }
     };
