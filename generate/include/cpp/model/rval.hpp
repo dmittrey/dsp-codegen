@@ -1,6 +1,6 @@
 #pragma once
 
-#include "syntax/generic/model/rval.hpp"
+#include "generic/model/rval.hpp"
 
 namespace Generate {
 

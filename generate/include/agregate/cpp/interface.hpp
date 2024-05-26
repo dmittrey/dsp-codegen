@@ -2,7 +2,7 @@
 
 #include "register.hpp"
 
-#include "syntax/interface/iserializer.hpp"
+#include "interface/iserializer.hpp"
 
 namespace Generate {
 

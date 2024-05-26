@@ -10,4 +10,6 @@ namespace Generate {
         virtual ~ISerializer() {};
     };
 
+    std::unique_ptr<ISerializer> make_file_serializer(const std::string& fname);
+
 }; /* Generate */

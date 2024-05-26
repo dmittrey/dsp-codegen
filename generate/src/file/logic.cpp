@@ -1,6 +1,6 @@
-#include "file/serializer.hpp"
+#include "interface/iserializer.hpp"
 
-#include "syntax/generic/serializer.hpp"
+#include "generic/serializer.hpp"
 
 namespace Generate {
 

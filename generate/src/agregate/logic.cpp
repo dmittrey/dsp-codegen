@@ -1,14 +1,14 @@
-#include "agregate/interface.hpp"
+#include "agregate/cpp/interface.hpp"
 
-#include "syntax/cpp/layout.hpp"
-#include "syntax/cpp/extra.hpp"
+#include "cpp/layout.hpp"
+#include "cpp/extra.hpp"
 
-#include "syntax/cpp/model/comment.hpp"
-#include "syntax/cpp/model/function.hpp"
-#include "syntax/cpp/model/rval.hpp"
-#include "syntax/cpp/model/structure.hpp"
+#include "cpp/model/comment.hpp"
+#include "cpp/model/function.hpp"
+#include "cpp/model/rval.hpp"
+#include "cpp/model/structure.hpp"
 
-#include "syntax/cpp/ioctl/function.hpp"
+#include "cpp/ioctl/function.hpp"
 
 using Utility::Register;
 using Utility::Option;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "syntax/interface/type.hpp"
+#include "interface/type.hpp"
 
 namespace Generate {
 

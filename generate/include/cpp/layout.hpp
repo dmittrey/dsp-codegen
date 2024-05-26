@@ -1,6 +1,6 @@
 #pragma once
 
-#include "syntax/generic/layout.hpp"
+#include "generic/layout.hpp"
 
 namespace Generate {
 

@@ -3,7 +3,7 @@
 #include <memory>
 #include <algorithm>
 
-#include "syntax/interface/ilayout.hpp"
+#include "interface/ilayout.hpp"
 
 namespace Generate {
 

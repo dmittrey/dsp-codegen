@@ -1,6 +1,6 @@
 #pragma once
 
-#include "syntax/interface/type.hpp"
+#include "interface/type.hpp"
 
 namespace Generate {
 
@@ -8,8 +8,8 @@ namespace Generate {
 
         namespace Types {
 
-            Type make_enum() {
-                return {"enum"};
+            Type make_struct() {
+                return {"struct"};
             }
 
         }; /* Types */

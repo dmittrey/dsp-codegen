@@ -1,6 +1,6 @@
 #pragma once
 
-#include "syntax/generic/model/structure.hpp"
+#include "generic/model/structure.hpp"
 
 #include "rval.hpp"
 

@@ -1,15 +1,15 @@
 #pragma once
 
-#include "syntax/interface/type.hpp"
+#include "interface/type.hpp"
 
 namespace Generate {
 
     namespace Cpp {
 
         namespace Types {
-            
-            Type make_empty() {
-                return {""};
+
+            Type make_enum() {
+                return {"enum"};
             }
 
         }; /* Types */

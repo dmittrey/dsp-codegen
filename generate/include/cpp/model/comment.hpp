@@ -1,6 +1,6 @@
 #pragma once
 
-#include "syntax/generic/model/comment.hpp"
+#include "generic/model/comment.hpp"
 
 namespace Generate {
 

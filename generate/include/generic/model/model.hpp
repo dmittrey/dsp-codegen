@@ -1,7 +1,7 @@
 #pragma once
 
-#include "syntax/interface/imodel.hpp"
-#include "syntax/interface/type.hpp"
+#include "interface/imodel.hpp"
+#include "interface/type.hpp"
 
 /* Move generic syntax entities to separate headers to not leak strctures and !work with IModel only! */
 

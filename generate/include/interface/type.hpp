@@ -1,6 +1,6 @@
 #pragma once
 
-#include "syntax/generic/model/model.hpp"
+#include "generic/model/model.hpp"
 
 namespace Generate {
 
