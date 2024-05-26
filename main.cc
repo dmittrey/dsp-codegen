@@ -30,7 +30,7 @@ LATER...
 */
 
 int main() {
-  std::unique_ptr<IRegParser> parser = std::make_unique<JsonRegParser>("parser/regtest.json");
+  std::unique_ptr<IRegParser> parser = make_json_regparser("parser/regtest.json");
   std::unique_ptr<ISerializer> serializer = std::make_unique<FileSerializer>("user.outp");
   std::unique_ptr<ISerializer> serializer_ioctl = std::make_unique<FileSerializer>("ioctl.outp");
   
