@@ -9,7 +9,7 @@ namespace Generate {
             const Type type;
             const std::optional<std::string> name; /* Anon structures */
         protected:
-            std::vector<std::unique_ptr<IModel>> fields_ = {}; /* Nested strutures, Comments */
+            std::vector<std::unique_ptr<IModel>> fields_ = {}; /* Nested structures, Comments */
 
         protected:
             Structure(const Type &type, const std::optional<std::string> &name) : type(type), name(name) {}
