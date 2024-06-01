@@ -1,20 +1,20 @@
 // Headers
 // Models
 enum {
-	 IOCTL_S_ISP_FLASH_CMD_preflash_on;
-	 IOCTL_G_ISP_FLASH_CMD_preflash_on;
-	 IOCTL_S_ISP_FLASH_CMD_flash_on;
-	 IOCTL_G_ISP_FLASH_CMD_flash_on;
-	 IOCTL_S_ISP_FLASH_CONFIG_fl_cap_delay;
-	 IOCTL_G_ISP_FLASH_CONFIG_fl_cap_delay;
-	 IOCTL_S_ISP_FLASH_CONFIG_fl_trig_src;
-	 IOCTL_G_ISP_FLASH_CONFIG_fl_trig_src;
-	 IOCTL_S_ISP_FLASH_CONFIG_fl_pol;
-	 IOCTL_G_ISP_FLASH_CONFIG_fl_pol;
-	 IOCTL_S_ISP_FLASH_CONFIG_fl_trig_pol;
-	 IOCTL_G_ISP_FLASH_CONFIG_fl_trig_pol;
-	 IOCTL_S_ISP_FLASH_CONFIG_prelight_mode;
-	 IOCTL_G_ISP_FLASH_CONFIG_prelight_mode;
+	 IOCTL_ISP_FLASH_CMD_S_preflash_on;
+	 IOCTL_ISP_FLASH_CMD_G_preflash_on;
+	 IOCTL_ISP_FLASH_CMD_S_flash_on;
+	 IOCTL_ISP_FLASH_CMD_G_flash_on;
+	 IOCTL_ISP_FLASH_CONFIG_S_fl_cap_delay;
+	 IOCTL_ISP_FLASH_CONFIG_G_fl_cap_delay;
+	 IOCTL_ISP_FLASH_CONFIG_S_fl_trig_src;
+	 IOCTL_ISP_FLASH_CONFIG_G_fl_trig_src;
+	 IOCTL_ISP_FLASH_CONFIG_S_fl_pol;
+	 IOCTL_ISP_FLASH_CONFIG_G_fl_pol;
+	 IOCTL_ISP_FLASH_CONFIG_S_fl_trig_pol;
+	 IOCTL_ISP_FLASH_CONFIG_G_fl_trig_pol;
+	 IOCTL_ISP_FLASH_CONFIG_S_prelight_mode;
+	 IOCTL_ISP_FLASH_CONFIG_G_prelight_mode;
 };
 
 

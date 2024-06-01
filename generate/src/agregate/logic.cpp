@@ -32,10 +32,6 @@ namespace Generate {
 
     void process_userspace(const std::vector<Register>& regs, std::unique_ptr<ISerializer>& out) {
         CppLayout layout;
-        CppLayout ioctl_layout;
-
-        auto e = make_anon_enum();
-        ioctl_layout.add_model(e);
 
         for (const auto& reg : regs) {
             layout.add_model(new CppComment(reg.description));
@@ -53,13 +49,11 @@ namespace Generate {
                 auto opt_param = CppRVal{opt_type, opt.name};
                 auto sf = new IoctlCppFunction{Types::make_void(), reg.name + '_' + "s" + '_' + opt.name, 
                                                 std::string("IOCTL_") + "S_" + opt.name, opt_param};
-                e->field_add({Types::make_empty(), std::string("IOCTL_") + "S_" + reg.name + '_' + opt.name});
                 layout.add_model(sf);
 
                 // Option getter
                 auto gf = new IoctlCppFunction{opt_type, reg.name + '_' + "g" + '_' + opt.name,
                                                 std::string("IOCTL_") + "G_" + opt.name};
-                e->field_add({Types::make_empty(), std::string("IOCTL_") + "G_" + opt.name});
                 layout.add_model(gf);
             }
 
@@ -79,10 +73,10 @@ namespace Generate {
         for (const auto& reg : regs) {
             for (const auto& opt : reg.options) {
                 // Option modifier
-                e->field_add({Types::make_empty(), std::string("IOCTL_") + "S_" + reg.name + '_' + opt.name});
+                e->field_add({Types::make_empty(), std::string("IOCTL") + '_' + reg.name + "_S_" + opt.name});
 
                 // Option getter
-                e->field_add({Types::make_empty(), std::string("IOCTL_") + "G_" + reg.name + '_' + opt.name});
+                e->field_add({Types::make_empty(), std::string("IOCTL") + '_' + reg.name + "_G_" + opt.name});
             }
         }
 
