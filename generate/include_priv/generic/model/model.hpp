@@ -1,7 +1,6 @@
 #pragma once
 
 #include "interface/imodel.hpp"
-#include "interface/type.hpp"
 
 /* Move generic syntax entities to separate headers to not leak strctures and !work with IModel only! */
 

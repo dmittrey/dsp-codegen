@@ -1,4 +1,5 @@
-#include "agregate/cpp/interface.hpp"
+#include "interface/iserializer.hpp"
+#include "register/register.hpp"
 
 #include "cpp/layout.hpp"
 #include "cpp/extra.hpp"
@@ -30,7 +31,7 @@ namespace Generate {
             return Types::make_uint64();
     }
 
-    void process_userspace(const std::vector<Register>& regs, std::unique_ptr<ISerializer>& out) {
+    void process_userspace_ctrls(const std::vector<Register>& regs, std::unique_ptr<ISerializer>& out) {
         CppLayout layout;
 
         for (const auto& reg : regs) {

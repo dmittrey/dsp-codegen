@@ -1,6 +1,7 @@
 #pragma once
 
 #include "model.hpp"
+#include "type.hpp"
 
 namespace Generate {
 

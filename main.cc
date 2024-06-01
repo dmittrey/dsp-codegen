@@ -1,6 +1,6 @@
-#include "agregate/cpp/interface.hpp"
+#include "isp/codegen.hpp"
 
-#include "interface/iserializer.hpp"
+#include "file/serializer.hpp"
 
 #include "json/regparser.hpp"
 
@@ -32,6 +32,6 @@ int main() {
   std::unique_ptr<ISerializer> serializer = make_file_serializer("user.outp");
   std::unique_ptr<ISerializer> serializer_ioctl = make_file_serializer("ioctl.outp");
   
-  process_userspace(parser->registers(), serializer);
+  process_userspace_ctrls(parser->registers(), serializer);
   process_ioctl_enum(parser->registers(), serializer_ioctl);
 }
