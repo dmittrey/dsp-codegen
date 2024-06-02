@@ -2,10 +2,10 @@
 
 #include "register/register.hpp"
 
-namespace Parser {
+namespace Parse {
 
     struct IRegParser {
-        virtual const std::vector<Utility::Register>& registers() const & = 0;
+        virtual const std::vector<Utility::Register>& registers() const & noexcept = 0;
 		virtual ~IRegParser() {}
 	};
 
