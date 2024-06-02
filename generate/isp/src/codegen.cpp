@@ -1,4 +1,5 @@
-#include "interface/iserializer.hpp"
+#include "isp/codegen.hpp"
+
 #include "register/register.hpp"
 
 #include "cpp/layout.hpp"
@@ -13,6 +14,10 @@
 
 using Utility::Register;
 using Utility::Option;
+
+using Serialize::ISerializer;
+
+using namespace Syntax;
 
 namespace Generate {
 
@@ -31,7 +36,7 @@ namespace Generate {
             return Types::make_uint64();
     }
 
-    void process_userspace_ctrls(const std::vector<Register>& regs, std::unique_ptr<ISerializer>& out) {
+    void generate_userspace_ctrls(const std::vector<Register>& regs, std::unique_ptr<ISerializer>& out) {
         CppLayout layout;
 
         for (const auto& reg : regs) {
@@ -65,7 +70,7 @@ namespace Generate {
         out->serialize(layout);
     }
 
-    void process_ioctl_enum(const std::vector<Utility::Register>& regs, std::unique_ptr<ISerializer>& out) {
+    void generate_ioctl_enum(const std::vector<Utility::Register>& regs, std::unique_ptr<ISerializer>& out) {
         CppLayout layout;
 
         auto e = make_anon_enum();
