@@ -12,8 +12,8 @@
 
 #include "cpp/ioctl/function.hpp"
 
-using Utility::Register;
-using Utility::Option;
+using util::Register;
+using util::Option;
 
 using serialize::ISerializer;
 
@@ -70,7 +70,7 @@ namespace Generate {
         out->serialize(layout);
     }
 
-    void generate_ioctl_enum(const std::vector<Utility::Register>& regs, std::unique_ptr<ISerializer>& out) {
+    void generate_ioctl_enum(const std::vector<Register>& regs, std::unique_ptr<ISerializer>& out) {
         cpp::Layout layout;
 
         auto e = cpp::make_anon_enum();

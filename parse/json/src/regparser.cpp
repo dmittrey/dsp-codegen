@@ -11,7 +11,7 @@ namespace parse {
 
     struct JsonRegParser final : IRegParser {
 	private:
-	    std::vector<Utility::Register> vec = {};
+	    std::vector<util::Register> vec = {};
 
 	public:
 	    JsonRegParser(const std::string &fname) {
@@ -34,15 +34,15 @@ namespace parse {
 		}
 	
 	public:
-	    const std::vector<Utility::Register>& registers() const & noexcept override { return vec; }
+	    const std::vector<util::Register>& registers() const & noexcept override { return vec; }
 	    void print() const {
 	        for (const auto& reg : vec)
 	            reg.dump();
 	    }
 
 	private:
-		static std::vector<Utility::Register> parse_register_vec(const Json::Value& val) {
-			std::vector<Utility::Register> vec = {};
+		static std::vector<util::Register> parse_register_vec(const Json::Value& val) {
+			std::vector<util::Register> vec = {};
 			RegisterError err;
 			for (int i = 0; i < val.size(); ++i) {
 				auto r = parse_register(val[i], &err);
@@ -78,8 +78,8 @@ namespace parse {
 			return vec;
 		}
 
-		static std::optional<Utility::Register> parse_register(const Json::Value& val, RegisterError * const errp) {
-			Utility::Register r;
+		static std::optional<util::Register> parse_register(const Json::Value& val, RegisterError * const errp) {
+			util::Register r;
 			if (val.isObject()) {
 				if (!val.isMember("name") || !val["name"].isString()) {
 					*errp = RegisterError::INVALID_NAME_TYPE;
@@ -112,11 +112,11 @@ namespace parse {
 			r.description = val["description"].asString();
 			r.size = val["size"].asUInt();
 			if (val["mode"].asString() == "RO")
-				r.mode = Utility::RO;
+				r.mode = util::RO;
 			else if (val["mode"].asString() == "WO")
-				r.mode = Utility::WO;
+				r.mode = util::WO;
 			else if (val["mode"].asString() == "RW")
-				r.mode = Utility::RW;
+				r.mode = util::RW;
 			else {
 				*errp = RegisterError::INVALID_MODE_VALUE;
 				return std::nullopt;
@@ -125,8 +125,8 @@ namespace parse {
 			return r;
 		}
 
-		static std::vector<Utility::Option> parse_option_vec(const Json::Value& val, const std::string& reg_name) {
-			std::vector<Utility::Option> vec = {};
+		static std::vector<util::Option> parse_option_vec(const Json::Value& val, const std::string& reg_name) {
+			std::vector<util::Option> vec = {};
 			OptionError err;
 			for (int i = 0; i < val.size(); ++i) {
 				auto o = parse_option(val[i], &err);
@@ -165,7 +165,7 @@ namespace parse {
 			return vec;
 		}
 
-		static std::optional<Utility::Option> parse_option(const Json::Value& val, OptionError * const errp) {
+		static std::optional<util::Option> parse_option(const Json::Value& val, OptionError * const errp) {
 			std::regex twos_compl_r("t(\\d+)q(\\d+)");
 			std::regex sign_magn_r("sm(\\d+)q(\\d+)");
 			std::regex signed_r("s(\\d+)q(\\d+)");
@@ -173,7 +173,7 @@ namespace parse {
 
 	    	std::smatch result;
 
-			Utility::Option o;
+			util::Option o;
 			if (val.isObject()) {
 				if (!val.isMember("format") || !val["format"].isString()) {
 					*errp = OptionError::INVALID_FORMAT_TYPE;
@@ -203,17 +203,17 @@ namespace parse {
 
 			std::string fmt_s = val["format"].asString();
 			if (std::regex_search(fmt_s, result, twos_compl_r))
-				o.format = Utility::FP_TWOS_COMPLEMENT;
+				o.format = util::FP_TWOS_COMPLEMENT;
 			else if (std::regex_search(fmt_s, result, sign_magn_r))
-				o.format = Utility::FP_SIGN_MAGNITUDE;
+				o.format = util::FP_SIGN_MAGNITUDE;
 			else if (std::regex_search(fmt_s, result, signed_r))
-				o.format = Utility::FP_SIGNED;
+				o.format = util::FP_SIGNED;
 			else if (std::regex_search(fmt_s, result, unsigned_r))
-				o.format = Utility::FP_UNSIGNED;
+				o.format = util::FP_UNSIGNED;
 			else if (fmt_s == "u")
-				o.format = Utility::HEX_UNSIGNED;
+				o.format = util::HEX_UNSIGNED;
 			else if (fmt_s == "s")
-				o.format = Utility::HEX_SIGNED;
+				o.format = util::HEX_SIGNED;
 			else {
 				*errp = OptionError::INVALID_FORMAT_VALUE;
 				return std::nullopt;

@@ -5,7 +5,7 @@
 #include "option.hpp"
 #include "rwmode.hpp"
 
-namespace Utility {
+namespace util {
 
     struct Register final {
         std::string name;
@@ -28,4 +28,4 @@ namespace Utility {
         }
     };
 
-}; /* Utility */
+}; /* utility */

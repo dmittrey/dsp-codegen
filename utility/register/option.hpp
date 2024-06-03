@@ -5,7 +5,7 @@
 
 #include "format.hpp"
 
-namespace Utility {
+namespace util {
 
     struct Option final {
         std::string name;
@@ -26,4 +26,4 @@ namespace Utility {
         }
     };
 
-}; /* Utility */
+}; /* utility */

@@ -5,7 +5,7 @@
 namespace parse {
 
     struct IRegParser {
-        virtual const std::vector<Utility::Register>& registers() const & noexcept = 0;
+        virtual const std::vector<util::Register>& registers() const & noexcept = 0;
 		virtual ~IRegParser() {}
 	};
 
