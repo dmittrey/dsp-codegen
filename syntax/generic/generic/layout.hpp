@@ -33,6 +33,8 @@ namespace stx {
                 models_.push_back(model);
                 return *this;
             };
+
+            const std::vector<std::string>& headers() const & override { return headers_; } // Const prevent edit in consumer
         };
 
     }; /* generic */

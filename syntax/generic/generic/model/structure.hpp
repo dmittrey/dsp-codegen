@@ -9,12 +9,12 @@ namespace stx {
 
         struct Structure : Model {
             public:
-                const Type type;
+                Type type;
                 const std::optional<std::string> name; /* Anon structures */
             protected:
                 std::vector<std::unique_ptr<IModel>> fields_ = {}; /* Nested structures, Comments */
 
-            protected:
+            public:
                 Structure(const Type &type, const std::optional<std::string> &name) : type(type), name(name) {}
 
             protected:

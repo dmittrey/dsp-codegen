@@ -25,7 +25,7 @@ namespace stx {
             uint64_t size() { return size_; }
 
         public:
-            std::string code() const override {
+            std::string code() override {
                 std::string str;
                 str += type.code() + ' ' + name.value_or("") + '{' + '\n';
 

@@ -11,7 +11,7 @@ namespace stx {
         Function(const Type &type, const std::string &name) : gen::Function(type, name) {}
 
     public:
-        std::string code() const override {
+        std::string code() override {
             std::string str;
             str += type.code() + ' ' + name + '(';
 

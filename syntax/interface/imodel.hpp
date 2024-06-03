@@ -7,8 +7,12 @@ namespace stx {
 
     /* Rendering object */
     struct IModel {
-        virtual const std::vector<std::string>& headers() const & = 0;
-        virtual std::string code() const = 0;
+    protected:
+        std::vector<std::string> headers_ = {};
+
+    public:
+        virtual const std::vector<std::string>& headers() const & { return headers_; } // Const prevent edit in consumer
+        virtual std::string code() = 0;
         virtual ~IModel() {};
     };
 
