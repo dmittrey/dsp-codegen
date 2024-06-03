@@ -2,11 +2,13 @@
 
 #include "generic/model/comment.hpp"
 
-namespace Syntax {
+namespace stx {
 
-    struct CppComment final : Comment {
+    namespace cpp {
+
+    struct Comment final : gen::Comment {
     public:
-        CppComment(const std::string& text) : Comment(text) {}
+        Comment(const std::string& text) : gen::Comment(text) {}
 
     public:
         std::string code() const override {
@@ -14,4 +16,6 @@ namespace Syntax {
         }
     };
 
-}; /* Syntax */
+    }; /* cpp */
+
+}; /* syntax */

@@ -2,18 +2,22 @@
 
 #include "model.hpp"
 
-namespace Syntax {
+namespace stx {
 
-    struct Type final : Model {
-    public:
-        const std::string name;
+    namespace gen {
 
-    public:
-        Type(const std::string& name) : name(name) {}
-        Type(const std::string& name, const std::string& header) : name(name) { headers_.push_back(header); }
+        struct Type final : Model {
+        public:
+            const std::string name;
 
-    public:
-        std::string code() const override { return name; }
+        public:
+            Type(const std::string& name) : name(name) {}
+            Type(const std::string& name, const std::string& header) : name(name) { headers_.push_back(header); }
+
+        public:
+            std::string code() const override { return name; }
     };
 
-}; /* Syntax */
+    }; /* generic */
+
+}; /* syntax */

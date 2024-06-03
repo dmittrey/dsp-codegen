@@ -2,11 +2,13 @@
 
 #include "generic/model/function.hpp"
 
-namespace Syntax {
+namespace stx {
 
-    struct CppFunction : Function {
+    namespace cpp {
+
+    struct Function : gen::Function {
     public:
-        CppFunction(const Type &type, const std::string &name) : Function(type, name) {}
+        Function(const Type &type, const std::string &name) : gen::Function(type, name) {}
 
     public:
         std::string code() const override {
@@ -28,4 +30,6 @@ namespace Syntax {
         };
     };
 
-}; /* Syntax */
+    }; /* cpp */
+
+}; /* syntax */

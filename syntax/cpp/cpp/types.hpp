@@ -2,11 +2,13 @@
 
 #include "generic/model/type.hpp"
 
-namespace Syntax {
+using stx::gen::Type;
 
-    namespace Cpp {
+namespace stx {
 
-        namespace Types {
+    namespace cpp {
+
+        namespace t {
 
             Type make_bool() { return {"bool"}; }
 

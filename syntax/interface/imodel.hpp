@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-namespace Syntax {
+namespace stx {
 
     /* Rendering object */
     struct IModel {
@@ -12,4 +12,4 @@ namespace Syntax {
         virtual ~IModel() {};
     };
 
-}; /* Syntax */
+}; /* syntax */

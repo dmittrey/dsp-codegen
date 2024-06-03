@@ -4,36 +4,40 @@
 
 #include "rval.hpp"
 
-namespace Syntax {
+namespace stx {
 
-    struct CppStructure final : Structure {
-    private:
-        uint64_t size_;
+    namespace cpp {
 
-    public:
-        CppStructure(const Type &type, const std::optional<std::string> &name) : Structure(type, name) {}
+        struct Structure final : gen::Structure {
+        private:
+            uint64_t size_;
 
-        using Structure::field_add; // Add parent method to use for IModel
+        public:
+            Structure(const Type &type, const std::optional<std::string> &name) : gen::Structure(type, name) {}
 
-        CppStructure& field_add(const CppRVal& field) & {
-            Structure::field_add<CppRVal>(field);
-            size_ += field.size;
-            return *this;
-        }
-        uint64_t size() { return size_; }
+            using gen::Structure::field_add; // Add parent method to use for IModel
 
-    public:
-        std::string code() const override {
-            std::string str;
-            str += type.code() + ' ' + name.value_or("") + '{' + '\n';
-
-            for (const auto &field : fields_) {
-                str += '\t' + field->code() + ';' + '\n';
+            Structure& field_add(const RVal& field) & {
+                gen::Structure::field_add<RVal>(field);
+                size_ += field.size;
+                return *this;
             }
+            uint64_t size() { return size_; }
 
-            str += std::string("}") + ';' + '\n';
-            return str;
+        public:
+            std::string code() const override {
+                std::string str;
+                str += type.code() + ' ' + name.value_or("") + '{' + '\n';
+
+                for (const auto &field : fields_) {
+                    str += '\t' + field->code() + ';' + '\n';
+                }
+
+                str += std::string("}") + ';' + '\n';
+                return str;
+            };
         };
-    };
 
-}; /* Syntax */
+    }; /* cpp */
+
+}; /* syntax */

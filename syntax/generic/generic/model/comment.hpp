@@ -2,14 +2,18 @@
 
 #include "model.hpp"
 
-namespace Syntax {
+namespace stx {
 
-    struct Comment : Model {
-    public:
-        const std::string text;
+    namespace gen {
 
-    public:
-        Comment(const std::string& text) : text(text) {}
-    };
+        struct Comment : Model {
+        public:
+            const std::string text;
+    
+        public:
+            Comment(const std::string& text) : text(text) {}
+        };
 
-}; /* Syntax */
+    }; /* generic */
+
+}; /* syntax */

@@ -6,16 +6,14 @@
 
 #include "types.hpp"
 
-using namespace Syntax::Cpp;
+namespace stx {
 
-namespace Syntax {
+    namespace cpp {
 
-    namespace Cpp {
-
-        CppStructure* make_anon_enum() {
-            return new CppStructure{Types::make_enum(), std::nullopt};
+        Structure* make_anon_enum() {
+            return new Structure{t::make_enum(), std::nullopt};
         }
 
-    }; /* Cpp */
+    }; /* cpp */
 
-}; /* Syntax */
+}; /* syntax */

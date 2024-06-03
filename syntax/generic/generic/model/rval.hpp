@@ -2,17 +2,21 @@
 
 #include "model.hpp"
 
-namespace Syntax {
+namespace stx {
 
-    struct RVal : Model {
-    public:
-        const Type type;
-        const std::string name;
+    namespace gen {
 
-    protected:
-        RVal(const Type& type, const std::string& name) : type(type), name(name) { 
-            headers_.insert(headers_.end(), type.headers().begin(), type.headers().end());
-        }
-    };
+        struct RVal : Model {
+        public:
+            const Type type;
+            const std::string name;
+    
+        protected:
+            RVal(const Type& type, const std::string& name) : type(type), name(name) { 
+                headers_.insert(headers_.end(), type.headers().begin(), type.headers().end());
+            }
+        };
 
-}; /* Syntax */
+    }; /* generic*/
+
+}; /* syntax */
