@@ -7,7 +7,7 @@
 
 #include "json/regparser.hpp"
 
-namespace Parse {
+namespace parse {
 
     struct JsonRegParser final : IRegParser {
 	private:
@@ -236,4 +236,4 @@ namespace Parse {
         return std::make_unique<JsonRegParser>(fname);
     }
 
-}; /* Parser */
+}; /* parser */

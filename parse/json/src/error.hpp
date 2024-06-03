@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Parse {
+namespace parse {
 
     enum class OptionError {
         INVALID_FORMAT_TYPE,
@@ -23,4 +23,4 @@ namespace Parse {
         INVALID_OPTIONS_TYPE,
     };
 
-}; /* Parser */
+}; /* parser */
