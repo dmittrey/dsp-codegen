@@ -4,7 +4,7 @@
 
 #include "json/regparser.hpp"
 
-using namespace Generate;
+using namespace gen;
 using namespace parse;
 using namespace serialize;
 
