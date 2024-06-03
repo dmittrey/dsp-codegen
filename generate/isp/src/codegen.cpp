@@ -36,8 +36,17 @@ namespace gen {
             return t::make_uint64();
     }
 
-    void generate_userspace_ctrls(const std::vector<Register>& regs, std::unique_ptr<ISerializer>& out) {
+    static std::string set_ioctl_name(Register reg, Option opt) {
+        return std::string("IOCTL") + '_' + reg.name + "_S_" + opt.name;
+    }
+
+    static std::string get_ioctl_name(Register reg, Option opt) {
+        return std::string("IOCTL") + '_' + reg.name + "_G_" + opt.name;
+    }
+
+    void generate_userspace_ctrls(const std::vector<Register>& regs, std::unique_ptr<ISerializer>& out, const std::string& ioctl_enm_path) {
         Layout layout;
+        layout.add_header(ioctl_enm_path);
 
         for (const auto& reg : regs) {
             layout.add_model(new Comment(reg.description));
@@ -54,12 +63,12 @@ namespace gen {
                 // Later... Need to move to Base, delete all methods and use derived CppBool
                 auto opt_param = RVal{opt_type, opt.name};
                 auto sf = new IoctlFunction{t::make_void(), reg.name + '_' + "s" + '_' + opt.name, 
-                                                std::string("IOCTL_") + "S_" + opt.name, opt_param};
+                                                set_ioctl_name(reg, opt), opt_param};
                 layout.add_model(sf);
 
                 // Option getter
                 auto gf = new IoctlFunction{opt_type, reg.name + '_' + "g" + '_' + opt.name,
-                                                std::string("IOCTL_") + "G_" + opt.name};
+                                                get_ioctl_name(reg, opt)};
                 layout.add_model(gf);
             }
 
@@ -79,10 +88,10 @@ namespace gen {
         for (const auto& reg : regs) {
             for (const auto& opt : reg.options) {
                 // Option modifier
-                e->field_add({t::make_empty(), std::string("IOCTL") + '_' + reg.name + "_S_" + opt.name});
+                e->field_add({t::make_empty(), set_ioctl_name(reg, opt)});
 
                 // Option getter
-                e->field_add({t::make_empty(), std::string("IOCTL") + '_' + reg.name + "_G_" + opt.name});
+                e->field_add({t::make_empty(), get_ioctl_name(reg, opt)});
             }
         }
 

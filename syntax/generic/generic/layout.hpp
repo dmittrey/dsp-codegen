@@ -11,7 +11,6 @@ namespace stx {
 
         struct Layout : ILayout {
         protected:
-            std::vector<std::string> headers_;
             std::vector<IModel*> models_;
 
         protected:

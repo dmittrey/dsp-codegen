@@ -21,6 +21,6 @@ int main() {
   std::unique_ptr<ISerializer> serializer = make_file_serializer("user.outp");
   std::unique_ptr<ISerializer> serializer_ioctl = make_file_serializer("ioctl.outp");
   
-  generate_userspace_ctrls(parser->registers(), serializer);
+  generate_userspace_ctrls(parser->registers(), serializer, "ioctl.outp");
   generate_ioctl_enum(parser->registers(), serializer_ioctl);
 }
