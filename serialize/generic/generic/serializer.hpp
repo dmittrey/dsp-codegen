@@ -6,7 +6,7 @@
 
 #include "iserializer.hpp"
 
-namespace Serialize {
+namespace serialize {
 
     struct Serializer final : ISerializer {
     protected:
@@ -20,4 +20,4 @@ namespace Serialize {
         }
     };
 
-}; /* Serialize */
+}; /* serialize */

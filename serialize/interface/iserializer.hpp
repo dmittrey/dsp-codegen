@@ -2,7 +2,7 @@
 
 #include "ilayout.hpp"
 
-namespace Serialize {
+namespace serialize {
 
     /* Abstraction to render layouts */
     struct ISerializer {
@@ -10,4 +10,4 @@ namespace Serialize {
         virtual ~ISerializer() {};
     };
 
-}; /* Serialize */
+}; /* serial */

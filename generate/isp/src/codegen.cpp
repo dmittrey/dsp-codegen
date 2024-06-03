@@ -15,7 +15,7 @@
 using Utility::Register;
 using Utility::Option;
 
-using Serialize::ISerializer;
+using serialize::ISerializer;
 
 using namespace stx;
 
