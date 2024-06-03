@@ -9,7 +9,7 @@ Consists:
 
 # Extension
 
-When you need to extent your serializing logic to another output resource, you need:
+When you need to extend your serializing logic to another output resource, you need:
 - Add submodule (for example. tcp, console)
 - Add **header** in submodule to **declare fabric-method** signature
 - Add **src** in submodule to **define fabric-method** function that use generic level if need
