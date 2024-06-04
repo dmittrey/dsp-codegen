@@ -171,7 +171,7 @@ namespace parse {
 			std::regex signed_r("s(\\d+)q(\\d+)");
 			std::regex unsigned_r("u(\\d+)q(\\d+)");
 
-	    	std::smatch result;
+	    	std::smatch matches;
 
 			util::Option o;
 			if (val.isObject()) {
@@ -201,24 +201,6 @@ namespace parse {
 				}
 			}
 
-			std::string fmt_s = val["format"].asString();
-			if (std::regex_search(fmt_s, result, twos_compl_r))
-				o.format = util::FP_TWOS_COMPLEMENT;
-			else if (std::regex_search(fmt_s, result, sign_magn_r))
-				o.format = util::FP_SIGN_MAGNITUDE;
-			else if (std::regex_search(fmt_s, result, signed_r))
-				o.format = util::FP_SIGNED;
-			else if (std::regex_search(fmt_s, result, unsigned_r))
-				o.format = util::FP_UNSIGNED;
-			else if (fmt_s == "u")
-				o.format = util::HEX_UNSIGNED;
-			else if (fmt_s == "s")
-				o.format = util::HEX_SIGNED;
-			else {
-				*errp = OptionError::INVALID_FORMAT_VALUE;
-				return std::nullopt;
-			}
-
 			o.name = val["name"].asString();
 			o.description = val["description"].asString();
 			o.bit_range.first = val["range"]["min"].asUInt();
@@ -228,7 +210,40 @@ namespace parse {
 				return std::nullopt;
 			}
 
+			std::string fmt_s = val["format"].asString();
+			if (std::regex_search(fmt_s, matches, twos_compl_r))
+				o.fixedp = util::FixedP{util::FP_TWOS_COMPLEMENT, extractUint8FromSmatch(matches, 1), extractUint8FromSmatch(matches, 2)};
+			else if (std::regex_search(fmt_s, matches, sign_magn_r))
+				o.fixedp = util::FixedP{util::FP_SIGN_MAGNITUDE, extractUint8FromSmatch(matches, 1), extractUint8FromSmatch(matches, 2)};
+			else if (std::regex_search(fmt_s, matches, signed_r))
+				o.fixedp = util::FixedP{util::FP_SIGNED, extractUint8FromSmatch(matches, 1), extractUint8FromSmatch(matches, 2)};
+			else if (std::regex_search(fmt_s, matches, unsigned_r))
+				o.fixedp = util::FixedP{util::FP_UNSIGNED, extractUint8FromSmatch(matches, 1), extractUint8FromSmatch(matches, 2)};
+			else if (fmt_s == "u")
+				o.fixedp = util::FixedP{util::HEX_UNSIGNED, static_cast<uint8_t>(o.bit_range.second - o.bit_range.first + 1), 0};
+			else if (fmt_s == "s")
+				o.fixedp = util::FixedP{util::HEX_SIGNED, static_cast<uint8_t>(o.bit_range.second - o.bit_range.first + 1), 0};
+			else {
+				*errp = OptionError::INVALID_FORMAT_VALUE;
+				return std::nullopt;
+			}
+
 			return o;
+		}
+
+		static uint8_t extractUint8FromSmatch(const std::smatch& match, size_t index) {
+    		if (index >= match.size()) {
+        		throw std::out_of_range("Index out of range in smatch");
+    		}
+    		return convertStringToUint8(match[index].str());
+		}
+
+		static uint8_t convertStringToUint8(const std::string& str) {
+    		int value = std::stoi(str);
+    		if (value < 0 || value > 255) {
+    	    	throw std::out_of_range("Value out of range for uint8_t");
+    		}
+   			return static_cast<uint8_t>(value);
 		}
 	};
 

@@ -3,15 +3,15 @@
 #include <string>
 #include <iostream>
 
-#include "format.hpp"
+#include "fixedp.hpp"
 
 namespace util {
 
     struct Option final {
         std::string name;
         std::string description;
-        std::pair<uint64_t, uint64_t> bit_range;
-        Format format;
+        std::pair<uint8_t, uint8_t> bit_range;
+        FixedP fixedp;
 
         uint64_t size() const {
             return bit_range.second - bit_range.first + 1; // [4; 8] = 5bits 
@@ -22,7 +22,8 @@ namespace util {
                 << "\t\t" << "name: " << name << "\n"
                 << "\t\t" << "description: " << description << "\n"
                 << "\t\t" << "bit_range: [" << bit_range.first << ", " << bit_range.second << "]" << "\n"
-                << "\t\t" << "format: " << format << std::endl;
+                << "\t\t" << "format: " << fixedp.str()
+                << std::endl;
         }
     };
 
