@@ -7,6 +7,7 @@
 #include "cpp/model/function.hpp"
 #include "cpp/model/rval.hpp"
 #include "cpp/model/structure.hpp"
+#include "cpp/model/macro.hpp"
 
 #include "cpp/ioctl/function.hpp"
 
@@ -21,20 +22,8 @@ using namespace stx::cpp;
 
 namespace gen {
 
-    static Type option_type(const Option &opt)
-    {
-        auto opt_size = opt.size();
-        if (opt_size == 1)
-            return t::make_bool();
-        else if (opt_size <= 8)
-            return t::make_uint8();
-        else if (opt_size <= 16)
-            return t::make_uint16();
-        else if (opt_size <= 32)
-            return t::make_uint32();
-        else
-            return t::make_uint64();
-    }
+    static Type log_type(const Option& o);
+    static Type hw_type(const Option& o);
 
     static std::string set_ioctl_name(Register reg, Option opt) {
         return std::string("IOCTL") + '_' + reg.name + "_S_" + opt.name;
@@ -48,27 +37,35 @@ namespace gen {
         Layout layout;
         layout.add_header(ioctl_enm_path);
 
+        Layout* fp_layout = new Layout();
+        layout.add_model(fp_layout);
+
+        auto scale_macro = new Macro("SCALE_FACTOR");
+        scale_macro->add_clojure({"frac_bits", "1 << frac_bits"});
+        fp_layout->add_model(scale_macro);
+
         for (const auto& reg : regs) {
             layout.add_model(new Comment(reg.description));
             auto s = new Structure{t::make_struct(), reg.name};
             layout.add_model(s);
 
             for (const auto& opt : reg.options) {
-                auto opt_type = option_type(opt);
+                auto opt_param_type = log_type(opt);
 
-                s->field_add<Comment>(opt.description); // :((((((
-                s->field_add({opt_type, opt.name, opt.size()});
+                s->field_add<Comment>(opt.description);
+                s->field_add({hw_type(opt), opt.name, opt.hw_size()});
 
                 // Option modifier
-                // Later... Need to move to Base, delete all methods and use derived CppBool
-                auto opt_param = RVal{opt_type, opt.name};
+                auto opt_param_s = RVal{opt_param_type, opt.name};
                 auto sf = new IoctlFunction{t::make_void(), reg.name + '_' + "s" + '_' + opt.name, 
-                                                set_ioctl_name(reg, opt), opt_param};
+                                                set_ioctl_name(reg, opt), opt_param_s};
                 layout.add_model(sf);
 
+
                 // Option getter
-                auto gf = new IoctlFunction{opt_type, reg.name + '_' + "g" + '_' + opt.name,
-                                                get_ioctl_name(reg, opt)};
+                auto opt_param_g = RVal{t::make_ptr(opt_param_type), opt.name + "_p"};
+                auto gf = new IoctlFunction{opt_param_type, reg.name + '_' + "g" + '_' + opt.name,
+                                                get_ioctl_name(reg, opt), opt_param_g};
                 layout.add_model(gf);
             }
 
@@ -96,6 +93,49 @@ namespace gen {
         }
 
         out->serialize(layout);
+    }
+
+    static Type log_type(const Option& o) {
+        auto bits_cnt = o.log_size();
+        if (o.format() == util::HEX_UNSIGNED) {
+            if (bits_cnt == 1)
+                return t::make_bool();
+            else if (bits_cnt <= 8)
+                return t::make_uint8();
+            else if (bits_cnt <= 16)
+                return t::make_uint16();
+            else if (bits_cnt <= 32)
+                return t::make_uint32();
+            else
+                return t::make_uint64();
+        } else if (o.format() == util::HEX_SIGNED) {
+            if (bits_cnt == 1)
+                return t::make_bool();
+            else if (bits_cnt <= 8)
+                return t::make_int8();
+            else if (bits_cnt <= 16)
+                return t::make_int16();
+            else if (bits_cnt <= 32)
+                return t::make_int32();
+            else
+                return t::make_int64();
+        } else {
+            return t::make_double();
+        }
+    }
+
+    static Type hw_type(const Option& o) {
+        auto size = o.hw_size();
+        if (size == 1)
+            return t::make_bool();
+        else if (size <= 8)
+            return t::make_uint8();
+        else if (size <= 16)
+            return t::make_uint16();
+        else if (size <= 32)
+            return t::make_uint32();
+        else
+            return t::make_uint64();
     }
 
 }; /* generate */
