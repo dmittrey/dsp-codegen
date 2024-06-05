@@ -10,11 +10,11 @@ namespace stx {
             std::string code() override {
                 std::string res;
                 prepare();
-                res += std::string("// Headers\n");
+                // res += std::string("// Headers\n");
                 for (auto header : headers_)
                     res += "#include <" + header + '>' + '\n';
 
-                res += std::string("// Models\n");
+                // res += std::string("// Models\n");
                 for (auto model : models_)
                     res += model->code() + '\n';
 

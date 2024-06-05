@@ -9,7 +9,7 @@
 #include "cpp/model/structure.hpp"
 #include "cpp/model/macro.hpp"
 
-#include "cpp/ioctl/function.hpp"
+#include "cpp/fixedp/unsigned.hpp"
 
 using util::Register;
 using util::Option;
@@ -52,20 +52,48 @@ namespace gen {
             for (const auto& opt : reg.options) {
                 auto opt_param_type = log_type(opt);
 
+                if (opt.format() == util::FP_UNSIGNED) {
+                    fp_layout->add_model(new fixedp::FloatToUnsignedFixedFunction(hw_type(opt), reg.name + '_' + opt.name + "_to_fixed",
+                                                                    "SCALE_FACTOR", opt.fixedp.fract_bits));
+                    fp_layout->add_model(new fixedp::UnsignedFixedToFloatFunction(log_type(opt), reg.name + '_' + opt.name + "_to_float",
+                                                                    hw_type(opt), "SCALE_FACTOR", opt.fixedp.fract_bits));                               
+                }
+
                 s->field_add<Comment>(opt.description);
                 s->field_add({hw_type(opt), opt.name, opt.hw_size()});
 
                 // Option modifier
                 auto opt_param_s = RVal{opt_param_type, opt.name};
-                auto sf = new IoctlFunction{t::make_void(), reg.name + '_' + "s" + '_' + opt.name, 
-                                                set_ioctl_name(reg, opt), opt_param_s};
+                auto sf = new Function{t::make_cint(), reg.name + '_' + "s" + '_' + opt.name};
+                if (opt.format() == util::FP_UNSIGNED) {
+                    sf->clojure_add<RVal>({opt_param_s, 
+                                        hw_type(opt).code() + " val = " + reg.name + '_' + opt.name + "_to_fixed(" + opt.name + ")"});
+                    sf->clojure_add<RVal>({{t::make_cint(), "fd"}, 
+                                            "return ioctl(fd, " + set_ioctl_name(reg, opt) + ", " + "val" + ")"});
+                } else {
+                    sf->param_add<RVal>({t::make_cint(), "fd"});
+                    sf->clojure_add<RVal>({opt_param_s,
+                                            "return ioctl(fd, " + set_ioctl_name(reg, opt) + ", " + opt_param_s.name + ")"});
+                }
                 layout.add_model(sf);
 
 
                 // Option getter
                 auto opt_param_g = RVal{t::make_ptr(opt_param_type), opt.name + "_p"};
-                auto gf = new IoctlFunction{opt_param_type, reg.name + '_' + "g" + '_' + opt.name,
-                                                get_ioctl_name(reg, opt), opt_param_g};
+                auto gf = new Function{t::make_cint(), reg.name + '_' + "g" + '_' + opt.name};
+                if (opt.format() == util::FP_UNSIGNED) {
+                    gf->method_add(hw_type(opt).code() + " val");
+                    gf->clojure_add<RVal>({{t::make_cint(), "fd"}, 
+                                            t::make_cint().code() + " ret = ioctl(fd, " + get_ioctl_name(reg, opt) + ", " + "&val" + ")"});
+                    gf->clojure_add<RVal>({opt_param_g, 
+                                            "*" + opt_param_g.name + " = " + reg.name + '_' + opt.name + "_to_float(" + "val" + ")"});
+                    gf->method_add("return ret");
+                } else {
+                    gf->param_add<RVal>({t::make_cint(), "fd"});
+                    gf->clojure_add<RVal>({opt_param_g,
+                                            "return ioctl(fd, " + get_ioctl_name(reg, opt) + ", " + opt_param_g.name + ")"});
+                }
+
                 layout.add_model(gf);
             }
 

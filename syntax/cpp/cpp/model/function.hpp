@@ -8,9 +8,17 @@ namespace stx {
 
     struct Function : gen::Function {
     public:
-        Function(const Type &type, const std::string &name) : gen::Function(type, name) {}
+        Function(const Type &ret_type, const std::string &name) : gen::Function(ret_type, name) {}
 
     public:
+        const std::string payload() const override {
+            std::string res;
+            for (const auto& s : body_lines_) {
+                res += "\t" + s + ";\n";
+            }
+            return res;
+        };
+
         std::string code() override {
             std::string str;
             str += type.code() + ' ' + name + '(';
@@ -24,7 +32,7 @@ namespace stx {
             }
 
             str += std::string(")") + '{' + '\n';
-            str += '\t' + payload();
+            str += payload();
             str += std::string("}") + ';' + '\n';
             return str;
         };

@@ -21,6 +21,7 @@ namespace stx {
             protected:
                 virtual const std::string payload() const = 0;
 
+            public:
                 template<typename T>
                 Function& param_add(const T& param) & { 
                     static_assert(std::is_base_of<IModel, T>::value, "Field must inherit from IModel");
@@ -28,6 +29,11 @@ namespace stx {
 
                     headers_.insert(headers_.end(), param.headers().begin(), param.headers().end());
                     params_.push_back(std::make_unique<T>(param));
+                    return *this;
+                }
+
+                Function& method_add(const std::string& method) & { 
+                    body_lines_.push_back(method);
                     return *this;
                 }
 
