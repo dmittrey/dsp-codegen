@@ -11,7 +11,7 @@ namespace util {
         std::string name;
         uint64_t address;
         std::string description;
-        uint64_t size;
+        uint8_t size;
         RWMode mode;
         std::vector<Option> options;
 

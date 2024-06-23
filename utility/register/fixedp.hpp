@@ -7,7 +7,7 @@
 
 namespace util {
 
-    struct FixedP {
+    struct FixedP final {
         Format format;
         uint8_t int_bits;
         uint8_t fract_bits;
@@ -30,4 +30,4 @@ namespace util {
         }
     };
 
-}
+}; /* utility */
