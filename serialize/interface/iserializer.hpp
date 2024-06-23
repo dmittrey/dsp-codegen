@@ -10,4 +10,4 @@ namespace serialize {
         virtual ~ISerializer() {};
     };
 
-}; /* serial */
+}; /* serialize */

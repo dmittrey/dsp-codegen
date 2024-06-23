@@ -8,7 +8,7 @@
 
 namespace serialize {
 
-    struct Serializer final : ISerializer {
+    struct Serializer : ISerializer {
     protected:
         const std::unique_ptr<std::ostream> out_;
 
