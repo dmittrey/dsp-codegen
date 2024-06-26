@@ -12,7 +12,7 @@ namespace stx {
                 prepare();
                 // res += std::string("// Headers\n");
                 for (auto header : headers_)
-                    res += "#include <" + header + '>' + '\n';
+                    res += "#include \"" + header + '\"' + '\n';
 
                 // res += std::string("// Models\n");
                 for (auto model : models_)

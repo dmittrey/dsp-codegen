@@ -18,6 +18,7 @@ namespace stx {
                 Structure(const Type &type, const std::optional<std::string> &name) : type(type), name(name) {}
 
             protected:
+            // Можно проверить на возможность вызвать оператор >> или имплисит к строке
                 template<typename T>
                 Structure& field_add(const T& field) & { 
                     static_assert(std::is_base_of<IModel, T>::value, "Field must inherit from IModel");

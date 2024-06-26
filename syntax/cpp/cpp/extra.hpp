@@ -2,7 +2,7 @@
 
 /* Header for extra language entities */
 
-#include "model/structure.hpp"
+#include "model/enum.hpp"
 
 #include "types.hpp"
 
@@ -10,8 +10,8 @@ namespace stx {
 
     namespace cpp {
 
-        Structure* make_anon_enum() {
-            return new Structure{t::Enum(), std::nullopt};
+        Enum* make_anon_enum() {
+            return new Enum(t::Enum());
         }
 
     }; /* cpp */

@@ -1,8 +1,10 @@
-#include <cstdint>
-#include <ioctl.outp>
-#include <cstdint>
+#include "stdbool.h"
+#include "stdint.h"
+#include "sys/ioctl.h"
+#include "test/ioctl.h"
+#include "stdint.h"
 #ifndef SCALE_FACTOR
-#define SCALE_FACTOR(frac_bits) 1 << frac_bits
+#define SCALE_FACTOR(frac_bits) (1 << frac_bits)
 #endif
 uint32_t ISP_FLASH_CMD_preflash_on_to_fixed(double float_val){
 	return (uint32_t)((float_val) * SCALE_FACTOR(1));

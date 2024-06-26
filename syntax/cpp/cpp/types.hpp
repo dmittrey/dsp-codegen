@@ -11,7 +11,7 @@ namespace stx {
         namespace t {
             Type Double() { return {"double"}; }
 
-            Type Bool() { return {"bool"}; }
+            Type Bool() { return {"bool", "stdbool.h"}; }
 
             Type Empty() { return {""}; }
             
@@ -21,7 +21,7 @@ namespace stx {
 
             Type Cint() { return {"int"}; }
 
-            Type Cstdint(const std::string &name) { return Type{name, "cstdint"}; }
+            Type Cstdint(const std::string &name) { return Type{name, "stdint.h"}; }
             Type Int8() { return Cstdint("int8_t"); }
             Type Int16() { return Cstdint("int16_t"); }
             Type Int32() { return Cstdint("int32_t"); }

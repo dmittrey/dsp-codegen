@@ -49,7 +49,7 @@ namespace stx {
                     res.pop_back();
                     res += ')';
                 }
-                res += ' ' + body.value_or("") + '\n';
+                res += " (" + body.value_or("") + ")" + '\n';
                 res += "#endif";
                 return res;
             }

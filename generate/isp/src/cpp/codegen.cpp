@@ -21,6 +21,7 @@ namespace gen {
     std::unique_ptr<stx::ILayout> generate_userspace_ctrls(const std::vector<Register>& regs, const std::string& ioctl_enm_path) {
         auto layout = std::make_unique<Layout>();
         layout->add_header(ioctl_enm_path);
+        layout->add_header("sys/ioctl.h");
 
         Layout* fp_layout = new Layout();
         layout->add_model(fp_layout);
@@ -59,10 +60,10 @@ namespace gen {
         for (const auto& reg : regs) {
             for (const auto& opt : reg.options) {
                 // Option modifier
-                e->field_add({t::Empty(), tmplt::set_ioctl_name(reg, opt)});
+                e->field_add<RVal>({t::Empty(), tmplt::set_ioctl_name(reg, opt)});
 
                 // Option getter
-                e->field_add({t::Empty(), tmplt::get_ioctl_name(reg, opt)});
+                e->field_add<RVal>({t::Empty(), tmplt::get_ioctl_name(reg, opt)});
             }
         }
 
