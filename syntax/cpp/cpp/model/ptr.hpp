@@ -8,13 +8,9 @@ namespace stx {
 
     namespace cpp {
 
-        struct RVal : gen::RVal {
+        struct Ptr final : RVal {
         public:
-            const uint64_t size;
-
-        public:
-            RVal(const Type& type, const std::string& name, uint64_t size) : gen::RVal(type, name), size(size) {}
-            RVal(const Type& type, const std::string& name) : RVal(type, name, 0) {}
+            Ptr(const Type& type, const std::string& name) : RVal(Type(type.name + '*'), name + "_p") { }
 
         public:
             std::string code() override {

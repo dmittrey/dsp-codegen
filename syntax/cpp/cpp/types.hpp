@@ -34,8 +34,6 @@ namespace stx {
 
             Type Void() { return {"void"};}
 
-            Type Ptr(const Type& type) { return {type.name + '*'}; }
-
         }; /* Types */
 
     }; /* Cpp */
