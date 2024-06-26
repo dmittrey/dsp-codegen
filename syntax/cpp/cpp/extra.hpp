@@ -11,7 +11,7 @@ namespace stx {
     namespace cpp {
 
         Structure* make_anon_enum() {
-            return new Structure{t::make_enum(), std::nullopt};
+            return new Structure{t::Enum(), std::nullopt};
         }
 
     }; /* cpp */

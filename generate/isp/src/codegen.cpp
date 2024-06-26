@@ -46,7 +46,7 @@ namespace gen {
 
         for (const auto& reg : regs) {
             layout.add_model(new Comment(reg.description));
-            auto s = new Structure{t::make_struct(), reg.name};
+            auto s = new Structure{t::Struct(), reg.name};
             layout.add_model(s);
 
             for (const auto& opt : reg.options) {
@@ -64,14 +64,14 @@ namespace gen {
 
                 // Option modifier
                 auto opt_param_s = RVal{opt_param_type, opt.name};
-                auto sf = new Function{t::make_cint(), reg.name + '_' + "s" + '_' + opt.name};
+                auto sf = new Function{t::Cint(), reg.name + '_' + "s" + '_' + opt.name};
                 if (opt.format() == util::FP_UNSIGNED) {
                     sf->clojure_add<RVal>({opt_param_s, 
                                         hw_type(opt).code() + " val = " + reg.name + '_' + opt.name + "_to_fixed(" + opt.name + ")"});
-                    sf->clojure_add<RVal>({{t::make_cint(), "fd"}, 
+                    sf->clojure_add<RVal>({{t::Cint(), "fd"}, 
                                             "return ioctl(fd, " + set_ioctl_name(reg, opt) + ", " + "val" + ")"});
                 } else {
-                    sf->param_add<RVal>({t::make_cint(), "fd"});
+                    sf->param_add<RVal>({t::Cint(), "fd"});
                     sf->clojure_add<RVal>({opt_param_s,
                                             "return ioctl(fd, " + set_ioctl_name(reg, opt) + ", " + opt_param_s.name + ")"});
                 }
@@ -79,17 +79,17 @@ namespace gen {
 
 
                 // Option getter
-                auto opt_param_g = RVal{t::make_ptr(opt_param_type), opt.name + "_p"};
-                auto gf = new Function{t::make_cint(), reg.name + '_' + "g" + '_' + opt.name};
+                auto opt_param_g = RVal{t::Ptr(opt_param_type), opt.name + "_p"};
+                auto gf = new Function{t::Cint(), reg.name + '_' + "g" + '_' + opt.name};
                 if (opt.format() == util::FP_UNSIGNED) {
                     gf->method_add(hw_type(opt).code() + " val");
-                    gf->clojure_add<RVal>({{t::make_cint(), "fd"}, 
-                                            t::make_cint().code() + " ret = ioctl(fd, " + get_ioctl_name(reg, opt) + ", " + "&val" + ")"});
+                    gf->clojure_add<RVal>({{t::Cint(), "fd"}, 
+                                            t::Cint().code() + " ret = ioctl(fd, " + get_ioctl_name(reg, opt) + ", " + "&val" + ")"});
                     gf->clojure_add<RVal>({opt_param_g, 
                                             "*" + opt_param_g.name + " = " + reg.name + '_' + opt.name + "_to_float(" + "val" + ")"});
                     gf->method_add("return ret");
                 } else {
-                    gf->param_add<RVal>({t::make_cint(), "fd"});
+                    gf->param_add<RVal>({t::Cint(), "fd"});
                     gf->clojure_add<RVal>({opt_param_g,
                                             "return ioctl(fd, " + get_ioctl_name(reg, opt) + ", " + opt_param_g.name + ")"});
                 }
@@ -98,7 +98,7 @@ namespace gen {
             }
 
             auto extra = 32 - s->size();
-            s->field_add({t::make_uint32(), "align", extra});
+            s->field_add({t::Uint32(), "align", extra});
         }
 
         out->serialize(layout);
@@ -113,10 +113,10 @@ namespace gen {
         for (const auto& reg : regs) {
             for (const auto& opt : reg.options) {
                 // Option modifier
-                e->field_add({t::make_empty(), set_ioctl_name(reg, opt)});
+                e->field_add({t::Empty(), set_ioctl_name(reg, opt)});
 
                 // Option getter
-                e->field_add({t::make_empty(), get_ioctl_name(reg, opt)});
+                e->field_add({t::Empty(), get_ioctl_name(reg, opt)});
             }
         }
 
@@ -127,43 +127,43 @@ namespace gen {
         auto bits_cnt = o.log_size();
         if (o.format() == util::HEX_UNSIGNED) {
             if (bits_cnt == 1)
-                return t::make_bool();
+                return t::Bool();
             else if (bits_cnt <= 8)
-                return t::make_uint8();
+                return t::Uint8();
             else if (bits_cnt <= 16)
-                return t::make_uint16();
+                return t::Uint16();
             else if (bits_cnt <= 32)
-                return t::make_uint32();
+                return t::Uint32();
             else
-                return t::make_uint64();
+                return t::Uint64();
         } else if (o.format() == util::HEX_SIGNED) {
             if (bits_cnt == 1)
-                return t::make_bool();
+                return t::Bool();
             else if (bits_cnt <= 8)
-                return t::make_int8();
+                return t::Int8();
             else if (bits_cnt <= 16)
-                return t::make_int16();
+                return t::Int16();
             else if (bits_cnt <= 32)
-                return t::make_int32();
+                return t::Int32();
             else
-                return t::make_int64();
+                return t::Int64();
         } else {
-            return t::make_double();
+            return t::Double();
         }
     }
 
     static Type hw_type(const Option& o) {
         auto size = o.hw_size();
         if (size == 1)
-            return t::make_bool();
+            return t::Bool();
         else if (size <= 8)
-            return t::make_uint8();
+            return t::Uint8();
         else if (size <= 16)
-            return t::make_uint16();
+            return t::Uint16();
         else if (size <= 32)
-            return t::make_uint32();
+            return t::Uint32();
         else
-            return t::make_uint64();
+            return t::Uint64();
     }
 
 }; /* generate */

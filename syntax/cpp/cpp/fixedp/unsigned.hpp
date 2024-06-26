@@ -15,7 +15,7 @@ namespace stx {
                 FloatToUnsignedFixedFunction(Type ret_type, const std::string &name, const std::string& scale_macro, uint8_t fract_cnt)
                     : Function(ret_type, name) {
                         gen::Function::clojure_add<RVal>({
-                            {t::make_double(), "float_val"}, 
+                            {t::Double(), "float_val"}, 
                             "return (" + ret_type.code() +")((float_val) * " + scale_macro + '(' + std::to_string(fract_cnt) + ')' + ")"
                             });
                     }

@@ -9,32 +9,32 @@ namespace stx {
     namespace cpp {
 
         namespace t {
-            Type make_double() { return {"double"}; }
+            Type Double() { return {"double"}; }
 
-            Type make_bool() { return {"bool"}; }
+            Type Bool() { return {"bool"}; }
 
-            Type make_empty() { return {""}; }
+            Type Empty() { return {""}; }
             
-            Type make_enum() { return {"enum"}; }
+            Type Enum() { return {"enum"}; }
             
-            Type make_struct() { return {"struct"}; }
+            Type Struct() { return {"struct"}; }
 
-            Type make_cint() { return {"int"}; }
+            Type Cint() { return {"int"}; }
 
-            Type make_cstdint(const std::string &name) { return Type{name, "cstdint"}; }
-            Type make_int8() { return make_cstdint("int8_t"); }
-            Type make_int16() { return make_cstdint("int16_t"); }
-            Type make_int32() { return make_cstdint("int32_t"); }
-            Type make_int64() { return make_cstdint("int64_t"); }
+            Type Cstdint(const std::string &name) { return Type{name, "cstdint"}; }
+            Type Int8() { return Cstdint("int8_t"); }
+            Type Int16() { return Cstdint("int16_t"); }
+            Type Int32() { return Cstdint("int32_t"); }
+            Type Int64() { return Cstdint("int64_t"); }
 
-            Type make_uint8() { return make_cstdint("uint8_t"); }
-            Type make_uint16() { return make_cstdint("uint16_t"); }
-            Type make_uint32() { return make_cstdint("uint32_t"); }
-            Type make_uint64() { return make_cstdint("uint64_t"); }
+            Type Uint8() { return Cstdint("uint8_t"); }
+            Type Uint16() { return Cstdint("uint16_t"); }
+            Type Uint32() { return Cstdint("uint32_t"); }
+            Type Uint64() { return Cstdint("uint64_t"); }
 
-            Type make_void() { return {"void"};}
+            Type Void() { return {"void"};}
 
-            Type make_ptr(const Type& type) { return {type.name + '*'}; }
+            Type Ptr(const Type& type) { return {type.name + '*'}; }
 
         }; /* Types */
 
