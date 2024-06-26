@@ -1,5 +1,7 @@
 #pragma once
 
+#include "type.hpp"
+
 #include "generic/clojure.hpp"
 #include "generic/model/model.hpp"
 
@@ -23,24 +25,19 @@ namespace stx {
 
             public:
                 template<typename T>
-                Function& param_add(const T& param) & { 
+                Function& params_set(std::initializer_list<T> params) & { 
                     static_assert(std::is_base_of<IModel, T>::value, "Field must inherit from IModel");
                     static_assert(!std::is_abstract<T>::value, "T must be non abstract");
 
-                    headers_.insert(headers_.end(), param.headers().begin(), param.headers().end());
-                    params_.push_back(std::make_unique<T>(param));
+                    for (const auto& param: params) {
+                        headers_.insert(headers_.end(), param.headers().begin(), param.headers().end());
+                        params_.push_back(std::make_unique<T>(param));
+                    }
                     return *this;
                 }
 
-                Function& method_add(const std::string& method) & { 
+                Function& statement_add(const std::string& method) & { 
                     body_lines_.push_back(method);
-                    return *this;
-                }
-
-                template<typename T>
-                Function& clojure_add(const Clojure<T>& cloj) & { 
-                    param_add<T>(cloj.param);
-                    body_lines_.push_back(cloj.body); 
                     return *this;
                 }
         };
