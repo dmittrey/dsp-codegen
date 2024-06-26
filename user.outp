@@ -30,9 +30,9 @@ struct ISP_FLASH_CMD{
 	uint32_t align:6;
 };
 
-int ISP_FLASH_CMD_s_preflash_on(double preflash_on, int fd){
+int ISP_FLASH_CMD_s_preflash_on(int fd, double preflash_on){
 	uint32_t val = ISP_FLASH_CMD_preflash_on_to_fixed(preflash_on);
-	return ioctl(fd, IOCTL_ISP_FLASH_CMD_S_preflash_on, val);
+	return ioctl(fd, IOCTL_ISP_FLASH_CMD_S_preflash_on, &val);
 };
 
 int ISP_FLASH_CMD_g_preflash_on(int fd, double* preflash_on_p){
@@ -43,7 +43,7 @@ int ISP_FLASH_CMD_g_preflash_on(int fd, double* preflash_on_p){
 };
 
 int ISP_FLASH_CMD_s_flash_on(int fd, bool flash_on){
-	return ioctl(fd, IOCTL_ISP_FLASH_CMD_S_flash_on, flash_on);
+	return ioctl(fd, IOCTL_ISP_FLASH_CMD_S_flash_on, &flash_on);
 };
 
 int ISP_FLASH_CMD_g_flash_on(int fd, bool* flash_on_p){
@@ -65,9 +65,9 @@ struct ISP_FLASH_CONFIG{
 	uint32_t align:24;
 };
 
-int ISP_FLASH_CONFIG_s_fl_cap_delay(double fl_cap_delay, int fd){
+int ISP_FLASH_CONFIG_s_fl_cap_delay(int fd, double fl_cap_delay){
 	uint8_t val = ISP_FLASH_CONFIG_fl_cap_delay_to_fixed(fl_cap_delay);
-	return ioctl(fd, IOCTL_ISP_FLASH_CONFIG_S_fl_cap_delay, val);
+	return ioctl(fd, IOCTL_ISP_FLASH_CONFIG_S_fl_cap_delay, &val);
 };
 
 int ISP_FLASH_CONFIG_g_fl_cap_delay(int fd, double* fl_cap_delay_p){
@@ -78,7 +78,7 @@ int ISP_FLASH_CONFIG_g_fl_cap_delay(int fd, double* fl_cap_delay_p){
 };
 
 int ISP_FLASH_CONFIG_s_fl_trig_src(int fd, bool fl_trig_src){
-	return ioctl(fd, IOCTL_ISP_FLASH_CONFIG_S_fl_trig_src, fl_trig_src);
+	return ioctl(fd, IOCTL_ISP_FLASH_CONFIG_S_fl_trig_src, &fl_trig_src);
 };
 
 int ISP_FLASH_CONFIG_g_fl_trig_src(int fd, bool* fl_trig_src_p){
@@ -86,7 +86,7 @@ int ISP_FLASH_CONFIG_g_fl_trig_src(int fd, bool* fl_trig_src_p){
 };
 
 int ISP_FLASH_CONFIG_s_fl_pol(int fd, bool fl_pol){
-	return ioctl(fd, IOCTL_ISP_FLASH_CONFIG_S_fl_pol, fl_pol);
+	return ioctl(fd, IOCTL_ISP_FLASH_CONFIG_S_fl_pol, &fl_pol);
 };
 
 int ISP_FLASH_CONFIG_g_fl_pol(int fd, bool* fl_pol_p){
@@ -94,7 +94,7 @@ int ISP_FLASH_CONFIG_g_fl_pol(int fd, bool* fl_pol_p){
 };
 
 int ISP_FLASH_CONFIG_s_fl_trig_pol(int fd, bool fl_trig_pol){
-	return ioctl(fd, IOCTL_ISP_FLASH_CONFIG_S_fl_trig_pol, fl_trig_pol);
+	return ioctl(fd, IOCTL_ISP_FLASH_CONFIG_S_fl_trig_pol, &fl_trig_pol);
 };
 
 int ISP_FLASH_CONFIG_g_fl_trig_pol(int fd, bool* fl_trig_pol_p){
@@ -102,7 +102,7 @@ int ISP_FLASH_CONFIG_g_fl_trig_pol(int fd, bool* fl_trig_pol_p){
 };
 
 int ISP_FLASH_CONFIG_s_prelight_mode(int fd, bool prelight_mode){
-	return ioctl(fd, IOCTL_ISP_FLASH_CONFIG_S_prelight_mode, prelight_mode);
+	return ioctl(fd, IOCTL_ISP_FLASH_CONFIG_S_prelight_mode, &prelight_mode);
 };
 
 int ISP_FLASH_CONFIG_g_prelight_mode(int fd, bool* prelight_mode_p){
