@@ -8,4 +8,5 @@ target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE serialize-generic)
 
+target_link_libraries(${PROJECT_NAME} INTERFACE serialize-interface)
 target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)

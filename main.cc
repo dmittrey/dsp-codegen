@@ -21,6 +21,9 @@ int main() {
   std::unique_ptr<ISerializer> serializer = make_file_serializer("user.outp");
   std::unique_ptr<ISerializer> serializer_ioctl = make_file_serializer("ioctl.outp");
   
-  generate_userspace_ctrls(parser->registers(), serializer, "ioctl.outp");
-  generate_ioctl_enum(parser->registers(), serializer_ioctl);
+  auto user_ctrls_layout = cpp::generate_userspace_ctrls(parser->registers(), "ioctl.outp");
+  auto enum_layout = cpp::generate_ioctl_enum(parser->registers());
+
+  serializer->serialize(*user_ctrls_layout);
+  serializer_ioctl->serialize(*enum_layout);
 }
