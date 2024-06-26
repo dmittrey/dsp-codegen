@@ -1,6 +1,7 @@
 #pragma once
 
 #include "util.hpp"
+#include "lexem.hpp"
 
 #include "cpp/model/function.hpp"
 #include "cpp/model/rval.hpp"
@@ -21,10 +22,13 @@ namespace gen {
 
                 func->params_set<RVal>({fd_param, opt_param});
                 if (opt.is_float_point()) {
-                    func->statement_add(hw_type(opt).code() + " val = " + to_fixed_name(reg, opt) + '(' + opt.name + ')');
-                    func->statement_add("return ioctl(fd, " + set_ioctl_name(reg, opt) + ", " + "&val" + ")");
+                    func->statement_add(Lexem().Concat(hw_type(opt)).Concat("val").Equal()
+                                        .Concat(to_fixed_name(reg, opt)).Args({opt.name}));
+                    func->statement_add(Lexem().Return()
+                                        .Ioctl().Args({fd_param.name, set_ioctl_name(reg, opt), "&val"}));
                 } else {
-                    func->statement_add("return ioctl(fd, " + set_ioctl_name(reg, opt) + ", " + '&' + opt_param.name + ")");
+                    func->statement_add(Lexem().Return()
+                                        .Ioctl().Args({fd_param.name, set_ioctl_name(reg, opt), '&' + opt_param.name}));
                 }
 
                 return func;

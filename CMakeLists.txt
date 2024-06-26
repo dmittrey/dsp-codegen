@@ -6,7 +6,8 @@ set(LIBS
         utility
         syntax
         serialize
-        generate)
+        generate
+        lexem)
 
 foreach(elem ${LIBS})
     add_subdirectory(${elem})
