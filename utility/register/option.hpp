@@ -25,6 +25,10 @@ namespace util {
             return fixedp.format;
         }
 
+        bool is_float_point() const {
+            return fixedp.format != HEX_UNSIGNED && fixedp.format != HEX_SIGNED;
+        }
+
         void dump() const {
             std::cout << "Option:" << "\n"
                 << "\t\t" << "name: " << name << "\n"
