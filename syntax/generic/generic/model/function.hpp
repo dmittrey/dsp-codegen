@@ -2,7 +2,6 @@
 
 #include "type.hpp"
 
-#include "generic/clojure.hpp"
 #include "generic/model/model.hpp"
 
 namespace stx {
@@ -19,9 +18,6 @@ namespace stx {
 
             public:
                 Function(const Type &type, const std::string &name) : type(type), name(name) {}
-
-            protected:
-                virtual const std::string payload() const = 0;
 
             public:
                 template<typename T>

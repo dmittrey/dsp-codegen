@@ -12,7 +12,8 @@ namespace gen {
 
             stx::cpp::Macro* ScaleMacro() {
                 auto scale_macro = new stx::cpp::Macro(tmplt::ScaleMacroName);
-                scale_macro->add_clojure({"frac_bits", "1 << frac_bits"});
+                scale_macro->params_set<RVal>({{t::Empty(), "frac_bits"}});
+                scale_macro->statement_add("1 << frac_bits");
                 return scale_macro;
             };
             
