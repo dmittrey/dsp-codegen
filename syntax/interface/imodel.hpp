@@ -14,6 +14,11 @@ namespace stx {
         virtual const std::vector<std::string>& headers() const & { return headers_; } // Const prevent edit in consumer
         virtual std::string code() = 0;
         virtual ~IModel() {};
+
+    public:
+        operator std::string() {
+            return code();
+        }
     };
 
 }; /* syntax */

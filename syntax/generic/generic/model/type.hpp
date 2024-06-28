@@ -16,10 +16,6 @@ namespace stx {
 
         public:
             std::string code() override { return name; }
-            
-            operator std::string() {
-                return code();
-            }
         };
 
     }; /* generic */
