@@ -60,10 +60,10 @@ namespace gen {
         for (const auto& reg : regs) {
             for (const auto& opt : reg.options) {
                 // Option modifier
-                e->field_add<RVal>({t::Empty(), tmplt::set_ioctl_name(reg, opt)});
+                e->field_add<std::string>({tmplt::set_ioctl_name(reg, opt)});
 
                 // Option getter
-                e->field_add<RVal>({t::Empty(), tmplt::get_ioctl_name(reg, opt)});
+                e->field_add<std::string>({tmplt::get_ioctl_name(reg, opt)});
             }
         }
 

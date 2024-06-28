@@ -9,12 +9,10 @@ namespace stx {
 
     namespace cpp {
 
-        struct Enum final : gen::Structure {
+        struct Enum final : gen::Structure<std::string> {
 
         public:
-            Enum(const Type &type) : gen::Structure(type, std::nullopt) {}
-
-            using gen::Structure::field_add; // Add parent method to use for IModel
+            Enum(const Type &type) : gen::Structure<std::string>(type, std::nullopt) {}
 
         public:
             std::string code() override {
@@ -22,7 +20,7 @@ namespace stx {
                 str += type.code() + '{' + '\n';
 
                 for (const auto &field : fields_) {
-                    str += '\t' + field->code() + ',' + '\n';
+                    str += '\t' + *field + ',' + '\n';
                 }
 
                 str += std::string("}") + ';' + '\n';

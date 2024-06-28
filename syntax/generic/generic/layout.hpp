@@ -20,7 +20,6 @@ namespace stx {
                 models_.push_back(model);
                 return *this;
             };
-        };
 
         protected:
             /* Return const layout to prevent post-prepare modifications(breaks invariant) */
@@ -34,6 +33,8 @@ namespace stx {
                 headers_.erase(std::unique(headers_.begin(), headers_.end()), headers_.end());
                 return *this;
             }
+
+        };
 
     }; /* generic */
  
