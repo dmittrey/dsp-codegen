@@ -2,10 +2,10 @@
 
 #include "util.hpp"
 
-#include "cpp/model/structure.hpp"
-#include "cpp/model/comment.hpp"
+#include "c/model/structure.hpp"
+#include "c/model/comment.hpp"
 
-using namespace stx::cpp;
+using namespace stx::c;
 
 namespace gen {
 

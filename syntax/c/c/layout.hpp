@@ -4,7 +4,7 @@
 
 namespace stx {
 
-    namespace cpp {
+    namespace c {
 
         struct Layout final : gen::Layout {
             std::string code() override {
@@ -22,6 +22,6 @@ namespace stx {
             };
         };
 
-    }; /* cpp */
+    }; /* c */
 
 }; /* syntax */

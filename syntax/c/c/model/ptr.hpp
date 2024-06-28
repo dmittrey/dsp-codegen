@@ -6,7 +6,7 @@ using stx::gen::Type;
 
 namespace stx {
 
-    namespace cpp {
+    namespace c {
 
         struct Ptr final : RVal {
         public:
@@ -18,6 +18,6 @@ namespace stx {
             }
         };
 
-    }; /* cpp*/
+    }; /* c */
 
 }; /* syntax */

@@ -4,7 +4,7 @@
 
 namespace stx {
 
-    namespace cpp {
+    namespace c {
 
     struct Function : gen::Function {
     public:
@@ -32,6 +32,6 @@ namespace stx {
         };
     };
 
-    }; /* cpp */
+    }; /* c */
 
 }; /* syntax */

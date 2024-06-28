@@ -6,7 +6,7 @@ using stx::gen::Type;
 
 namespace stx {
 
-    namespace cpp {
+    namespace c {
 
         namespace t {
             Type Double() { return {"double"}; }
@@ -36,6 +36,6 @@ namespace stx {
 
         }; /* Types */
 
-    }; /* Cpp */
+    }; /* c */
 
 }; /* Syntax */

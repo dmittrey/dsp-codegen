@@ -4,7 +4,7 @@
 
 namespace stx {
 
-    namespace cpp {
+    namespace c {
 
     struct Comment final : gen::Comment {
     public:
@@ -16,6 +16,6 @@ namespace stx {
         }
     };
 
-    }; /* cpp */
+    }; /* c */
 
 }; /* syntax */

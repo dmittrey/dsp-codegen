@@ -1,9 +1,9 @@
 #pragma once
 
-#include "cpp/types.hpp"
-#include "cpp/model/macro.hpp"
+#include "c/types.hpp"
+#include "c/model/macro.hpp"
 
-using namespace stx::cpp;
+using namespace stx::c;
 
 namespace gen {
 

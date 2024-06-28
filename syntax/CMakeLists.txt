@@ -4,7 +4,7 @@ project(syntax)
 set(LIBS
         interface
         generic
-        cpp)
+        c)
 
 foreach(elem ${LIBS})
     add_subdirectory(${elem})

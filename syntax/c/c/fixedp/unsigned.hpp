@@ -1,14 +1,14 @@
 #pragma once
 
-#include "cpp/types.hpp"
-#include "cpp/model/function.hpp"
-#include "cpp/model/rval.hpp"
+#include "c/types.hpp"
+#include "c/model/function.hpp"
+#include "c/model/rval.hpp"
 
 /* Необходимо добавить функцию наследника Function с преобразованием а потом просто вставить в текующую систему */
 
 namespace stx {
 
-    namespace cpp {
+    namespace c {
 
         namespace fixedp {
 
@@ -30,6 +30,6 @@ namespace stx {
 
         }; /* fixed-point */
 
-    }; /* cpp */
+    }; /* c */
 
 }; /* syntax */

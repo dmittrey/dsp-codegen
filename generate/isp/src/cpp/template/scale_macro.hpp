@@ -2,7 +2,7 @@
 
 #include "util.hpp"
 
-#include "cpp/model/macro.hpp"
+#include "c/model/macro.hpp"
 
 namespace gen {
 
@@ -10,8 +10,8 @@ namespace gen {
 
         namespace tmplt {
 
-            stx::cpp::Macro* ScaleMacro() {
-                auto scale_macro = new stx::cpp::Macro(tmplt::ScaleMacroName);
+            stx::c::Macro* ScaleMacro() {
+                auto scale_macro = new stx::c::Macro(tmplt::ScaleMacroName);
                 scale_macro->params_set<RVal>({{t::Empty(), "frac_bits"}});
                 scale_macro->statement_add("1 << frac_bits");
                 return scale_macro;

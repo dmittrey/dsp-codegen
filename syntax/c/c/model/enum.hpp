@@ -2,17 +2,17 @@
 
 #include "generic/model/structure.hpp"
 
+#include "c/types.hpp"
 #include "rval.hpp"
-#include "cpp/types.hpp"
 
 namespace stx {
 
-    namespace cpp {
+    namespace c {
 
         struct Enum final : gen::Structure<std::string> {
 
         public:
-            Enum(const Type &type) : gen::Structure<std::string>(type, std::nullopt) {}
+            Enum() : gen::Structure<std::string>(t::Enum(), std::nullopt) {}
 
         public:
             std::string code() override {
@@ -28,6 +28,6 @@ namespace stx {
             };
         };
 
-    }; /* cpp */
+    }; /* c */
 
 }; /* syntax */

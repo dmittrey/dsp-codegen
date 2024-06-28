@@ -6,7 +6,7 @@
 
 namespace stx {
 
-    namespace cpp {
+    namespace c {
 
         struct Structure final : gen::Structure<IModel> {
         private:
@@ -38,6 +38,6 @@ namespace stx {
             };
         };
 
-    }; /* cpp */
+    }; /* c */
 
 }; /* syntax */

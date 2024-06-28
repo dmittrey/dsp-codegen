@@ -3,10 +3,10 @@
 #include "util.hpp"
 #include "lexem.hpp"
 
-#include "cpp/model/function.hpp"
-#include "cpp/model/rval.hpp"
+#include "c/model/function.hpp"
+#include "c/model/rval.hpp"
 
-using namespace stx::cpp;
+using namespace stx::c;
 
 namespace gen {
 

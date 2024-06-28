@@ -7,7 +7,7 @@ add_library(${PROJECT_NAME} STATIC ${SRC_FILES})
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE lexem)
-target_link_libraries(${PROJECT_NAME} PRIVATE syntax-cpp)
+target_link_libraries(${PROJECT_NAME} PRIVATE syntax-c)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC utility)
 target_link_libraries(${PROJECT_NAME} PUBLIC serialize-interface)

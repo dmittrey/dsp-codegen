@@ -1,8 +1,8 @@
 #include "isp/codegen.hpp"
 
-#include "cpp/layout.hpp"
-#include "cpp/extra.hpp"
-#include "cpp/fixedp/unsigned.hpp"
+#include "c/layout.hpp"
+#include "c/model/enum.hpp"
+#include "c/fixedp/unsigned.hpp"
 
 #include "template/scale_macro.hpp"
 #include "template/reg_structure.hpp"
@@ -12,7 +12,7 @@
 using util::Register;
 using util::Option;
 
-using namespace stx::cpp;
+using namespace stx::c;
 
 namespace gen {
 
@@ -54,7 +54,7 @@ namespace gen {
     std::unique_ptr<stx::ILayout> generate_ioctl_enum(const std::vector<Register>& regs) {
         auto layout = std::make_unique<Layout>();
 
-        auto e = make_anon_enum();
+        auto e = new Enum();
         layout->add_model(e);
 
         for (const auto& reg : regs) {

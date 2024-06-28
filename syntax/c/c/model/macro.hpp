@@ -1,14 +1,14 @@
 #pragma once
 
-#include "rval.hpp"
-
 #include "generic/model/model.hpp"
+
+#include "rval.hpp"
 
 using stx::gen::Type;
 
 namespace stx {
 
-    namespace cpp {
+    namespace c {
 
         struct Macro final : gen::Function {
         public:
@@ -36,6 +36,6 @@ namespace stx {
             }
         };
 
-    }; /* cpp */
+    }; /* c */
 
 }; /* syntax */
