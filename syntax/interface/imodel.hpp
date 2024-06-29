@@ -11,9 +11,9 @@ namespace stx {
     struct IModel : Importable {
     public:
         virtual std::string code() const = 0;
-        operator std::string() {
-            return code();
-        }
+    
+    public:
+        operator std::string() const { return code(); }
 
     public:
         virtual ~IModel() {};

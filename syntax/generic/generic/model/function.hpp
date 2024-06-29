@@ -1,8 +1,7 @@
 #pragma once
 
+#include "generic/model.hpp"
 #include "type.hpp"
-
-#include "generic/model/model.hpp"
 
 namespace stx {
 
@@ -10,10 +9,10 @@ namespace stx {
 
         struct Function : Model {
             public:
-                Type type;
+                const Type type;
                 const std::string name;
             protected:
-                std::vector<std::unique_ptr<IModel>> params_ = {}; /* Nested strutures, Comments */
+                std::vector<std::unique_ptr<Model>> params_ = {}; /* Nested strutures, Comments */
                 std::vector<std::string> body_lines_ = {};
 
             public:
@@ -22,11 +21,10 @@ namespace stx {
             public:
                 template<typename T>
                 Function& params_set(std::initializer_list<T> params) & { 
-                    static_assert(std::is_base_of<IModel, T>::value, "Field must inherit from IModel");
-                    static_assert(!std::is_abstract<T>::value, "T must be non abstract");
-
                     for (const auto& param: params) {
-                        headers_.insert(headers_.end(), param.headers().begin(), param.headers().end());
+                        const auto& tmp_vec = param.headers();
+                        add_headers(tmp_vec);
+
                         params_.push_back(std::make_unique<T>(param));
                     }
                     return *this;

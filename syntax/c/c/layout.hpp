@@ -9,11 +9,11 @@ namespace stx {
         struct Layout final : gen::Layout {
             std::string code() const override {
                 std::string res;
-                // res += std::string("// Headers\n");
-                for (auto header : headers_)
+                /* Headers */
+                for (auto header : headers())
                     res += "#include \"" + header + '\"' + '\n';
 
-                // res += std::string("// Models\n");
+                /* Models */
                 for (auto model : models_)
                     res += model->code() + '\n';
 

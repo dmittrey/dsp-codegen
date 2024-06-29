@@ -1,14 +1,17 @@
 #pragma once
 
-#include "generic/model/comment.hpp"
+#include "generic/model.hpp"
 
 namespace stx {
 
     namespace c {
 
-    struct Comment final : gen::Comment {
+    struct Comment final : gen::Model {
     public:
-        Comment(const std::string& text) : gen::Comment(text) {}
+        const std::string text;
+    
+    public:
+        Comment(const std::string& text) : text(text) {}
 
     public:
         std::string code() const override {

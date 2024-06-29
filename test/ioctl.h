@@ -1,4 +1,4 @@
-enum{
+enum {
 	IOCTL_ISP_FLASH_CMD_S_preflash_on,
 	IOCTL_ISP_FLASH_CMD_G_preflash_on,
 	IOCTL_ISP_FLASH_CMD_S_flash_on,

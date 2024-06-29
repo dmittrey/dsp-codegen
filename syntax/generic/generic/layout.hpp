@@ -14,13 +14,10 @@ namespace stx {
             std::vector<IModel*> models_;
 
         public:
-            const std::vector<IModel*>& models() const override { return models_; };
+            const std::vector<IModel*>& models() const & override { return models_; };
             Layout& add_model(IModel* model) override {
-                const auto& tmp = model->headers();
-                headers_.insert(headers_.end(), tmp.begin(), tmp.end());
-
-                std::sort(headers_.begin(), headers_.end());
-                headers_.erase(std::unique(headers_.begin(), headers_.end()), headers_.end());
+                const auto& tmp_vec = model->headers();
+                add_headers(tmp_vec);
 
                 models_.push_back(model);
                 return *this;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "model.hpp"
+#include "generic/model.hpp"
 
 namespace stx {
 
@@ -13,7 +13,7 @@ namespace stx {
     
         protected:
             RVal(const Type& type, const std::string& name) : type(type), name(name) { 
-                headers_.insert(headers_.end(), type.headers().begin(), type.headers().end());
+                add_headers(type.headers());
             }
         };
 

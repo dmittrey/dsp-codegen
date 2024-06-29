@@ -8,17 +8,19 @@ namespace stx {
 
     namespace c {
 
-        struct Structure final : gen::Structure<IModel> {
+        struct Structure final : gen::Structure<gen::Model> {
         private:
             uint64_t size_;
 
         public:
-            Structure(const Type &type, const std::optional<std::string> &name) : gen::Structure<IModel>(type, name) {}
+            Structure(const Type &type, const std::optional<std::string> &name) : gen::Structure<gen::Model>(type, name) {}
+        
+        public:
+            using gen::Structure<gen::Model>::field_add;
 
-            using gen::Structure<IModel>::field_add; // Add parent method to use for IModel
-
+        public:
             Structure& field_add(const RVal& field) & {
-                gen::Structure<IModel>::field_add<RVal>(field);
+                gen::Structure<gen::Model>::field_add<RVal>(field);
                 size_ += field.size;
                 return *this;
             }

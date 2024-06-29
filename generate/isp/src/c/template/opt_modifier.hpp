@@ -10,7 +10,7 @@ using namespace stx::c;
 
 namespace gen {
 
-    namespace cpp {
+    namespace c {
 
         namespace tmplt {
 
@@ -36,6 +36,6 @@ namespace gen {
             
         }; /* template */
 
-    }; /* c++ */
+    }; /* c */
 
 }; /* generate */

@@ -15,9 +15,12 @@ namespace stx {
             Enum() : gen::Structure<std::string>(t::Enum(), std::nullopt) {}
 
         public:
+            using gen::Structure<std::string>::field_add;
+
+        public:
             std::string code() const override {
                 std::string str;
-                str += type.code() + '{' + '\n';
+                str += type.code() + ' ' + '{' + '\n';
 
                 for (const auto &field : fields_) {
                     str += '\t' + *field + ',' + '\n';
