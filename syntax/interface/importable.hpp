@@ -5,14 +5,19 @@
 
 namespace stx {
 
-    /* Rendering object */
     struct Importable {
-    protected:
+    private:
         std::vector<std::string> headers_ = {};
 
     public:
-        virtual const std::vector<std::string>& headers() const & { return headers_; } // Const prevent edit in consumer
-        virtual void add_header(const std::string &name) { headers_.push_back(name); }
+        const std::vector<std::string>& headers() const & { return headers_; } // Const prevent edit in consumer
+        void push_header(const std::string& header) { headers_.push_back(header); }
+        void add_headers(const std::vector<std::string> &headers) { 
+            headers_.insert(headers_.end(), headers.begin(), headers.end());
+
+            std::sort(headers_.begin(), headers_.end());
+            headers_.erase(std::unique(headers_.begin(), headers_.end()), headers_.end());
+        }
 
     public:
         virtual ~Importable() {};
