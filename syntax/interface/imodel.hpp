@@ -3,17 +3,12 @@
 #include <vector>
 #include <string>
 
+#include "importable.hpp"
+
 namespace stx {
 
     /* Rendering object */
-    struct IModel {
-    protected:
-        std::vector<std::string> headers_ = {};
-
-    public:
-        virtual const std::vector<std::string>& headers() const & { return headers_; } // Const prevent edit in consumer
-        virtual void add_header(const std::string &name) { headers_.push_back(name); }
-    
+    struct IModel : Importable {
     public:
         virtual std::string code() = 0;
         operator std::string() {
