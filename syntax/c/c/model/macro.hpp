@@ -15,7 +15,7 @@ namespace stx {
             Macro(const std::string& name) : gen::Function(t::Empty(), name) {}
 
         public:
-            std::string code() override {
+            std::string code() const override {
                 std::string res;
                 res += "#ifndef " + name + '\n';
                 res += "#define " + name;

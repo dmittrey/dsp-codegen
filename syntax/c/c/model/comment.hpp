@@ -11,7 +11,7 @@ namespace stx {
         Comment(const std::string& text) : gen::Comment(text) {}
 
     public:
-        std::string code() override {
+        std::string code() const override {
             return "/* " + text + " */";
         }
     };

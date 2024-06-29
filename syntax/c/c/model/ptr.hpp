@@ -13,7 +13,7 @@ namespace stx {
             Ptr(const Type& type, const std::string& name) : RVal(Type(type.name + '*'), name + "_p") { }
 
         public:
-            std::string code() override {
+            std::string code() const override {
                 return type.name + ' ' + name + (size != 0 ? ':' + std::to_string(size) : "");
             }
         };

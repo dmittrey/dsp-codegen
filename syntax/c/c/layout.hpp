@@ -7,9 +7,8 @@ namespace stx {
     namespace c {
 
         struct Layout final : gen::Layout {
-            std::string code() override {
+            std::string code() const override {
                 std::string res;
-                prepare();
                 // res += std::string("// Headers\n");
                 for (auto header : headers_)
                     res += "#include \"" + header + '\"' + '\n';

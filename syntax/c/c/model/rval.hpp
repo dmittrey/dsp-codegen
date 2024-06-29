@@ -17,7 +17,7 @@ namespace stx {
             RVal(const Type& type, const std::string& name) : RVal(type, name, 0) {}
 
         public:
-            std::string code() override {
+            std::string code() const override {
                 return type.name + ' ' + name + (size != 0 ? ':' + std::to_string(size) : "");
             }
         };

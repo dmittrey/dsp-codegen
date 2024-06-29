@@ -10,7 +10,7 @@ namespace stx {
     /* Rendering object */
     struct IModel : Importable {
     public:
-        virtual std::string code() = 0;
+        virtual std::string code() const = 0;
         operator std::string() {
             return code();
         }

@@ -15,7 +15,7 @@ namespace stx {
             Type(const std::string& name, const std::string& header) : name(name) { headers_.push_back(header); }
 
         public:
-            std::string code() override { return name; }
+            std::string code() const override { return name; }
         };
 
     }; /* generic */

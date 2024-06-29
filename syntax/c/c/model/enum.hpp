@@ -15,7 +15,7 @@ namespace stx {
             Enum() : gen::Structure<std::string>(t::Enum(), std::nullopt) {}
 
         public:
-            std::string code() override {
+            std::string code() const override {
                 std::string str;
                 str += type.code() + '{' + '\n';
 
