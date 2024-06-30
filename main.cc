@@ -26,12 +26,16 @@ using namespace serialize;
 
 int main() {
   std::unique_ptr<IRegParser> parser = make_json_regparser("regtest.json");
-  std::unique_ptr<ISerializer> serializer = make_file_serializer("test/user.c");
-  std::unique_ptr<ISerializer> serializer_ioctl = make_file_serializer("test/ioctl.h");
+  std::unique_ptr<ISerializer> serializer = make_file_serializer("output/user.c");
+  std::unique_ptr<ISerializer> serializer_ioctl_enum = make_file_serializer("output/ioctl.h");
+
+  std::unique_ptr<ISerializer> serializer_priv_ioctls = make_file_serializer("output/priv_ioctl.c");
   
   auto user_ctrls_layout = c::generate_userspace_ctrls(parser->registers(), "ioctl.h");
-  auto enum_layout = c::generate_ioctl_enum(parser->registers());
+  auto ioctl_enum_layout = c::generate_ioctl_enum(parser->registers());
+  auto priv_ioctls_layout = c::generate_priv_ioctls(parser->registers());
 
   serializer->serialize(*user_ctrls_layout);
-  serializer_ioctl->serialize(*enum_layout);
+  serializer_ioctl_enum->serialize(*ioctl_enum_layout);
+  serializer_priv_ioctls->serialize(*priv_ioctls_layout);
 }

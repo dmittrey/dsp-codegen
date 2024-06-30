@@ -17,6 +17,8 @@ private:
     State state = INVALID;
 public:
     Lexem& Return() { internals += "return"; state = State::NEED_WS; return *this; }
+    Lexem& Break() { internals += "break"; state = State::NEED_WS; return *this; }
+
     Lexem& Ioctl() { if (state == NEED_WS) internals += ' '; internals += "ioctl"; state = State::NEED_BRACE; return *this; }
 
     Lexem& Concat(char* arg) { if (state == NEED_WS) internals += ' '; internals += arg; state = NEED_WS; return *this; }

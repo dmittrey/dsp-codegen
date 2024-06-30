@@ -12,6 +12,9 @@
 #include "template/userspace/opt_modifier.hpp"
 #include "template/userspace/opt_getter.hpp"
 
+#include "template/module/ioctl_case.hpp"
+#include "template/module/priv_ioctl.hpp"
+
 using util::Register;
 using util::Option;
 
@@ -84,6 +87,12 @@ namespace gen {
                 }
             }
 
+            return layout;
+        }
+
+        std::unique_ptr<stx::ILayout> generate_priv_ioctls(const std::vector<util::Register>& regs) {
+            auto layout = std::make_unique<Layout>();
+            layout->add_model(tmplt::PrivateIoctlFunction("private_ioctls_function", regs));
             return layout;
         }
 

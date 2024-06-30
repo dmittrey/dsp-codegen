@@ -20,6 +20,7 @@ namespace stx {
             Type Struct() { return {"struct"}; }
 
             Type Cint() { return {"int"}; }
+            Type Clong() { return {"long"}; }
 
             Type Cstdint(const std::string &name) { return Type{name, "stdint.h"}; }
             Type Int8() { return Cstdint("int8_t"); }
