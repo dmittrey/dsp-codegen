@@ -7,10 +7,10 @@
 #include "c/fixedp/signed.hpp"
 #include "c/fixedp/sign_magnitude.hpp"
 
-#include "template/scale_macro.hpp"
-#include "template/reg_structure.hpp"
-#include "template/opt_modifier.hpp"
-#include "template/opt_getter.hpp"
+#include "template/userspace/scale_macro.hpp"
+#include "template/userspace/reg_structure.hpp"
+#include "template/userspace/opt_modifier.hpp"
+#include "template/userspace/opt_getter.hpp"
 
 using util::Register;
 using util::Option;
