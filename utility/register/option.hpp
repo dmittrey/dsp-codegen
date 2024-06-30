@@ -10,6 +10,8 @@ namespace util {
     struct Option final {
         std::string name;
         std::string description;
+        std::optional<std::string> s_ioctl = std::nullopt;
+        std::optional<std::string> g_ioctl = std::nullopt;
         std::pair<uint8_t, uint8_t> bit_range;
         FixedP fixedp;
 

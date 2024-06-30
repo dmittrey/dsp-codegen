@@ -203,6 +203,10 @@ namespace parse {
 
 			o.name = val["name"].asString();
 			o.description = val["description"].asString();
+			if (val.isMember("s_ioctl"))
+				o.s_ioctl = val["s_ioctl"].asString();
+			if (val.isMember("g_ioctl"))
+				o.g_ioctl = val["g_ioctl"].asString();
 			o.bit_range.first = val["range"]["min"].asUInt();
 			o.bit_range.second = val["range"]["max"].asUInt();
 			if (o.bit_range.first > o.bit_range.second) {

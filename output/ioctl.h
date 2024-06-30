@@ -1,5 +1,5 @@
 enum {
-	IOCTL_ISP_FLASH_CMD_S_preflash_on,
+	test,
 	IOCTL_ISP_FLASH_CMD_S_flash_on,
 	IOCTL_ISP_FLASH_CONFIG_S_fl_cap_delay,
 	IOCTL_ISP_FLASH_CONFIG_G_fl_cap_delay,

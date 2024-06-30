@@ -47,7 +47,7 @@ struct ISP_FLASH_CMD{
 
 int ISP_FLASH_CMD_s_preflash_on(int fd, double preflash_on){
 	uint8_t val = ISP_FLASH_CMD_preflash_on_to_fixed(preflash_on);
-	return ioctl(fd, IOCTL_ISP_FLASH_CMD_S_preflash_on, &val);
+	return ioctl(fd, test, &val);
 };
 
 int ISP_FLASH_CMD_s_flash_on(int fd, double flash_on){

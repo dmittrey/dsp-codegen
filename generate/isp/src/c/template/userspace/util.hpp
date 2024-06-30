@@ -22,11 +22,15 @@ namespace gen {
             }
 
             std::string set_ioctl_name(const util::Register& reg, const util::Option& opt) {
-                return std::string("IOCTL") + '_' + reg.name + "_S_" + opt.name;
+                return (opt.s_ioctl.has_value()) 
+                    ? opt.s_ioctl.value() 
+                    : std::string("IOCTL") + '_' + reg.name + "_S_" + opt.name;
             }
 
             std::string get_ioctl_name(const util::Register& reg, const util::Option& opt) {
-                return std::string("IOCTL") + '_' + reg.name + "_G_" + opt.name;
+                return (opt.g_ioctl.has_value()) 
+                    ? opt.g_ioctl.value() 
+                    : std::string("IOCTL") + '_' + reg.name + "_G_" + opt.name;
             }
 
             std::string to_fixed_name(const util::Register& reg, const util::Option& opt) {
