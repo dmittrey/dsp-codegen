@@ -1,43 +1,49 @@
 #include "stdbool.h"
 #include "sys/ioctl.h"
 #include "test/ioctl.h"
+#include "math.h"
 #include "stdint.h"
 #ifndef SCALE_FACTOR
 #define SCALE_FACTOR( frac_bits) (1 << frac_bits)
 #endif
-uint32_t ISP_FLASH_CMD_preflash_on_to_fixed(double float_val){
-	return (uint32_t)((float_val) * SCALE_FACTOR(1));
+int32_t ISP_FLASH_CMD_preflash_on_to_fixed(double float_val){
+	int32_t sign = float_val < 0 ? 1 : 0;
+	uint32_t magnitude = (uint32_t) (fabs(float_val) * SCALE_FACTOR (1));
+	return (sign << 24) | magnitude;
 };
 
-double ISP_FLASH_CMD_preflash_on_to_float(uint32_t fixed_val){
-	return (double)((fixed_val) / SCALE_FACTOR(1));
+double ISP_FLASH_CMD_preflash_on_to_float(int32_t fixed_val){
+	int32_t sign = fixed_val & (1 << 24);
+	uint32_t magnitude = fixed_val & ( ~ (1 << 24));
+	double val = (double)magnitude / SCALE_FACTOR (1);
+	return sign ? -val : val;
 };
 
 uint8_t ISP_FLASH_CONFIG_fl_cap_delay_to_fixed(double float_val){
-	return (uint8_t)((float_val) * SCALE_FACTOR(4));
+	return (uint8_t)((float_val) * SCALE_FACTOR (4));
 };
 
 double ISP_FLASH_CONFIG_fl_cap_delay_to_float(uint8_t fixed_val){
-	return (double)((fixed_val) / SCALE_FACTOR(4));
+	return (double)((fixed_val) / SCALE_FACTOR (4));
 };
 
 
 /* Flash command */
 struct ISP_FLASH_CMD{
 	/* Preflash on 0: no effect 1: flash delay counter is started at next trigger event, No capture */;
-	uint32_t preflash_on:25;
+	int32_t preflash_on:25;
 	/* Flash on 0: no effect 1: flash delay counter is started at next trigger event A capture event is signaled to the sensor interface block */;
 	bool flash_on:1;
 	uint32_t align:6;
 };
 
 int ISP_FLASH_CMD_s_preflash_on(int fd, double preflash_on){
-	uint32_t val = ISP_FLASH_CMD_preflash_on_to_fixed(preflash_on);
+	int32_t val = ISP_FLASH_CMD_preflash_on_to_fixed(preflash_on);
 	return ioctl(fd, IOCTL_ISP_FLASH_CMD_S_preflash_on, &val);
 };
 
 int ISP_FLASH_CMD_g_preflash_on(int fd, double* preflash_on_p){
-	uint32_t val;
+	int32_t val;
 	int ret = ioctl(fd, IOCTL_ISP_FLASH_CMD_G_preflash_on, &val);
 	*preflash_on_p = ISP_FLASH_CMD_preflash_on_to_float(val);
 	return ret;

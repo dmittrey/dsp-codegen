@@ -9,7 +9,7 @@
             "options": [
                 {
                     "name": "preflash_on",
-                    "format": "u0q1",
+                    "format": "sm24q1",
                     "description": "Preflash on 0: no effect 1: flash delay counter is started at next trigger event, No capture",
                     "range": {
                         "min": 1,

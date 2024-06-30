@@ -2,7 +2,9 @@
 
 #include "c/layout.hpp"
 #include "c/model/enum.hpp"
+
 #include "c/fixedp/unsigned.hpp"
+#include "c/fixedp/sign_magnitude.hpp"
 
 #include "template/scale_macro.hpp"
 #include "template/reg_structure.hpp"
@@ -38,6 +40,11 @@ namespace gen {
                                                                         tmplt::ScaleMacroName, opt.fixedp.fract_bits));
                         fp_layout->add_model(new fixedp::UnsignedFixedToFloatFunction(tmplt::log_type(opt), tmplt::to_float_name(reg, opt),
                                                                         tmplt::hw_type(opt), tmplt::ScaleMacroName, opt.fixedp.fract_bits));                               
+                    } else if (opt.format() == util::FP_SIGN_MAGNITUDE) {
+                        fp_layout->add_model(new fixedp::FloatToSignMagnitudeFixedFunction(tmplt::hw_type(opt), tmplt::to_fixed_name(reg, opt),
+                                                                        tmplt::ScaleMacroName, opt.fixedp.fract_bits, opt.hw_size()));
+                        fp_layout->add_model(new fixedp::SignMagnitudeFixedToFloatFunction(tmplt::log_type(opt), tmplt::to_float_name(reg, opt),
+                                                                        tmplt::hw_type(opt), tmplt::ScaleMacroName, opt.fixedp.fract_bits, opt.hw_size()));   
                     }
 
                     // Option modifier
