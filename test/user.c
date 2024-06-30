@@ -42,19 +42,8 @@ int ISP_FLASH_CMD_s_preflash_on(int fd, double preflash_on){
 	return ioctl(fd, IOCTL_ISP_FLASH_CMD_S_preflash_on, &val);
 };
 
-int ISP_FLASH_CMD_g_preflash_on(int fd, double* preflash_on_p){
-	int32_t val;
-	int ret = ioctl(fd, IOCTL_ISP_FLASH_CMD_G_preflash_on, &val);
-	*preflash_on_p = ISP_FLASH_CMD_preflash_on_to_float(val);
-	return ret;
-};
-
 int ISP_FLASH_CMD_s_flash_on(int fd, bool flash_on){
 	return ioctl(fd, IOCTL_ISP_FLASH_CMD_S_flash_on, &flash_on);
-};
-
-int ISP_FLASH_CMD_g_flash_on(int fd, bool* flash_on_p){
-	return ioctl(fd, IOCTL_ISP_FLASH_CMD_G_flash_on, flash_on_p);
 };
 
 /* Flash config */

@@ -48,10 +48,12 @@ namespace gen {
                     }
 
                     // Option modifier
-                    layout->add_model(tmplt::OptModifier(reg, opt));
+                    if (reg.mode != util::RWMode::RO)
+                        layout->add_model(tmplt::OptModifier(reg, opt));
 
                     // Option getter
-                    layout->add_model(tmplt::OptGetter(reg, opt));
+                    if (reg.mode != util::RWMode::WO)
+                        layout->add_model(tmplt::OptGetter(reg, opt));
                 }
             }
 
@@ -67,10 +69,12 @@ namespace gen {
             for (const auto& reg : regs) {
                 for (const auto& opt : reg.options) {
                     // Option modifier
-                    e->field_add<std::string>({tmplt::set_ioctl_name(reg, opt)});
+                    if (reg.mode != util::RWMode::RO)
+                        e->field_add<std::string>({tmplt::set_ioctl_name(reg, opt)});
 
                     // Option getter
-                    e->field_add<std::string>({tmplt::get_ioctl_name(reg, opt)});
+                    if (reg.mode != util::RWMode::WO)
+                        e->field_add<std::string>({tmplt::get_ioctl_name(reg, opt)});
                 }
             }
 
