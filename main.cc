@@ -29,7 +29,7 @@ int main() {
   std::unique_ptr<ISerializer> serializer = make_file_serializer("test/user.c");
   std::unique_ptr<ISerializer> serializer_ioctl = make_file_serializer("test/ioctl.h");
   
-  auto user_ctrls_layout = c::generate_userspace_ctrls(parser->registers(), "test/ioctl.h");
+  auto user_ctrls_layout = c::generate_userspace_ctrls(parser->registers(), "ioctl.h");
   auto enum_layout = c::generate_ioctl_enum(parser->registers());
 
   serializer->serialize(*user_ctrls_layout);

@@ -22,7 +22,7 @@ namespace gen {
 
                 func->params_set<RVal>({fd_param, opt_param});
                 if (opt.is_float_point()) {
-                    func->statement_add(Lexem().Concat(hw_type(opt)).Concat("val").Equal()
+                    func->statement_add(Lexem().Concat(s_hw_type(opt)).Concat("val").Equal()
                                         .Concat(to_fixed_name(reg, opt)).Args({opt.name}));
                     func->statement_add(Lexem().Return()
                                         .Ioctl().Args({fd_param.name, set_ioctl_name(reg, opt), "&val"}));

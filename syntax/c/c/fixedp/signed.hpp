@@ -12,8 +12,8 @@ namespace stx {
 
         namespace fixedp {
 
-            struct FloatToUnsignedFixedFunction final : Function {
-                FloatToUnsignedFixedFunction(const Type& ret_type, const std::string &name, const std::string& scale_macro, uint8_t fract_cnt)
+            struct FloatToSignedFixedFunction final : Function {
+                FloatToSignedFixedFunction(const Type& ret_type, const std::string &name, const std::string& scale_macro, uint8_t fract_cnt)
                     : Function(ret_type, name) {
                         auto float_param = RVal{t::Double(), "float_val"};
 
@@ -24,8 +24,8 @@ namespace stx {
                     }
             };
 
-            struct UnsignedFixedToFloatFunction final : Function {
-                UnsignedFixedToFloatFunction(const Type& ret_type, const std::string &name, Type fix_type, const std::string& scale_macro, uint8_t fract_cnt)
+            struct SignedFixedToFloatFunction final : Function {
+                SignedFixedToFloatFunction(const Type& ret_type, const std::string &name, Type fix_type, const std::string& scale_macro, uint8_t fract_cnt)
                     : Function(ret_type, name) {
                         auto fixed_param = RVal{fix_type, "fixed_val"};
 

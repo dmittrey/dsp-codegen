@@ -13,12 +13,12 @@ namespace stx {
         namespace fixedp {
 
             struct FloatToSignMagnitudeFixedFunction final : Function {
-                FloatToSignMagnitudeFixedFunction(const Type& ret_type, const std::string &name, const std::string& scale_macro, uint8_t fract_cnt, uint8_t size)
+                FloatToSignMagnitudeFixedFunction(const Type& ret_type, const std::string &name, const std::string& scale_macro, uint8_t fract_cnt, uint8_t size, const Type& u_type)
                     : Function(ret_type, name) {
                         auto float_param = RVal{t::Double(), "float_val"};
 
                         auto sign_var = RVal{ret_type, "sign"};
-                        auto magn_var = RVal{t::Uint32(), "magnitude"};
+                        auto magn_var = RVal{u_type, "magnitude"};
 
                         gen::Function::push_header("math.h");
                         gen::Function::params_set<RVal>({float_param});
@@ -38,12 +38,12 @@ namespace stx {
             };
 
             struct SignMagnitudeFixedToFloatFunction final : Function {
-                SignMagnitudeFixedToFloatFunction(const Type& ret_type, const std::string &name, Type fix_type, const std::string& scale_macro, uint8_t fract_cnt, uint8_t size)
+                SignMagnitudeFixedToFloatFunction(const Type& ret_type, const std::string &name, Type fix_type, const std::string& scale_macro, uint8_t fract_cnt, uint8_t size, const Type& u_type)
                     : Function(ret_type, name) {
                         auto fixed_param = RVal{fix_type, "fixed_val"};
 
                         auto sign_var = RVal{fix_type, "sign"};
-                        auto magn_var = RVal{t::Uint32(), "magnitude"};
+                        auto magn_var = RVal{u_type, "magnitude"};
                         auto val_var = RVal{ret_type, "val"};
 
                         gen::Function::params_set<RVal>({fixed_param});

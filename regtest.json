@@ -9,20 +9,20 @@
             "options": [
                 {
                     "name": "preflash_on",
-                    "format": "sm24q1",
+                    "format": "u3q5",
                     "description": "Preflash on 0: no effect 1: flash delay counter is started at next trigger event, No capture",
                     "range": {
                         "min": 1,
-                        "max": 25
+                        "max": 8
                     }
                 },
                 {
                     "name": "flash_on",
-                    "format": "u",
+                    "format": "s1q3",
                     "description": "Flash on 0: no effect 1: flash delay counter is started at next trigger event A capture event is signaled to the sensor interface block",
                     "range": {
-                        "min": 1,
-                        "max": 1
+                        "min": 24,
+                        "max": 28
                     }
                 }
             ]
@@ -36,11 +36,11 @@
             "options": [
                 {
                     "name": "fl_cap_delay",
-                    "format": "u0q4",
+                    "format": "sm5q3",
                     "description": "Preflash on 0: no effect 1: flash delay counter is started at next trigger event, No capture",
                     "range": {
                         "min": 4,
-                        "max": 7
+                        "max": 11
                     }
                 },
                 {

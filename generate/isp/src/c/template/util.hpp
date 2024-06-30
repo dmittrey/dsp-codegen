@@ -66,7 +66,21 @@ namespace gen {
                 }
             }
 
-            static Type hw_type(const util::Option& o) {
+            static Type u_hw_type(const util::Option& o) {
+                auto bits_cnt = o.size();
+                if (bits_cnt == 1)
+                    return t::Bool();
+                else if (bits_cnt <= 8)
+                    return t::Uint8();
+                else if (bits_cnt <= 16)
+                    return t::Uint16();
+                else if (bits_cnt <= 32)
+                    return t::Uint32();
+                else
+                    return t::Uint64();
+            }
+
+            static Type s_hw_type(const util::Option& o) {
                 auto bits_cnt = o.size();
                 if (o.format() == util::HEX_UNSIGNED || o.format() == util::FP_UNSIGNED) {
                     if (bits_cnt == 1)
