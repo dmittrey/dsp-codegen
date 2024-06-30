@@ -35,16 +35,16 @@ namespace gen {
                 layout->add_model(tmplt::RegStructure(reg));
 
                 for (const auto& opt : reg.options) {
-                    if (opt.format() == util::FP_UNSIGNED) {
+                    if (opt.format() == util::FP_UNSIGNED || opt.format() == util::FP_SIGNED || opt.format() == util::FP_TWOS_COMPLEMENT) {
                         fp_layout->add_model(new fixedp::FloatToUnsignedFixedFunction(tmplt::hw_type(opt), tmplt::to_fixed_name(reg, opt),
                                                                         tmplt::ScaleMacroName, opt.fixedp.fract_bits));
                         fp_layout->add_model(new fixedp::UnsignedFixedToFloatFunction(tmplt::log_type(opt), tmplt::to_float_name(reg, opt),
                                                                         tmplt::hw_type(opt), tmplt::ScaleMacroName, opt.fixedp.fract_bits));                               
                     } else if (opt.format() == util::FP_SIGN_MAGNITUDE) {
                         fp_layout->add_model(new fixedp::FloatToSignMagnitudeFixedFunction(tmplt::hw_type(opt), tmplt::to_fixed_name(reg, opt),
-                                                                        tmplt::ScaleMacroName, opt.fixedp.fract_bits, opt.hw_size()));
+                                                                        tmplt::ScaleMacroName, opt.fixedp.fract_bits, opt.size()));
                         fp_layout->add_model(new fixedp::SignMagnitudeFixedToFloatFunction(tmplt::log_type(opt), tmplt::to_float_name(reg, opt),
-                                                                        tmplt::hw_type(opt), tmplt::ScaleMacroName, opt.fixedp.fract_bits, opt.hw_size()));   
+                                                                        tmplt::hw_type(opt), tmplt::ScaleMacroName, opt.fixedp.fract_bits, opt.size()));   
                     }
 
                     // Option modifier

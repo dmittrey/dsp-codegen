@@ -38,7 +38,7 @@ namespace gen {
             }
 
             Type log_type(const util::Option& o) {
-                auto bits_cnt = o.log_size();
+                auto bits_cnt = o.size();
                 if (o.format() == util::HEX_UNSIGNED) {
                     if (bits_cnt == 1)
                         return t::Bool();
@@ -67,7 +67,7 @@ namespace gen {
             }
 
             static Type hw_type(const util::Option& o) {
-                auto bits_cnt = o.hw_size();
+                auto bits_cnt = o.size();
                 if (o.format() == util::HEX_UNSIGNED || o.format() == util::FP_UNSIGNED) {
                     if (bits_cnt == 1)
                         return t::Bool();

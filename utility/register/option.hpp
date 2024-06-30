@@ -13,12 +13,8 @@ namespace util {
         std::pair<uint8_t, uint8_t> bit_range;
         FixedP fixedp;
 
-        uint8_t hw_size() const {
+        uint8_t size() const {
             return bit_range.second - bit_range.first + 1; // [4; 8] = 5bits 
-        }
-
-        uint8_t log_size() const {
-            return fixedp.int_bits + fixedp.fract_bits;
         }
 
         Format format() const {
